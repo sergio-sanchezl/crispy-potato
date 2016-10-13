@@ -1,3 +1,10 @@
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+
 html, body {
 	width: 100%;
 	height: 100%;
@@ -11,8 +18,6 @@ body {
 	background-attachment: fixed;
 
 	transition: background 0.75s ease;
-
-/*	background-color: #63D7F7; *//* Azul clarito */
 }
 
 body.different_bg {
@@ -43,7 +48,6 @@ body.different_bg {
 	min-width: 700px;
 	width: 1000px;
 	padding-bottom: 20px;
-
 }
 
 .main_title {
@@ -55,12 +59,12 @@ body.different_bg {
 	font-family: 'Lobster', cursive;
 	font-size: 128px;
 }
-
+/*
 .show {
-/*	max-height: 5000px !important;
-	opacity: 1 !important;*/
+	max-height: 5000px !important;
+	opacity: 1 !important;
 }
-
+*/
 .generated_by {
 	transition: 0.75s ease;
 
@@ -77,23 +81,21 @@ body.different_bg {
 	padding: 20px;
 }
 
-#content {
-
-	/* Esconde el contenido hasta que sea necesario */
-	display: none;
-	width: 100%;
-}
-
-.main_title.change_to_small {
-
+.main_title.change {
 	text-align: center;
 	margin-left: 20px;
 	font-size: 100px;
 }
 
-.generated_by.change_to_small {
+.generated_by.change {
 	font-size: 12px;
 	/*margin-right: 100px;*/
+}
+
+#content {
+	/* Esconde el contenido hasta que sea necesario */
+	display: none;
+	width: 100%;
 }
 
 /* Chorradillas para hacer pruebas */
@@ -103,8 +105,42 @@ body.different_bg {
 	font-style: italic;
 	font-weight: bold;
 	font-size: 120%;
+
+	animation: rotate 1s linear 2;
 }
 .cursiva::first-letter {
-	color: red;
+
+	color: #009dff;
 	font-size: 750%;
 }
+
+/* Animación de la ola */
+.background {
+	position: fixed;
+	z-index: -1;
+}
+.water {
+	position: fixed;
+	width: 12000px;
+	height: 12200px;
+	top: 50%;
+	left: 50%;
+	margin-top: -100px;
+	margin-left: -6000px;
+	background: #53b0ff;
+	border: 1px solid #53b0ff;
+	border-radius: 50%;
+	transition: top 2s ease;
+}
+.rotating {
+	animation: rotate 4s linear infinite;
+}
+.water.change {
+	top: -500px;
+}
+@keyframes rotate {
+	100% {
+		transform:rotate(360deg);
+	}
+}
+

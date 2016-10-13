@@ -3,10 +3,8 @@
  */
 function showElems () {
 
-	var content = $("#content");
-
-	$(".main_title").addClass("change_to_small");
-	$(".generated_by").addClass("change_to_small");
+	$(".main_title").addClass("change");
+	$(".generated_by").addClass("change");
 	$("body").addClass("different_bg");
 
 	/* Permite que el contenido aparezca suavemente */
@@ -18,10 +16,8 @@ function showElems () {
  */
 function hideElems () {
 
-	var content = $("#content");
-
-	$(".main_title").removeClass("change_to_small");
-	$(".generated_by").removeClass("change_to_small");
+	$(".main_title").removeClass("change");
+	$(".generated_by").removeClass("change");
 	$("body").removeClass("different_bg");
 
 	/* El contenido se esconde barriendo hacia arriba */
@@ -54,11 +50,11 @@ $('html').bind('mousewheel DOMMouseScroll', function (e) {
 	    pos = $(document).scrollTop ();
 
 	if (delta < 0) {
-
+		// bajando
 		showElems ();
 
 	} else if (delta > 0) {
-
+		// subiendo
 		/* Sólo oculta los elementos si se encuentra en lo alto de la página */
 		if (pos <= 1) {
 
