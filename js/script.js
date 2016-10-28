@@ -1,27 +1,36 @@
 /**
  * Muestra los elementos que estaban escondidos.
  */
-function showElems () {
-
+function showElems ()
+{
 	$(".main_title").addClass("change");
 	$(".generated_by").addClass("change");
 	$("body").addClass("different_bg");
 
 	/* Permite que el contenido aparezca suavemente */
 	$("#content").slideDown ("slow");
+
+	/* Hace el efecto del agua subiendo */
+	$(".wave_bottom").addClass ("flow");
+	$(".wave_middle").addClass ("flow");
+	$(".wave").addClass ("flow");
 }
 
 /**
  * Elimina los elementos que se habían añadido en showElems()
  */
-function hideElems () {
-
+function hideElems ()
+{
 	$(".main_title").removeClass("change");
 	$(".generated_by").removeClass("change");
 	$("body").removeClass("different_bg");
 
 	/* El contenido se esconde barriendo hacia arriba */
 	$("#content").slideUp ("slow");
+
+	$(".wave_bottom").removeClass ("flow");
+	$(".wave_middle").removeClass ("flow");
+	$(".wave").removeClass ("flow");
 }
 
 /**
@@ -29,15 +38,15 @@ function hideElems () {
  * o la barra espaciadora, se activa el evento para hacer la transición
  * para mostrar el contenido.
  */
-$('html').bind('keydown', function (e) {
-
+$('html').bind('keydown', function (e)
+{
 	/* Se pulsan la barra espaciadora (32) o la flecha hacia abajo (40) */
-	if (e.keyCode == 32 || e.keyCode == 40){
-
+	if (e.keyCode == 32 || e.keyCode == 40)
+	{
 		showElems ();
-
-	} else if (e.keyCode == 38){
-
+	}
+	else if (e.keyCode == 38)
+	{
 		/* Se pulsa la flecha hacia arriba (38), se vuelve a la pantalla inicial */
 		hideElems ();
 	}
@@ -63,3 +72,63 @@ $('html').bind('mousewheel DOMMouseScroll', function (e) {
 	}
 });
 
+/**
+ * Efecto de las olas
+ */
+function waves ()
+{
+
+	var ocean = document.getElementById ("ocean"),
+		waveWidth = 30,
+		waveCount = $(window).width() / waveWidth,
+		docFrag = document.createDocumentFragment();
+
+	var wave,
+	    wave_middle,
+	    wave_bottom;
+/*
+	console.log ("Wave count: " + waveCount);
+	console.log ("Window width: " + $(window).width ());
+	console.log ("Wave width: " + waveWidth);
+*/
+	for(var i = 0; i < waveCount; i++)
+	{
+		wave = document.createElement("div");
+		wave.className += "wave";
+		docFrag.appendChild(wave);
+		wave.style.width = waveWidth;
+		wave.style.left = i * waveWidth + "px";
+		wave.style.webkitAnimationDelay = (i/101) + "s";
+
+		wave_middle = document.createElement("div");
+		wave_middle.className += "wave_middle";
+		docFrag.appendChild(wave_middle);
+		wave_middle.style.width = waveWidth;
+		wave_middle.style.left = i * waveWidth + "px";
+		wave_middle.style.webkitAnimationDelay = (i/83) + "s";
+
+		wave_bottom = document.createElement("div");
+		wave_bottom.className += "wave_bottom";
+		docFrag.appendChild(wave_bottom);
+		wave_bottom.style.width = waveWidth;
+		wave_bottom.style.left = i * waveWidth + "px";
+		wave_bottom.style.webkitAnimationDelay = (i/63) + "s";
+	}
+
+	ocean.appendChild (docFrag);
+}
+
+$(document).ready(function()
+{
+	waves ();
+});
+
+/**
+ * Función a ejecutar cuando se redimensione la ventana
+ */
+//$( window ).resize(function() {
+//
+//	/* Borra las olas antiguas y crea unas nuevas acordes con el tamaño actual */
+//	$("#ocean").empty ();
+//	waves ();
+//});

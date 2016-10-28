@@ -14,15 +14,18 @@ html, body {
 
 body {
 	/*background: linear-gradient(45deg,#ff8e8e,#ffd7a1);*/
-	background-color: #ffd7a1;
-	background-attachment: fixed;
+/*	background-color: #ffd7a1;*/
+	background: linear-gradient(black, #000e33);
 
-	transition: background 0.75s ease;
+/*	background-color: black;
+	background-attachment: fixed;*/
+
+/*	transition: background 0.75s ease;*/
 }
 
 body.different_bg {
 	/*background: linear-gradient(45deg,#ff3f3f,#ffaa38);*/
-	background-color: #ffaa38;
+	background: linear-gradient(black, #000e33);
 }
 .main {
 	height: 100%;
@@ -30,7 +33,7 @@ body.different_bg {
 	display: table;
 }
 
-.wrapper {
+#wrapper {
 	display: table-cell;
 	height: 100%;
 	vertical-align: middle;
@@ -105,8 +108,6 @@ body.different_bg {
 	font-style: italic;
 	font-weight: bold;
 	font-size: 120%;
-
-	animation: rotate 1s linear 2;
 }
 .cursiva::first-letter {
 
@@ -114,33 +115,73 @@ body.different_bg {
 	font-size: 750%;
 }
 
-/* Animación de la ola */
-.background {
-	position: fixed;
+/* Para las olas */
+#ocean {
 	z-index: -1;
 }
-.water {
-	position: fixed;
-	width: 12000px;
-	height: 12200px;
-	top: 50%;
-	left: 50%;
-	margin-top: -100px;
-	margin-left: -6000px;
-	background: #53b0ff;
-	border: 1px solid #53b0ff;
-	border-radius: 50%;
-	transition: top 2s ease;
+.wave.flow{
+	transition: 2s;
+	bottom: 100%;
 }
-.rotating {
-	animation: rotate 4s linear infinite;
+.wave_middle.flow{
+	transition: 2s;
+	bottom: 100%;
 }
-.water.change {
-	top: -500px;
+.wave_bottom.flow{
+	transition: 2s;
+	bottom: 100%;
 }
-@keyframes rotate {
-	100% {
-		transform:rotate(360deg);
-	}
+.wave {
+	transition: 2s;
+	position: absolute;
+	bottom: 0;
+	background: #7ecef4;
+	opacity: 0.5;
+	display: inline-block;
+	height: 45%;
+	width: 10px;
+	position: absolute;
+	animation: wave 2.9s infinite ease-in-out;
+	z-index: -1;
 }
-
+.wave_middle {
+	transition: 2s;
+	position: absolute;
+	bottom: 0;
+	background: #0068b7;
+	opacity: 0.3;
+	display: inline-block;
+	height: 37%;
+	width: 10px;
+	position: absolute;
+	animation: wave_mid 3.42s infinite ease-in-out;
+	z-index: -1;
+}
+.wave_bottom {
+	transition: 2s;
+	position: absolute;
+	bottom: 0;
+	background: linear-gradient(#000e33, black);
+	opacity: 0.8;
+	display: inline-block;
+	height: 27%;
+	width: 10px;
+	position: absolute;
+	animation: wave_bottom 2.43s infinite ease;
+	z-index: -1;
+}
+@keyframes wave {
+	0% {height: 45%;}
+	50% {height: 67%;}
+	100% {height: 45%;}
+}
+@keyframes wave_mid {
+	0% {height: 37%;}
+	50% {height: 56%;}
+	100% {height: 37%;}
+}
+@keyframes wave_bottom {
+	0% {height: 27%;}
+	50% {height: 45%;}
+	100% {height: 27%;}
+}
