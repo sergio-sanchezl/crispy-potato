@@ -1,14 +1,33 @@
 /**
+ * Semáforo para evitar que se aniden las transiciones
+ * al subir y bajar muy rápido con el ratón (o las flechas).
+ */
+var sem = false;
+
+/**
  * Muestra los elementos que estaban escondidos.
  */
 function showElems ()
 {
+	/* Si el semáforo está ocupado, no hace nada */
+	if (sem) {
+
+		return;
+	}
+
+	/* Se bloquea el semáforo */
+	sem = true;
+
 	$(".main_title").addClass("change");
 	$(".generated_by").addClass("change");
-	$("body").addClass("different_bg");
+//	$("body").addClass("different_bg");
 
-	/* Permite que el contenido aparezca suavemente */
-	$("#content").slideDown ("slow");
+	/* Permite que el contenido aparezca suavemente.
+	Cuando acabe la tarea, se libera el semáforo */
+	$("#content").slideDown ("slow", function () {
+
+		sem = false;
+	});
 
 	/* Hace el efecto del agua subiendo */
 	$(".wave_bottom").addClass ("flow");
@@ -23,11 +42,12 @@ function hideElems ()
 {
 	$(".main_title").removeClass("change");
 	$(".generated_by").removeClass("change");
-	$("body").removeClass("different_bg");
+//	$("body").removeClass("different_bg");
 
 	/* El contenido se esconde barriendo hacia arriba */
 	$("#content").slideUp ("slow");
 
+	/* Hace el efecto del agua bajando */
 	$(".wave_bottom").removeClass ("flow");
 	$(".wave_middle").removeClass ("flow");
 	$(".wave").removeClass ("flow");
@@ -53,7 +73,7 @@ $('html').bind('keydown', function (e)
 });
 
 // detecta el movimiento de la rueda
-$('html').bind('mousewheel DOMMouseScroll', function (e) {
+$('html').on ('mousewheel DOMMouseScroll', function (e) {
 
        	var delta = (e.originalEvent.wheelDelta || -e.originalEvent.detail),
 	    pos = $(document).scrollTop ();

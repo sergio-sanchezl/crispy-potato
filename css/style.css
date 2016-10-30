@@ -22,11 +22,10 @@ body {
 
 /*	transition: background 0.75s ease;*/
 }
-
+/*
 body.different_bg {
-	/*background: linear-gradient(45deg,#ff3f3f,#ffaa38);*/
 	background: linear-gradient(black, #000e33);
-}
+}*/
 .main {
 	height: 100%;
 	width: 100%;
@@ -120,11 +119,11 @@ body.different_bg {
 	z-index: -1;
 }
 .wave.flow{
-	transition: 2s;
+	transition: 1s;
 	bottom: 100%;
 }
 .wave_middle.flow{
-	transition: 2s;
+	transition: 1.5s;
 	bottom: 100%;
 }
 .wave_bottom.flow{
@@ -145,11 +144,11 @@ body.different_bg {
 	z-index: -1;
 }
 .wave_middle {
-	transition: 2s;
+	transition: 1.5s;
 	position: absolute;
 	bottom: 0;
 	background: #0068b7;
-	opacity: 0.3;
+	opacity: 0.4;
 	display: inline-block;
 	height: 37%;
 	width: 10px;
@@ -158,7 +157,7 @@ body.different_bg {
 	z-index: -1;
 }
 .wave_bottom {
-	transition: 2s;
+	transition: 1s;
 	position: absolute;
 	bottom: 0;
 	background: linear-gradient(#000e33, black);
