@@ -1,2 +1,88 @@
 /* Define colores, fuentes y otros aspectos de "tema" */
+body {
+	background: linear-gradient(black, #000e33);
+}
+.panel {
+	background: white;
+	border-color: white;
+}
+.main_title {
+	transition: 0.75s ease;
+	color: black;
+	font-family: 'Lobster', cursive;
+	font-size: 128px;
+}
+.generated_by {
+	transition: 0.75s ease;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+.intro {
+	font-family: 'OpenSans', sans-serif;
+	/*font-family: 'Roboto',sans-serif;*/
+}
+.main_title.change {
+	font-size: 100px;
+}
+.generated_by.change {
+	font-size: 12px;
+}
+/* Chorradillas para hacer pruebas */
+.cursiva {
 
+	display: inline-block;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 120%;
+}
+.cursiva::first-letter {
+
+	color: #009dff;
+	font-size: 750%;
+}
+/* Para las olas */
+.wave.flow{
+	transition: 1s;
+	bottom: 100%;
+}
+.wave_middle.flow{
+	transition: 1.5s;
+	bottom: 100%;
+}
+.wave_bottom.flow{
+	transition: 2s;
+	bottom: 100%;
+}
+.wave {
+	transition: 2s;
+	background: #7ecef4;
+	opacity: 0.5;
+	animation: wave 2.9s infinite ease-in-out;
+}
+.wave_middle {
+	transition: 1.5s;
+	background: #0068b7;
+	opacity: 0.4;
+	animation: wave_mid 3.42s infinite ease-in-out;
+}
+.wave_bottom {
+	transition: 1s;
+	background: linear-gradient(#000e33, black);
+	opacity: 0.8;
+	animation: wave_bottom 2.43s infinite ease;
+}
+@keyframes wave {
+	0% {height: 45%;}
+	50% {height: 67%;}
+	100% {height: 45%;}
+}
+@keyframes wave_mid {
+	0% {height: 37%;}
+	50% {height: 56%;}
+	100% {height: 37%;}
+}
+@keyframes wave_bottom {
+	0% {height: 27%;}
+	50% {height: 45%;}
+	100% {height: 27%;}
+}

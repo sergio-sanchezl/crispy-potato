@@ -1,2 +1,82 @@
 /* Define tamaños y posiciones */
-
+* {
+	box-sizing: border-box;
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.main {
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+#wrapper {
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+.centered {
+	margin: 0 auto;
+}
+.panel {
+	border-width: 1px;
+	border-radius: 2px;
+	min-width: 700px;
+	width: 1000px;
+	padding-bottom: 20px;
+}
+.main_title {
+	display: block;
+	text-align: center;
+}
+.generated_by {
+	display: block;
+	text-align: center;
+	margin-right: -400px;
+}
+.intro {
+	padding: 20px;
+}
+.main_title.change {
+	text-align: center;
+	margin-left: 20px;
+}
+#content {
+	/* Esconde el contenido hasta que sea necesario */
+	display: none;
+	width: 100%;
+}
+/* Para las olas */
+#ocean {
+	z-index: -1;
+}
+.wave {
+	position: absolute;
+	bottom: 0;
+	display: inline-block;
+	height: 45%;
+	width: 10px;
+	position: absolute;
+	z-index: -1;
+}
+.wave_middle {
+	position: absolute;
+	bottom: 0;
+	display: inline-block;
+	height: 37%;
+	width: 10px;
+	position: absolute;
+	z-index: -1;
+}
+.wave_bottom {
+	position: absolute;
+	bottom: 0;
+	display: inline-block;
+	height: 27%;
+	width: 10px;
+	position: absolute;
+	z-index: -1;
+}

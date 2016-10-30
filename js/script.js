@@ -20,7 +20,6 @@ function showElems ()
 
 	$(".main_title").addClass("change");
 	$(".generated_by").addClass("change");
-//	$("body").addClass("different_bg");
 
 	/* Permite que el contenido aparezca suavemente.
 	Cuando acabe la tarea, se libera el semáforo */
@@ -40,12 +39,24 @@ function showElems ()
  */
 function hideElems ()
 {
+	/* Si el semáforo está ocupado, no hace nada */
+	if (sem) {
+
+		return;
+	}
+
+	/* Se bloquea el semáforo */
+	sem = true;
+
 	$(".main_title").removeClass("change");
 	$(".generated_by").removeClass("change");
-//	$("body").removeClass("different_bg");
 
-	/* El contenido se esconde barriendo hacia arriba */
-	$("#content").slideUp ("slow");
+	/* El contenido se esconde barriendo hacia arriba
+	Cuando acabe la tarea, se libera el semáforo */
+	$("#content").slideUp ("slow", function () {
+
+                sem = false;
+        });
 
 	/* Hace el efecto del agua bajando */
 	$(".wave_bottom").removeClass ("flow");
@@ -106,11 +117,11 @@ function waves ()
 	var wave,
 	    wave_middle,
 	    wave_bottom;
-/*
+
 	console.log ("Wave count: " + waveCount);
 	console.log ("Window width: " + $(window).width ());
 	console.log ("Wave width: " + waveWidth);
-*/
+
 	for(var i = 0; i < waveCount; i++)
 	{
 		wave = document.createElement("div");
