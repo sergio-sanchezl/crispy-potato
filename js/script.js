@@ -69,7 +69,7 @@ function hideElems ()
  * o la barra espaciadora, se activa el evento para hacer la transición
  * para mostrar el contenido.
  */
-$('html').bind('keydown', function (e)
+$('html').on ('keydown', function (e)
 {
 	/* Se pulsan la barra espaciadora (32) o la flecha hacia abajo (40) */
 	if (e.keyCode == 32 || e.keyCode == 40)
@@ -108,7 +108,6 @@ $('html').on ('mousewheel DOMMouseScroll', function (e) {
  */
 function waves ()
 {
-
 	var ocean = document.getElementById ("ocean"),
 		waveWidth = 30,
 		waveCount = $(window).width() / waveWidth,
@@ -117,11 +116,11 @@ function waves ()
 	var wave,
 	    wave_middle,
 	    wave_bottom;
-
+/*
 	console.log ("Wave count: " + waveCount);
 	console.log ("Window width: " + $(window).width ());
 	console.log ("Wave width: " + waveWidth);
-
+*/
 	for(var i = 0; i < waveCount; i++)
 	{
 		wave = document.createElement("div");
