@@ -1,0 +1,10 @@
+* {
+	background-color: #111111;
+	font-family: Ubuntu;
+	color: #e0e0e0;
+}
+/* Pie de la página */
+#pie_pagina {
+	border: 1px solid white;
+	overflow-wrap: break-word;
+}

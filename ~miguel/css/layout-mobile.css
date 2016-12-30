@@ -1,0 +1,29 @@
+* {
+	text-align: center;
+	overflow-wrap: break-word;
+}
+/* Pie de la página */
+#pie_pagina {
+	text-align: center;
+	width: 90%;
+	display: block;
+	/* Lo posiciona al final de la página */
+	position: absolute;
+	bottom: 1vh;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-bottom: 1vh;
+	padding-top: 10px;
+}
+.bloque_pie {
+	text-align: center;
+}
+.barra_bloque_pie {
+	border: 0;
+	width: 80%;
+	height: 1px;
+	margin: 10px;
+	margin-left: 10%;
+	margin-right: 10%;
+	background-image: linear-gradient(to right, #111111, #e0e0e0, #111111);
+}

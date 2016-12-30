@@ -86,4 +86,15 @@ body {
 	50% {transform: scaleY(1.55) translateY(-25%);}
 	100% {transform: scaleY(1) translateY(0%);}
 }
-
+hr {
+	background-image: linear-gradient(to right, #bbb, #111, #bbb);
+}
+#footer_links a {
+	color: #0068b7;
+}
+#footer_links a:hover {
+	color: #003c6b;
+}
+#footer_links a:visited {
+	color: #00076b;
+}

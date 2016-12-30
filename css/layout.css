@@ -80,3 +80,25 @@ html, body {
 	position: absolute;
 	z-index: -1;
 }
+/* Pie de la página principal */
+hr {
+	border: 10px;
+	height: 1px;
+
+	margin: 3vh;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+#footer_panel {
+	margin: 10px;
+	text-align: center;
+}
+#footer_links {
+	list-style-type: none;
+	margin: 10px;
+	padding: 10px;
+	/* Crea varias columnas */
+        -moz-columns: 2 auto;
+        -webkit-columns: 2 auto;
+        columns: 2 auto;
+}

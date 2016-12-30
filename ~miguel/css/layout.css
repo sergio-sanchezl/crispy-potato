@@ -1,0 +1,39 @@
+* {
+	text-align: center;
+}
+/* Pie de la página */
+#pie_pagina {
+	display: inline;
+	text-align: center;
+	width: 90%;
+	padding: 10px;
+	/* Lo posiciona al final de la página */
+	position: absolute;
+	bottom: 1vh;
+	left: 2%;
+	margin-left: 2%;
+	margin-right: 2%;
+	/* Crea varias columnas */
+	-moz-columns: 2 auto;
+	-webkit-columns: 2 auto;
+	columns: 2 auto;
+}
+.bloque_pie {
+	overflow: hidden;
+	height: 100px;
+	width: 1%;
+	/* Se alinea el contenido */
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+}
+.barra_bloque_pie {
+	position: absolute;
+	left: 50%;
+	right: 50%;
+	bottom: 10px;
+	border: 0;
+	width: 1px;
+	height: 100px;
+	background-image: linear-gradient(0deg, #111111, #e0e0e0, #111111);
+}
