@@ -7,28 +7,50 @@
 
 	<title>Sección de Miguel</title>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu" />
 
 	<link rel="stylesheet" media="(max-width: 639px)" href="css/layout-mobile.css">
 	<link rel="stylesheet" media="(min-width: 640px)" href="css/layout.css">
 
 	<link rel="stylesheet" href="css/theme.css">
+
+	<script src="js/script.js"></script>
 </head>
 
 <body>
+	<!-- Panel superior con el título y la descripción -->
 	<div id="titulo">
-		<h1>Test</h1>
+		<h1>Título</h1>
 	</div>
 
+	<!-- Panel central con el contenido principal -->
 	<div id="principal">
 	</div>
 
+	<!-- Panel izquierdo con las secciones -->
 	<div id="secciones">
 	</div>
 
-	<div id="menu">
-	</div>
+	<!-- Panel derecho con el menú -->
+	<div class="boton_menu"></div>
+	<ul class="menu">
+		<li><a href="#">Menú</a></li>
+		<li class="parent">Ejemplo
+			<ul>
+				<li><a href="#">Lista</a></li>
+				<li><a href="#">Elemento</a></li>
+				<li><a href="#">Enlace</a></li>
+				<li><a href="#">Cosas</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Otro ejemplo</a></li>
+		<li><a href="#">Más cosas</a></li>
+	</ul>
 
+
+	<!-- Pie de la página -->
 	<footer id="pie_pagina">
 		<div class="bloque_pie">
 			<!-- Enlaces cruzados a esta página (enlaces internos) -->
@@ -44,8 +66,13 @@
 			<p>
 			Contacto: <a href="mailto:miguel.garciamartin@hotmail.com">miguel.garciamartin@hotmail.com</a>
 			</p>
+
 			<p>
 			<a href="https://github.com/Foo-Manroot/crispy-potato">Código en Github</a>
+			</p>
+
+			<p>
+			<a href="https://github.com/Foo-Manroot"><img src="../resources/GitHub-Mark-Light-32px.png"/></a>
 			</p>
 		</div>
 	</footer>

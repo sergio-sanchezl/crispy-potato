@@ -2,18 +2,148 @@
 	text-align: center;
 	overflow-wrap: break-word;
 }
-/* Pie de la página */
+/**
+ * Menú desplegable
+ */
+.boton_menu {
+	display: block;
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	width: 35px;
+	height: 35px;
+	background: url('../../resources/icono-menu.png') #c0c0c0;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 21px, 100%;
+	border: 0 none;
+	border-bottom: 1px solid rgba(255,255,255,.1);
+	box-shadow: 0 0 4px rgba(0,0,0,.7) inset;
+	border-radius: 5px;
+	z-index: 30;
+	text-indent: -9999px;
+}
+.boton_menu:hover {
+	background-color: #f0f0f0;
+}
+.boton_menu.desplegado {
+	background: url('../../resources/icono-menu.png') #505050;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: 21px, 100%;
+}
+.boton_menu.desplegado:hover {
+	background-color: #707070;
+}
+
+.menu {
+	display: none;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	float: none;
+	color: #e0e0e0;
+	background: #555555;
+	height: 45px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	box-shadow: 0 1px 2px #333333;
+	position: absolute;
+	z-index: 20;
+	clear: both;
+}
+.menu li {
+	display: none;
+	width: 100%;
+	font-family: Ubuntu;
+}
+.menu li a {
+	background: #333333;
+	display: block;
+	width: 90%;
+	padding: 10px 5%;
+	font-size: 14px;
+	font-weight: bold;
+	color: #e0e0e0;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+}
+.menu li a:hover {
+	background-color: black;
+	border-top-color: transparent;
+}
+.menu.desplegado {
+	display: block;
+	height: auto;
+	padding-top: 50px;
+}
+.menu.desplegado li {
+	display: block;
+}
+/* Submenús. La clase .parent indica
+un elemento del cual se despliegan otros */
+.parent {
+	background: #333333;
+        display: block;
+        width: 90%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #e0e0e0;
+        text-decoration: none;
+        border-bottom: 1px solid black;
+}
+.parent:hover {
+	background: #121212;
+}
+.menu > li:hover > a {
+	background: black;
+	border-bottom-color: transparent;
+}
+.parent:before {
+	content: "\25BC"; /* Flecha hacia abajo */
+	color: #f0f0f0;
+	float: center;
+	margin-right: 15px;
+}
+.menu li.parent > a:hover {
+	background: #151515;
+}
+.menu li ul {
+	display: none;
+	border-top: 0 none;
+	padding: 0;
+}
+.menu li ul a {
+	background: #121212;
+	border: 0 none;
+	font-size: 12px;
+	padding: 10px 5%;
+	font-weight: normal;
+}
+.menu li:hover ul {
+	display: block;
+	border-top: 0 none;
+}
+
+/**
+ * Pie de la página
+ */
 #pie_pagina {
 	text-align: center;
 	width: 90%;
 	display: block;
-	/* Lo posiciona al final de la página */
+	/* Se posiciona al final de la página */
 	position: absolute;
 	bottom: 1vh;
 	margin-left: 2%;
 	margin-right: 2%;
 	margin-bottom: 1vh;
 	padding-top: 10px;
+	overflow-wrap: break-word;
 }
 .bloque_pie {
 	text-align: center;

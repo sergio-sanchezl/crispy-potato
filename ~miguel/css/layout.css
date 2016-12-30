@@ -7,7 +7,8 @@
 	text-align: center;
 	width: 90%;
 	padding: 10px;
-	/* Lo posiciona al final de la página */
+	overflow-wrap: break-word;
+	/* Se posiciona al final de la página */
 	position: absolute;
 	bottom: 1vh;
 	left: 2%;
@@ -20,7 +21,7 @@
 }
 .bloque_pie {
 	overflow: hidden;
-	height: 100px;
+	height: 120px;
 	width: 1%;
 	/* Se alinea el contenido */
 	display: table-cell;
@@ -34,6 +35,6 @@
 	bottom: 10px;
 	border: 0;
 	width: 1px;
-	height: 100px;
+	height: 80%;
 	background-image: linear-gradient(0deg, #111111, #e0e0e0, #111111);
 }
