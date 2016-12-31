@@ -1,22 +1,33 @@
 * {
 	text-align: center;
 }
-.menu, .boton_menu {
+.menu, .boton_menu, #secciones, #boton_secc {
 	display: none;
 }
-/* Pie de la página */
+/**
+ * Panel con el contenido principal
+ */
+#principal {
+        margin: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+}
+
+/**
+ * Pie de la página
+ */
 #pie_pagina {
 	display: block;
 	text-align: center;
-	width: 90%;
+	width: auto;
 	padding: 10px;
-	overflow-wrap: break-word;
 	/* Se posiciona al final de la página */
 	position: relative;
 	bottom: 1vh;
-	left: 2%;
-	margin-left: 2%;
-	margin-right: 2%;
+	margin-left: 5%;
+	margin-right: 5%;
 	margin-top: 20px;
 	/* Crea varias columnas */
 	-moz-columns: 2 auto;

@@ -3,8 +3,125 @@
 	font-family: Ubuntu;
 	color: #e0e0e0;
 }
-/* Pie de la página */
-#pie_pagina {
-	border: 1px solid #5f5f5f;
+/**
+ * Panel con el contenido principal
+ */
+#principal {
+	text-align: justify;
+}
+#principal > p {
+	text-align: justify;
+	text-indent: 50px;
+}
+/**
+ * Panel con el contenido principal
+ */
+#boton_secc {
+	color: #e0e0e0;
+	border: 1px solid #707070;
+}
+#boton_secc:after {
+	content:"\23f5";
+}
+#boton_secc.desplegado:after {
+	content:"\23f4";
 }
 
+#secciones {
+	color: #e0e0e0;
+	font-family: Ubuntu;
+	font-size: 14px;
+}
+#secciones > ul {
+	list-style: none;
+	border-top: 1px solid #e0e0e0;
+}
+
+.enlace_secc  {
+	text-decoration: none;
+}
+.elem_secc {
+	border-bottom: 1px solid #e0e0e0;
+}
+
+/**
+ * Menú desplegable
+ */
+.boton_menu {
+	background-image: url('../../resources/icono-menu.png');
+	background-color: #a0a0a0;
+	background-repeat: no-repeat;
+
+	border-bottom: 1px solid #555555;
+	box-shadow: 0 0 4px #505050 inset;
+}
+.boton_menu:hover {
+	background-color: #c0c0c0;
+}
+.boton_menu.desplegado {
+	background-color: #606060;
+}
+.boton_menu.desplegado:hover {
+	background-color: #808080;
+}
+
+.menu {
+	color: #e0e0e0;
+	background: #555555;
+	box-shadow: 0 1px 2px #333333;
+}
+.menu li  a {
+	background: #333333;
+	font-size: 14px;
+	font-weight: bold;
+	color: #e0e0e0;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+}
+.menu li a:hover {
+        background-color: black;
+        border-top-color: transparent;
+}
+
+/* Submenús */
+.parent {
+	background: #333333;
+	color: #e0e0e0;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+}
+.parent:hover {
+	background: #121212;
+}
+.parent:before {
+	content: "\25BC"; /* Flecha hacia abajo */
+	color: #f0f0f0;
+}
+
+.menu > li:hover > a {
+	background: black;
+	border-bottom-color: transparent;
+}
+.menu li.parent > a:hover {
+	background: #151515;
+}
+.menu li ul a {
+        background: #121212;
+	border: 0 none;
+	font-weight: normal;
+}
+.menu li:hover ul {
+	border-top: 0 none;
+}
+
+/**
+ * Pie de la página
+ */
+#pie_pagina {
+	border: 1px solid #5f5f5f;
+	text-align: center;
+	overflow-wrap: break-word;
+}
+.barra_bloque_pie {
+	background-image: linear-gradient(to right, #111111, #e0e0e0, #111111);
+}

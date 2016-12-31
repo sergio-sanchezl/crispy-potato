@@ -9,6 +9,7 @@
 	margin: 10px;
 	margin-left: 15px;
 }
+
 /**
  * Panel con las secciones
  */
@@ -19,30 +20,19 @@
 	width: 80px;
 	height: 150px;
 	border-radius: 100%;
-	color: #e0e0e0;
 	text-align: right;
 	line-height: 145px;
 	z-index: 10;
-	border: 1px solid #707070;
-}
-#boton_secc:after {
-	content:"\25ba";
-}
-#boton_secc.desplegado:after {
-	content:"\25c0";
 }
 
 #secciones {
+	display: block;
 	position: fixed;
 	min-width: 200px;
 	min-height: 200px;
 	top: 20%;
-	display: block;
 	left: -250px;
 	z-index: 20;
-	color: #e0e0e0;
-	font-family: Ubuntu
-	font-size: 14px;
 	padding: 10px;
 	margin: 10px;
 	margin-left: 0px;
@@ -50,18 +40,8 @@
 }
 #secciones > ul {
 	padding-left: 0px;
-	list-style: none;
-	border-top: 1px solid #e0e0e0;
 }
 
-.elem_secc {
-	background-size: 20px 20px;
-	border-bottom: 1px solid #e0e0e0;
-}
-.enlace_secc  {
-	text-decoration: none;
-	color: #e0e0e0;
-}
 /**
  * Menú desplegable
  */
@@ -72,28 +52,11 @@
 	right: 7px;
 	width: 35px;
 	height: 35px;
-	background: url('../../resources/icono-menu.png') #c0c0c0;
 	background-position: center center;
-	background-repeat: no-repeat;
 	background-size: 21px, 100%;
 	border: 0 none;
-	border-bottom: 1px solid rgba(255,255,255,.1);
-	box-shadow: 0 0 4px rgba(0,0,0,.7) inset;
 	border-radius: 5px;
 	z-index: 30;
-	text-indent: -9999px;
-}
-.boton_menu:hover {
-	background-color: #f0f0f0;
-}
-.boton_menu.desplegado {
-	background: url('../../resources/icono-menu.png') #505050;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: 21px, 100%;
-}
-.boton_menu.desplegado:hover {
-	background-color: #707070;
 }
 
 .menu {
@@ -103,13 +66,10 @@
 	top: 0;
 	left: 0;
 	float: none;
-	color: #e0e0e0;
-	background: #555555;
 	height: 45px;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-	box-shadow: 0 1px 2px #333333;
 	position: absolute;
 	z-index: 20;
 	clear: both;
@@ -117,22 +77,11 @@
 .menu li {
 	display: none;
 	width: 100%;
-	font-family: Ubuntu;
 }
 .menu li a {
-	background: #333333;
 	display: block;
 	width: 90%;
 	padding: 10px 5%;
-	font-size: 14px;
-	font-weight: bold;
-	color: #e0e0e0;
-	text-decoration: none;
-	border-bottom: 1px solid black;
-}
-.menu li a:hover {
-	background-color: black;
-	border-top-color: transparent;
 }
 .menu.desplegado {
 	display: block;
@@ -142,59 +91,34 @@
 .menu.desplegado li {
 	display: block;
 }
-/* Submenús. La clase .parent indica
-un elemento del cual se despliegan otros */
+/* Submenús (la clase .parent indica
+un elemento del cual se despliegan otros) */
 .parent {
-	background: #333333;
         display: block;
         width: 90%;
         padding-top: 10px;
         padding-bottom: 10px;
-        font-size: 14px;
-        font-weight: bold;
-        color: #e0e0e0;
-        text-decoration: none;
-        border-bottom: 1px solid black;
-}
-.parent:hover {
-	background: #121212;
-}
-.menu > li:hover > a {
-	background: black;
-	border-bottom-color: transparent;
 }
 .parent:before {
-	content: "\25BC"; /* Flecha hacia abajo */
-	color: #f0f0f0;
 	float: center;
 	margin-right: 15px;
 }
-.menu li.parent > a:hover {
-	background: #151515;
-}
 .menu li ul {
 	display: none;
-	border-top: 0 none;
 	padding: 0;
 }
 .menu li ul a {
-	background: #121212;
-	border: 0 none;
-	font-size: 12px;
 	padding: 10px 5%;
-	font-weight: normal;
 }
 .menu li:hover ul {
 	display: block;
-	border-top: 0 none;
 }
 
 /**
  * Pie de la página
  */
 #pie_pagina {
-	text-align: center;
-	width: 90%;
+	width: auto;
 	display: block;
 	/* Se posiciona al final de la página */
 	position: relative;
@@ -204,10 +128,6 @@ un elemento del cual se despliegan otros */
 	margin-bottom: 1vh;
 	margin-top: 20px;
 	padding-top: 10px;
-	overflow-wrap: break-word;
-}
-.bloque_pie {
-	text-align: center;
 }
 .barra_bloque_pie {
 	border: 0;
@@ -216,5 +136,4 @@ un elemento del cual se despliegan otros */
 	margin: 10px;
 	margin-left: 10%;
 	margin-right: 10%;
-	background-image: linear-gradient(to right, #111111, #e0e0e0, #111111);
 }
