@@ -3,6 +3,66 @@
 	overflow-wrap: break-word;
 }
 /**
+ * Panel con el contenido principal
+ */
+#principal {
+	margin: 10px;
+	margin-left: 15px;
+}
+/**
+ * Panel con las secciones
+ */
+#boton_secc {
+	position: fixed;
+	top: 25%;
+	left: -60px;
+	width: 80px;
+	height: 150px;
+	border-radius: 100%;
+	color: #e0e0e0;
+	text-align: right;
+	line-height: 145px;
+	z-index: 10;
+	border: 1px solid #707070;
+}
+#boton_secc:after {
+	content:"\25ba";
+}
+#boton_secc.desplegado:after {
+	content:"\25c0";
+}
+
+#secciones {
+	position: fixed;
+	min-width: 200px;
+	min-height: 200px;
+	top: 20%;
+	display: block;
+	left: -250px;
+	z-index: 20;
+	color: #e0e0e0;
+	font-family: Ubuntu
+	font-size: 14px;
+	padding: 10px;
+	margin: 10px;
+	margin-left: 0px;
+	text-align: center;
+}
+#secciones > ul {
+	padding-left: 0px;
+	list-style: none;
+	border-top: 1px solid #e0e0e0;
+}
+
+.elem_secc {
+	background-size: 20px 20px;
+	border-bottom: 1px solid #e0e0e0;
+}
+.enlace_secc  {
+	text-decoration: none;
+	color: #e0e0e0;
+}
+/**
  * Menú desplegable
  */
 .boton_menu {
@@ -137,11 +197,12 @@ un elemento del cual se despliegan otros */
 	width: 90%;
 	display: block;
 	/* Se posiciona al final de la página */
-	position: absolute;
+	position: relative;
 	bottom: 1vh;
 	margin-left: 2%;
 	margin-right: 2%;
 	margin-bottom: 1vh;
+	margin-top: 20px;
 	padding-top: 10px;
 	overflow-wrap: break-word;
 }

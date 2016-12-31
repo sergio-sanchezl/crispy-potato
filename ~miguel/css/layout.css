@@ -1,19 +1,23 @@
 * {
 	text-align: center;
 }
+.menu, .boton_menu {
+	display: none;
+}
 /* Pie de la página */
 #pie_pagina {
-	display: inline;
+	display: block;
 	text-align: center;
 	width: 90%;
 	padding: 10px;
 	overflow-wrap: break-word;
 	/* Se posiciona al final de la página */
-	position: absolute;
+	position: relative;
 	bottom: 1vh;
 	left: 2%;
 	margin-left: 2%;
 	margin-right: 2%;
+	margin-top: 20px;
 	/* Crea varias columnas */
 	-moz-columns: 2 auto;
 	-webkit-columns: 2 auto;
