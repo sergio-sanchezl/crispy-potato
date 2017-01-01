@@ -21,10 +21,10 @@
 	border: 1px solid #707070;
 }
 #boton_secc:after {
-	content:"\23f5";
+	content: "\25b6";
 }
 #boton_secc.desplegado:after {
-	content:"\23f4";
+	content: "\25c0";
 }
 
 #secciones {

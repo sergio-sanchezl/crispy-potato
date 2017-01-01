@@ -29,8 +29,8 @@
 	display: block;
 	position: fixed;
 	min-width: 200px;
-	min-height: 200px;
-	top: 20%;
+	height: 100%;
+	top: 0px;
 	left: -250px;
 	z-index: 20;
 	padding: 10px;
