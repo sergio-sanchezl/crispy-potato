@@ -3,6 +3,82 @@
 	font-family: Ubuntu;
 	color: #e0e0e0;
 }
+
+/**
+ * Menú desplegable (parte superior)
+ */
+.boton_menu {
+	background-image: url('../../resources/icono-menu.png');
+	background-color: #a0a0a0;
+	background-repeat: no-repeat;
+
+	border-bottom: 1px solid #555555;
+	box-shadow: 0 0 4px #505050 inset;
+}
+.boton_menu:hover {
+	background-color: #c0c0c0;
+}
+.boton_menu.desplegado {
+	background-color: #606060;
+}
+.boton_menu.desplegado:hover {
+	background-color: #808080;
+}
+
+.menu {
+	color: #e0e0e0;
+	background: #555555;
+	box-shadow: 0 1px 2px #333333;
+	list-style: none;
+}
+.elem_menu a {
+	background: #333333;
+	font-size: 14px;
+	font-weight: bold;
+	color: #e0e0e0;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+	overflow-wrap: break-word;
+}
+.elem_menu a:hover {
+        background-color: black;
+        border-top-color: transparent;
+}
+
+/* Submenús */
+.parent {
+	background: #333333;
+	color: #e0e0e0;
+	text-decoration: none;
+	border-bottom: 1px solid black;
+}
+.parent:hover {
+	background: #121212;
+}
+.parent:hover .contenido-desplegable {
+	list-style: none;
+}
+.parent:before {
+	content: "\25BC"; /* Flecha hacia abajo */
+	color: #f0f0f0;
+}
+
+.elem_menu:hover > a {
+	background: black;
+	border-bottom-color: transparent;
+}
+.parent > a:hover {
+	background: #151515;
+}
+.contenido-desplegable a {
+        background: #121212;
+	border: 0 none;
+	font-weight: normal;
+}
+.elem_menu:hover ul {
+	border-top: 0 none;
+}
+
 /**
  * Panel con el contenido principal
  */
@@ -28,13 +104,13 @@
 }
 
 #secciones {
+	overflow-wrap: break-word;
 	color: #e0e0e0;
 	font-family: Ubuntu;
-	font-size: 14px;
+	font-size: 20px;
 }
-#secciones > ul {
+#lista_secc {
 	list-style: none;
-	border-top: 1px solid #e0e0e0;
 }
 
 .enlace_secc  {
@@ -43,75 +119,8 @@
 .elem_secc {
 	border-bottom: 1px solid #e0e0e0;
 }
-
-/**
- * Menú desplegable
- */
-.boton_menu {
-	background-image: url('../../resources/icono-menu.png');
-	background-color: #a0a0a0;
-	background-repeat: no-repeat;
-
-	border-bottom: 1px solid #555555;
-	box-shadow: 0 0 4px #505050 inset;
-}
-.boton_menu:hover {
-	background-color: #c0c0c0;
-}
-.boton_menu.desplegado {
-	background-color: #606060;
-}
-.boton_menu.desplegado:hover {
-	background-color: #808080;
-}
-
-.menu {
-	color: #e0e0e0;
-	background: #555555;
-	box-shadow: 0 1px 2px #333333;
-}
-.menu li  a {
-	background: #333333;
-	font-size: 14px;
-	font-weight: bold;
-	color: #e0e0e0;
-	text-decoration: none;
-	border-bottom: 1px solid black;
-}
-.menu li a:hover {
-        background-color: black;
-        border-top-color: transparent;
-}
-
-/* Submenús */
-.parent {
-	background: #333333;
-	color: #e0e0e0;
-	text-decoration: none;
-	border-bottom: 1px solid black;
-}
-.parent:hover {
-	background: #121212;
-}
-.parent:before {
-	content: "\25BC"; /* Flecha hacia abajo */
-	color: #f0f0f0;
-}
-
-.menu > li:hover > a {
-	background: black;
-	border-bottom-color: transparent;
-}
-.menu li.parent > a:hover {
-	background: #151515;
-}
-.menu li ul a {
-        background: #121212;
-	border: 0 none;
-	font-weight: normal;
-}
-.menu li:hover ul {
-	border-top: 0 none;
+.prim_elem {
+	border-top: 1px solid #e0e0e0;
 }
 
 /**

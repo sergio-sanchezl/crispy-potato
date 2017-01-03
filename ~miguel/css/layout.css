@@ -1,8 +1,45 @@
 * {
 	text-align: center;
 }
-.menu, .boton_menu, #secciones, #boton_secc {
+/* Botones para la versión para pantallas pequeñas
+ (aquí no se deben mostrar) */
+.boton_menu, #boton_secc {
 	display: none;
+}
+/**
+ * Menú (panel superior)
+ */
+.menu {
+	position: relative;
+	margin-left: 150px;
+	margin-right: 5%;
+	padding: 5px;
+}
+.elem_menu {
+	position: relative;
+	display: inline-block;
+
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	min-width: 100px;
+}
+
+.contenido-desplegable {
+	display: none;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	margin-top: 5px;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	z-index: 10;
+}
+.parent:hover .contenido-desplegable {
+	display: block;
+	clear: both;
 }
 /**
  * Panel con el contenido principal
@@ -11,45 +48,97 @@
         margin: 10px;
 	padding-left: 15px;
 	padding-right: 15px;
-        margin-left: 5%;
+        margin-left: 150px;
         margin-right: 5%;
+}
+/**
+ * Secciones (panel izquierdo)
+ */
+#secciones {
+	position: fixed;
+	width: 150px;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	z-index: 10;
+	overflow: hidden;
+}
+#lista_secc {
+	padding: 1px;
+}
+
+.elem_secc {
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 /**
- * Pie de la página
+ * Para pantallas grandes -> pie horizontal
  */
-#pie_pagina {
-	display: block;
-	text-align: center;
-	width: auto;
-	padding: 10px;
-	/* Se posiciona al final de la página */
-	position: relative;
-	bottom: 1vh;
-	margin-left: 5%;
-	margin-right: 5%;
-	margin-top: 20px;
-	/* Crea varias columnas */
-	-moz-columns: 2 auto;
-	-webkit-columns: 2 auto;
-	columns: 2 auto;
+@media (min-width: 776px) {
+	/**
+	 * Pie de la página para pantallas grandes (>= 776px de ancho)
+	 */
+	#pie_pagina {
+		display: block;
+		width: auto;
+		padding: 10px;
+		/* Se posiciona al final de la página */
+		position: relative;
+		bottom: 1vh;
+		margin-left: 150px;
+		margin-right: 5%;
+		margin-top: 20px;
+		/* Crea varias columnas */
+		-moz-columns: 2 auto;
+		-webkit-columns: 2 auto;
+		columns: 2 auto;
+	}
+	.bloque_pie {
+		overflow: hidden;
+		height: 120px;
+		width: 1%;
+		/* Se alinea el contenido */
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+	.barra_bloque_pie {
+		position: absolute;
+		left: 50%;
+		right: 50%;
+		bottom: 10px;
+		border: 0;
+		width: 1px;
+		height: 80%;
+		background-image: linear-gradient(0deg, #111111, #e0e0e0, #111111);
+	}
 }
-.bloque_pie {
-	overflow: hidden;
-	height: 120px;
-	width: 1%;
-	/* Se alinea el contenido */
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center;
-}
-.barra_bloque_pie {
-	position: absolute;
-	left: 50%;
-	right: 50%;
-	bottom: 10px;
-	border: 0;
-	width: 1px;
-	height: 80%;
-	background-image: linear-gradient(0deg, #111111, #e0e0e0, #111111);
+/**
+ * Para pantallas pequeñas -> pie vertical
+ */
+@media (max-width: 775px) {
+	/**
+	 * Pie de la página para pantallas pequeñas (<= 775px de ancho)
+	 */
+	#pie_pagina {
+	        width: auto;
+	        display: block;
+	        /* Se posiciona al final de la página */
+	        position: relative;
+	        bottom: 1vh;
+	        margin-left: 150px;
+	        margin-right: 5%;
+	        margin-bottom: 1vh;
+	        margin-top: 20px;
+	        padding-top: 10px;
+	}
+	.barra_bloque_pie {
+	        border: 0;
+	        width: 80%;
+	        height: 1px;
+	        margin: 10px;
+	        margin-left: 10%;
+	        margin-right: 10%;
+	}
 }

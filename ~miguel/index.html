@@ -28,6 +28,24 @@
 		<h1>Título</h1>
 	</div>
 
+	<!-- Panel superior con el menú -->
+	<div class="boton_menu"></div>
+	<ul class="menu">
+		<li class="elem_menu"><a href="#">Directorio</a></li>
+		<li class="parent elem_menu">Herramientas
+			<ul class="contenido-desplegable">
+			</ul>
+		</li>
+		<li class="elem_menu"><a href="#">Acceso</a></li>
+		<li class="elem_menu"><a href="#">Contacto</a></li>
+		<li class="parent elem_menu">Idioma
+			<ul class="contenido-desplegable">
+				<li><a href="#">Español</a></li>
+				<li><a href="#">Inglés</a></li>
+			</ul>
+		</li>
+	</ul>
+
 	<!-- Panel central con el contenido principal -->
 	<div id="principal">
 <!-- Kantlipsum -->
@@ -130,8 +148,8 @@ from which we can here be absolved.
 	<!-- Panel izquierdo con las secciones -->
 	<div id="boton_secc"></div>
 	<div id="secciones">
-		<ul>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Herramientas</a></li>
+		<ul id="lista_secc" >
+			<li class="elem_secc prim_elem"><a class="enlace_secc" href="#">Herramientas</a></li>
 			<li class="elem_secc"><a class="enlace_secc" href="#">Artículos</a></li>
 			<li class="elem_secc"><a class="enlace_secc" href="#">Tutoriales</a></li>
 			<li class="elem_secc"><a class="enlace_secc" href="#">Blog</a></li>
@@ -140,25 +158,6 @@ from which we can here be absolved.
 			<li class="elem_secc"><a class="enlace_secc" href="#">Enlaces de interés</a></li>
 		</ul>
 	</div>
-
-	<!-- Panel derecho con el menú -->
-	<div class="boton_menu"></div>
-	<ul class="menu">
-		<li><a href="#">Directorio</a></li>
-		<li class="parent">Herramientas
-			<ul>
-			</ul>
-		</li>
-		<li><a href="#">Acceso</a></li>
-		<li><a href="#">Contacto</a></li>
-		<li class="parent">Idioma
-			<ul>
-				<li><a href="#">Español</a></li>
-				<li><a href="#">Inglés</a></li>
-			</ul>
-		</li>
-	</ul>
-
 
 	<!-- Pie de la página -->
 	<footer id="pie_pagina">

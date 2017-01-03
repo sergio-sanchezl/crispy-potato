@@ -50,7 +50,7 @@ $(document).ready (function () {
 /*
 	if (pantallaTactil) {
 
-		$("html").on ("swipe", cambiarSecciones ());
+		$("#boton_secc").on ("swipe", cambiarSecciones ());
 	}
 */
 });
