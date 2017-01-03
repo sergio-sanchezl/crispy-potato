@@ -61,7 +61,7 @@
 	bottom: 0px;
 	left: 0px;
 	z-index: 10;
-	overflow: hidden;
+	overflow: scroll;
 }
 #lista_secc {
 	padding: 1px;
