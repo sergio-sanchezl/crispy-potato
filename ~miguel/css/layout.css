@@ -56,12 +56,13 @@
  */
 #secciones {
 	position: fixed;
+	height: 100%;
 	width: 150px;
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
 	z-index: 10;
-	overflow: scroll;
+	overflow: auto;
 }
 #lista_secc {
 	padding: 1px;
