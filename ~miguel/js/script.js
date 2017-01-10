@@ -5,6 +5,18 @@
 var pantallaTactil = 'ontouchstart' in window || navigator.msMaxTouchPoints;
 
 /**
+ * Tamaño máximo para usar el estilo "layout-mobile.css"
+ */
+var pantalla_pequeña = 640;
+
+/**
+ * Bandera para saber si se ha cambiado la posición de
+ * #secciones
+ */
+var secc_cambiado = false;
+
+
+/**
  * Despliega el menú de secciones si estaba oculto,
  * o lo oculta si estaba desplegado.
  */
@@ -17,12 +29,14 @@ function cambiarSecciones () {
 
 		$('#secciones').animate ({left: '-1px'}, 500);
 		$('#boton_secc').animate ({left: '160px'}, 550, function () {
+
 			$('#boton_secc').addClass ('desplegado');
 		});
 	} else {
 
 		$('#secciones').animate ({left: '-250px'}, 500);
 		$('#boton_secc').animate ({left: '-60px'}, 400, function () {
+
 			$('#boton_secc').removeClass ('desplegado');
 		});
 	}
@@ -53,4 +67,35 @@ $(document).ready (function () {
 		$("#boton_secc").on ("swipe", cambiarSecciones ());
 	}
 */
+});
+
+/**
+ * Detecta cuando se redimensiona la ventana
+ */
+$(window).resize (function () {
+
+	var pos = 0;
+
+	if ($(window).width () >= pantalla_pequeña) {
+
+		/* Si el menú de la izquierda estaba oculto, lo muestra */
+		pos = $('#secciones').offset();
+
+		if (pos.left < 0) {
+
+			$('#secciones').css ({left: '0px'});
+			$('#secciones').data ('oculto', false);
+			secc_cambiado = true;
+		}
+	} else {
+
+		/* Si se ha cambiado la posición de #secciones, se restaura */
+		if (secc_cambiado) {
+
+			$('#secciones').css ({left: '-250px'});
+			$('#secciones').data ('oculto', true);
+
+			secc_cambiado = false;
+		}
+	}
 });
