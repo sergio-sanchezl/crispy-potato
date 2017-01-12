@@ -4,6 +4,19 @@
 }
 
 /**
+ * Flecha de navegación
+ */
+#flecha_nav {
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: fixed;
+	right: 5%;
+	top: 30px;
+	z-index: 20;
+}
+
+/**
  * Menú desplegable (parte superior)
  */
 .boton_menu {

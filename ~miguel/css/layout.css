@@ -1,11 +1,26 @@
 * {
 	text-align: center;
 }
+
+/**
+ * Flecha de navegación
+ */
+#flecha_nav {
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: fixed;
+	right: 2%;
+	top: 30px;
+	z-index: 20;
+}
+
 /* Botones para la versión para pantallas pequeñas
  (aquí no se deben mostrar) */
 .boton_menu, #boton_secc {
 	display: none;
 }
+
 /**
  * Menú (panel superior)
  */
@@ -41,6 +56,7 @@
 	display: block;
 	clear: both;
 }
+
 /**
  * Panel con el contenido principal
  */
@@ -51,6 +67,7 @@
         margin-left: 150px;
         margin-right: 5%;
 }
+
 /**
  * Secciones (panel izquierdo)
  */

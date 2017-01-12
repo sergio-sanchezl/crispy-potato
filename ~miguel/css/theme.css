@@ -5,6 +5,14 @@
 }
 
 /**
+ * Flecha de navegación
+ */
+#flecha_nav {
+	opacity: 0;
+	background-image: url('../../resources/icono-flecha.png');
+}
+
+/**
  * Menú desplegable (parte superior)
  */
 .boton_menu {

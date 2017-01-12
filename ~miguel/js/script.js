@@ -57,9 +57,15 @@ $(document).ready (function () {
 	});
 
 	/* Botón para el menú */
-	$(".boton_menu").click (function () {
+	$('.boton_menu').click (function () {
 
-		$(".boton_menu, .menu").toggleClass ("desplegado");
+		$('.boton_menu, .menu').toggleClass ('desplegado');
+	});
+
+	/* Pequeña animación al pinchar sobre la flecha para volver arriba */
+	$('#flecha_nav').click (function () {
+
+		$('html, body').animate ({scrollTop: 0}, 600);
 	});
 /*
 	if (pantallaTactil) {
@@ -70,7 +76,7 @@ $(document).ready (function () {
 });
 
 /**
- * Detecta cuando se redimensiona la ventana
+ * Detecta redimensiones de la ventana
  */
 $(window).resize (function () {
 
@@ -98,4 +104,27 @@ $(window).resize (function () {
 			secc_cambiado = false;
 		}
 	}
+});
+
+/**
+ * Detecta el cambio en la posición dentro de la página (scrolling)
+ */
+$(window).scroll (function () {
+
+	var pos = $(document).scrollTop (),
+	    umbral = 170,
+	    opacidad = 0;
+
+	/* Si la barra está más abajo del umbral, muestra la flecha */
+	if (pos >= umbral) {
+
+		opacidad = (pos * 0.001);
+
+		if (opacidad > 1) {
+
+			opacidad = 1;
+		}
+	}
+
+	$('#flecha_nav').css ('opacity', opacidad);
 });
