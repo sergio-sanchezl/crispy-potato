@@ -7,8 +7,7 @@ var sem = false;
 /**
  * Muestra los elementos que estaban escondidos.
  */
-function showElems ()
-{
+function showElems () {
 	/* Si el semáforo está ocupado, no hace nada */
 	if (sem) {
 
@@ -37,8 +36,7 @@ function showElems ()
 /**
  * Elimina los elementos que se habían añadido en showElems()
  */
-function hideElems ()
-{
+function hideElems () {
 	/* Si el semáforo está ocupado, no hace nada */
 	if (sem) {
 
@@ -69,15 +67,14 @@ function hideElems ()
  * o la barra espaciadora, se activa el evento para hacer la transición
  * para mostrar el contenido.
  */
-$('html').on ('keydown', function (e)
-{
+$('html').on ('keydown', function (e) {
+
 	/* Se pulsan la barra espaciadora (32) o la flecha hacia abajo (40) */
-	if (e.keyCode == 32 || e.keyCode == 40)
-	{
+	if (e.keyCode == 32 || e.keyCode == 40) {
+
 		showElems ();
 	}
-	else if (e.keyCode == 38)
-	{
+	else if (e.keyCode == 38) {
 		/* Se pulsa la flecha hacia arriba (38), se vuelve a la pantalla inicial */
 		hideElems ();
 	}
@@ -106,8 +103,8 @@ $('html').on ('mousewheel DOMMouseScroll', function (e) {
 /**
  * Efecto de las olas
  */
-function waves ()
-{
+function waves () {
+
 	var ocean = document.getElementById ("ocean"),
 		waveWidth = 30,
 		waveCount = $(window).width() / waveWidth,
@@ -116,13 +113,9 @@ function waves ()
 	var wave,
 	    wave_middle,
 	    wave_bottom;
-/*
-	console.log ("Wave count: " + waveCount);
-	console.log ("Window width: " + $(window).width ());
-	console.log ("Wave width: " + waveWidth);
-*/
-	for(var i = 0; i < waveCount; i++)
-	{
+
+	for(var i = 0; i < waveCount; i++) {
+
 		wave = document.createElement("div");
 		wave.className += "wave";
 		docFrag.appendChild(wave);
@@ -148,8 +141,8 @@ function waves ()
 	ocean.appendChild (docFrag);
 }
 
-$(document).ready(function()
-{
+$(document).ready(function() {
+
 	waves ();
 });
 
