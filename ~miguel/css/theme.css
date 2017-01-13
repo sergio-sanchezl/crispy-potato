@@ -2,6 +2,7 @@
 	background-color: #111111;
 	font-family: Ubuntu;
 	color: #e0e0e0;
+	background-image: url('../../resources/background.jpg');
 }
 
 /**
@@ -10,6 +11,7 @@
 #flecha_nav {
 	opacity: 0;
 	background-image: url('../../resources/icono-flecha.png');
+	background-color: #000000;
 }
 
 /**
