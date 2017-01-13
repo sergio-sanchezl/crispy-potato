@@ -36,34 +36,48 @@
 }
 
 .menu {
-	color: #e0e0e0;
-	background: #555555;
 	box-shadow: 0 1px 2px #333333;
 	list-style: none;
 }
-.elem_menu a {
-	background: #333333;
+
+.menu,
+.elem_menu,
+.elem_menu a,
+.parent {
+	background: #202020;
+}
+.elem_menu:hover,
+.elem_menu:hover a,
+.parent:hover,
+.contenido-desplegable,
+.contenido-desplegable li,
+.contenido-desplegable li a {
+	background: #010101;
+}
+.contenido-desplegable li:hover,
+.contenido-desplegable li:hover a {
+	background: #202020;
+}
+
+.elem_menu {
 	font-size: 14px;
 	font-weight: bold;
-	color: #e0e0e0;
 	text-decoration: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #000000;
 	overflow-wrap: break-word;
 }
-.elem_menu a:hover {
-        background-color: black;
-        border-top-color: transparent;
+.elem_menu a {
+	text-decoration: none;
 }
+
+/*.elem_menu a:hover {
+        border-top-color: transparent;
+}*/
 
 /* Submenús */
 .parent {
-	background: #333333;
-	color: #e0e0e0;
 	text-decoration: none;
-	border-bottom: 1px solid black;
-}
-.parent:hover {
-	background: #121212;
+	border-bottom: 1px solid #000000;
 }
 .parent:hover .contenido-desplegable {
 	list-style: none;
@@ -74,15 +88,12 @@
 }
 
 .elem_menu:hover > a {
-	background: black;
 	border-bottom-color: transparent;
 }
-.parent > a:hover {
-	background: #151515;
-}
+
+.contenido-desplegable li,
 .contenido-desplegable a {
-        background: #121212;
-	border: 0 none;
+	border-bottom: 1px solid #303030;
 	font-weight: normal;
 }
 .elem_menu:hover ul {
