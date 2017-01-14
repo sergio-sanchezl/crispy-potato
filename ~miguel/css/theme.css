@@ -2,7 +2,6 @@
 	background-color: #111111;
 	font-family: Ubuntu;
 	color: #e0e0e0;
-	background-image: url('../../resources/background.jpg');
 }
 
 /**
@@ -78,6 +77,11 @@
 .parent {
 	text-decoration: none;
 	border-bottom: 1px solid #000000;
+}
+.elem_menu:hover,
+.parent:hover,
+.parent:hover .contenido-desplegable {
+	border: 1px solid #505050;
 }
 .parent:hover .contenido-desplegable {
 	list-style: none;
