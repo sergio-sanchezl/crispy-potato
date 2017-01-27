@@ -1,58 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
-<html>
+-- Usuarios
+INSERT INTO usuarios VALUES ('admin@mail.me', 'Admin', '$1$5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');
+INSERT INTO usuarios VALUES ('user@mail.mail', 'Usuario 1', '$2$f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b');
+INSERT INTO usuarios VALUES ('pepito@grillo.es', 'Pepito Grillo', '$3$f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3');
+INSERT INTO usuarios VALUES ('maría.garcía@hotmail.com', 'María García', '$4$edf9cf90718610ee7de53c0dcc250739239044de9ba115bb0ca6026c3e4958a5');
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Sección de Miguel</title>
-
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"
-		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-		crossorigin="anonymous">
-	</script>
-
-	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu" />
-
-
-	<link rel="stylesheet" href="css/theme.css">
-
-	<link rel="stylesheet" media="(max-width: 639px)" href="css/layout-mobile.css">
-	<link rel="stylesheet" media="(min-width: 640px)" href="css/layout.css">
-
-	<script src="js/script.js"></script>
-</head>
-
-<body>
-	<!-- Panel superior con el título y la descripción -->
-	<div id="titulo">
-		<h1>Título</h1>
-	</div>
-
-	<!-- Flecha de navegación -->
-	<div id="flecha_nav"></div>
-
-	<!-- Panel superior con el menú -->
-	<div class="boton_menu"></div>
-	<ul class="menu">
-		<li class="elem_menu"><a href="#">Directorio</a></li>
-		<li class="parent elem_menu">Herramientas
-			<ul class="contenido-desplegable">
-			</ul>
-		</li>
-		<li class="elem_menu"><a href="#">Acceso</a></li>
-		<li class="elem_menu"><a href="#">Contacto</a></li>
-		<li class="parent elem_menu">Idioma
-			<ul class="contenido-desplegable">
-				<li><a href="#">Español</a></li>
-				<li><a href="#">Inglés</a></li>
-			</ul>
-		</li>
-	</ul>
-
-	<!-- Panel central con el contenido principal -->
-	<div id="principal">
-<!-- Kantlipsum -->
+-- Artículos
+INSERT INTO articulos VALUES (1, 'Título', '<!-- Kantlipsum -->
 <p>
 As any dedicated reader can clearly see, the Ideal of practical reason is a
 representation of, as far as I know, the things in themselves; as I have shown
@@ -147,48 +100,35 @@ case) are the clue to the discovery of necessity. But the proof of this is a tas
 from which we can here be absolved.
 </p>
 <!-- Kantlipsum fin -->
-	</div>
+', 'Categoría', B'111010');
+INSERT INTO articulos VALUES (5471, 'Título', 'Texto', 'Categoría', B'101010');
+INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
+* Lista desordenada
+* Más lista desordenada
 
-	<!-- Panel izquierdo con las secciones -->
-	<div id="boton_secc"></div>
-	<div id="secciones">
-		<ul id="lista_secc" >
-			<li class="elem_secc prim_elem"><a class="enlace_secc" href="#">Herramientas</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Artículos</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Tutoriales</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Blog</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Proyectos</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">CTF's</a></li>
-			<li class="elem_secc"><a class="enlace_secc" href="#">Enlaces de interés</a></li>
-		</ul>
-	</div>
+1. Cosas
+2. *Más* cosas
 
-	<!-- Pie de la página -->
-	<footer id="pie_pagina">
-		<div class="bloque_pie">
-			<!-- Enlaces cruzados a esta página (enlaces internos) -->
-			<a href="../index.html">Página principal</a>
-			<p>
-			<a href="../~sergio/index.html">Sección de Sergio</a>
-		</div>
+## _Fin_
+', null, B'111111');
 
-		<div class="barra_bloque_pie"></div>
 
-		<div class="bloque_pie">
-			<!-- Bloque para enlaces al código fuente, redes, contacto, etc. (enlaces externos) -->
-			<p>
-			Contacto: <a href="mailto:miguel.garciamartin@hotmail.com">miguel.garciamartin@hotmail.com</a>
-			</p>
+-- Escribe
+INSERT INTO escribe VALUES ('admin@mail.me', 1, now());
+INSERT INTO escribe VALUES ('user@mail.mail', 5471, now());
+INSERT INTO escribe VALUES ('maría.garcía@hotmail.com', -7768, now());
 
-			<p>
-			<a href="https://github.com/Foo-Manroot/crispy-potato">Código en Github</a>
-			</p>
+-- Recursos
+INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null);
+INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo');
+INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas');
+INSERT INTO recursos VALUES (2, -7768, '768 yuiasdbi67ntugaydf7i6tuyasgdf iuolujasohd98o
+t67 bas df
+asdf u8iasdf
+sdaf8y', 'Herramientas');
+INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado');
 
-			<p>
-			<a href="https://github.com/Foo-Manroot"><img src="../resources/GitHub-Mark-Light-32px.png"/></a>
-			</p>
-		</div>
-	</footer>
-</body>
-
-</html>
+-- Archivos
+INSERT INTO archivos VALUES (1, 'admin@mail.me', 'asdf', 'Descripción', B'111010');
+INSERT INTO archivos VALUES (675, 'admin@mail.me', 'asdf', null, B'111111');
+INSERT INTO archivos VALUES (-54, 'maría.garcía@hotmail.com', '6t7vuybinasdf', 'Cosas chulas', B'111010');
