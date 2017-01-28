@@ -107,11 +107,10 @@
 /**
  * Panel con el contenido principal
  */
-#principal {
+#principal * {
 	text-align: justify;
 }
 #principal > p {
-	text-align: justify;
 	text-indent: 50px;
 }
 /**
@@ -128,6 +127,13 @@
 	content: "\25c0";
 }
 
+/**
+ * Panel izquierdo con las secciones
+ */
+#secciones,
+#secciones * {
+	background-color: #202020;
+}
 #secciones {
 	overflow-wrap: break-word;
 	color: #e0e0e0;
