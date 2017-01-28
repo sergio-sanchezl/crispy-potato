@@ -4,6 +4,16 @@
 }
 
 /**
+ * Panel con los detalles del usuario actual
+ */
+#detalles_usuario {
+	position: relative;
+/*	display: inline-block;*/
+	display: none;
+	padding: 3px;
+}
+
+/**
  * Flecha de navegación
  */
 #flecha_nav {

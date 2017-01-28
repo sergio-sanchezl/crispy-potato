@@ -3,6 +3,17 @@
 }
 
 /**
+ * Panel con los detalles del usuario actual
+ */
+#detalles_usuario {
+	position: absolute;
+	right: 3%;
+	top: 30px;
+	padding: 3px;
+	display: none;
+}
+
+/**
  * Flecha de navegación
  */
 #flecha_nav {

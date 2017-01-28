@@ -5,6 +5,14 @@
 }
 
 /**
+ * Panel con los detalles del usuario actual 
+ */
+#detalles_usuario { 
+	border: 1px solid #5f5f5f;
+	text-align: right;
+}
+
+/**
  * Flecha de navegación
  */
 #flecha_nav {
