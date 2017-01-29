@@ -11,7 +11,6 @@
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		crossorigin="anonymous">
 	</script>
-	<script src="https://cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" />
 
@@ -22,6 +21,8 @@
 	<link rel="stylesheet" media="(min-width: 640px)" href="css/layout.css">
 
 	<script src="js/script.js"></script>
+</head>
+
 <body>
 	<!-- Panel superior con el título y la descripción -->
 	<div id="titulo">
@@ -51,10 +52,51 @@
 
 	<!-- Panel central con el contenido principal -->
 	<div id="principal">
-		<form method="POST" action="./editor.php">
-			<textarea name="editor"></textarea>
-		</form>
-		<script src="js/editor.js"></script>
+	<?php
+		function obtener_art ($id_art)
+		{
+			$bd = "crispy_potato";
+			$host = "localhost";
+			$usuario = "postgres";
+			$contr = "postgres";
+
+			$texto = "## No se ha encontrado el artículo especificado";
+			$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+
+			if (!$conn)
+			{
+				return "Error al conectarse a la base de datos.";
+			}
+
+			/* Prepara y ejecuta la consulta */
+			$consulta = pg_prepare ($conn, "ver_art", "SELECT * FROM articulos WHERE id_articulo = $1");
+			$consulta = pg_execute ($conn, "ver_art", array ($id_art));
+
+			/* Si se ha encontrado, se carga el texto */
+			if (!$consulta || pg_num_rows ($consulta) != 1)
+			{
+				$texto =  "## No se ha encontrado el artículo especificado";
+			}
+			else
+			{
+				$articulo = pg_fetch_array ($consulta);
+				$texto = $articulo["texto"];
+			}
+
+			$Parsedown = new Parsedown ();
+
+			$texto = $Parsedown->text ($texto);
+
+			pg_close ($conn);
+			return $texto;
+		}
+
+		/* Obtiene el artículo (subido con POST) */
+		if (array_key_exists ("editor", $_POST))
+		{
+			echo $_POST["editor"];
+		}
+	?>
 	</div>
 
 	<!-- Panel izquierdo con las secciones -->

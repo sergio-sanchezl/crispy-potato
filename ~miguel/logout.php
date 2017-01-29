@@ -11,7 +11,6 @@
 		integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 		crossorigin="anonymous">
 	</script>
-	<script src="https://cdn.ckeditor.com/4.6.2/full/ckeditor.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" />
 
@@ -28,6 +27,24 @@
 		<h1><a href="index.php">Título</a></h1>
 	</div>
 
+	<!-- Panel con los detalles del usuario actual -->
+	<?php
+		session_start ();
+
+                $estilo = "display:none";
+                $contenido = "";
+
+                if (!empty ($_SESSION["usuario"]))
+                {
+                        $estilo = "display:inline-block";
+                        $contenido = $_SESSION ["usuario"] . "<br />";
+                }
+
+                $contenido .= "<a href=\"logout.php\">Salir</a>";
+        ?>
+        <div id="detalles_usuario" style=<?php echo $estilo; ?>><?php echo $contenido; ?></div>
+
+
 	<!-- Flecha de navegación -->
 	<div id="flecha_nav"></div>
 
@@ -39,7 +56,7 @@
 			<ul class="contenido-desplegable">
 			</ul>
 		</li>
-		<li class="elem_menu"><a href="#">Acceso</a></li>
+		<li class="elem_menu"><a href="login.php">Acceso</a></li>
 		<li class="elem_menu"><a href="#">Contacto</a></li>
 		<li class="parent elem_menu">Idioma
 			<ul class="contenido-desplegable">
@@ -51,10 +68,60 @@
 
 	<!-- Panel central con el contenido principal -->
 	<div id="principal">
-		<form method="POST" action="./editor.php">
-			<textarea name="editor"></textarea>
-		</form>
-		<script src="js/editor.js"></script>
+		<?php
+			/* No hay llamada a session_start() porque ya se ha hecho más arriba (en #detalles_usuario) */
+/*			if (empty($_SESSION["CSRFToken"]))
+			{
+				$token = bin2hex (random_bytes(32));
+				$_SESSION["CSRFToken"] = $token;
+				$_SESSION["registrado"] = False;
+			}
+			$token = $_SESSION["CSRFToken"];
+
+			$formulario = "<form id=\"login\" action=\"login.php\" method=\"post\" accept-charset=\"UTF-8\">
+				<fieldset>
+					<legend>Login</legend>
+					<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
+					<p>
+						<label for=\"username\">Nombre de usuario:</label>
+						<input type=\"text\" name=\"usuario\" id=\"username\"  maxlength=\"35\" />
+					</p>
+					<p>
+						<label for=\"email\">Email:</label>
+						<input type=\"text\" name=\"email\" id=\"email\"  maxlength=\"100\" />
+					</p>
+					<p>
+						<label for=\"password\" >Contraseña:</label>
+						<input type=\"password\" name=\"pass\" id=\"password\" maxlength=\"250\" />
+					</p>
+
+					<input type=\"submit\" name=\"Submit\" value=\"Submit\" />
+				</fieldset>
+			</form>";
+
+			if (empty ($_SESSION["registrado"]) || $_SESSION["registrado"] == False)
+			{
+				if (hash_equals($_SESSION["CSRFToken"], $_POST["CSRFToken"]))
+				{
+					$_SESSION ["usuario"] = $_POST ["usuario"];
+					$_SESSION ["email"] = $_POST ["email"];
+					$_SESSION ["registrado"] = True;
+				}
+				else
+				{
+*/					/* Quizá habría que registrar el intento fallido en un log... */
+/*					echo "Intento de acceso no autorizado";
+				}
+			}
+			else
+			{
+				echo $formulario;
+			}*/
+session_unset ();
+echo "Desconexión realizada con éxito";
+//echo "<br />Sesión: "; var_dump ($_SESSION);
+//echo "<br />Post: "; var_dump ($_POST);
+		?>
 	</div>
 
 	<!-- Panel izquierdo con las secciones -->

@@ -8,8 +8,6 @@
  */
 #detalles_usuario {
 	position: relative;
-/*	display: inline-block;*/
-	display: none;
 	padding: 3px;
 }
 
@@ -107,6 +105,25 @@ un elemento del cual se despliegan otros) */
 	margin-left: 15px;
 }
 
+#login {
+	display: inline-block;
+}
+#login fieldset {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 30px 5px;
+	margin: 5px;
+}
+#login p {
+	display: table-row;
+}
+#login p label {
+	display: table-cell;
+}
+#login p input {
+	width: 100%;
+	display: table-cell;
+}
 /**
  * Panel con las secciones
  */

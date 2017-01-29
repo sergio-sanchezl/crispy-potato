@@ -1,8 +1,8 @@
 /* Opciones para el editor de texto empotrado */
-CKEDITOR.plugins.addExternal ('markdown', '/home/foo-manroot/Documents/web/crispy-potato/ckeditor/plugins/markdown/', 'plugin.js');
+CKEDITOR.plugins.addExternal ('markdown', '/crispy-potato/ckeditor/plugins/markdown/', 'plugin.js');
 
 CKEDITOR.replace('editor', {
-	skin: 'moono-dark,/home/foo-manroot/Documents/web/crispy-potato/ckeditor/skins/moono-dark/',
+	skin: 'moono-dark,/crispy-potato/ckeditor/skins/moono-dark/',
 	language: 'es',
 	height: '50%',
 	toolbarGroups: [

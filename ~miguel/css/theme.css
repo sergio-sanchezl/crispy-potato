@@ -4,6 +4,9 @@
 	color: #e0e0e0;
 }
 
+#titulo a {
+	text-decoration: none;
+}
 /**
  * Panel con los detalles del usuario actual 
  */
@@ -120,6 +123,14 @@
 }
 #principal > p {
 	text-indent: 50px;
+}
+
+#login fieldset {
+	text-align: center;
+}
+#login input,
+#login fieldset {
+	border: 1px solid #5f5f5f;
 }
 /**
  * Panel con el contenido principal

@@ -10,7 +10,6 @@
 	right: 3%;
 	top: 30px;
 	padding: 3px;
-	display: none;
 }
 
 /**
@@ -78,6 +77,26 @@
         margin-right: 5%;
 }
 
+#login {
+	display: inline-block;
+}
+#login fieldset {
+	display: table;
+	border-collapse: separate;
+	border-spacing: 30px 5px;
+	margin: 5px;
+}
+#login p {
+	display: table-row;
+}
+#login p label {
+	width: 50%;
+	display: table-cell;
+}
+#login p input {
+	width: 100%;
+	display: table-cell;
+}
 /**
  * Secciones (panel izquierdo)
  */

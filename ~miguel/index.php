@@ -26,8 +26,25 @@
 <body>
 	<!-- Panel superior con el título y la descripción -->
 	<div id="titulo">
-		<h1>Título</h1>
+		<h1><a href="index.php">Título</a></h1>
 	</div>
+
+	<!-- Panel con los detalles del usuario actual -->
+	<?php
+		session_start ();
+
+		$estilo = "display:none";
+		$contenido = "";
+
+		if (!empty ($_SESSION["usuario"]))
+		{
+			$estilo = "display:inline-block";
+			$contenido = $_SESSION ["usuario"] . "<br/>";
+		}
+
+		$contenido .= "<a href=\"logout.php\">Salir</a>";
+	?>
+	<div id="detalles_usuario" style=<?php echo $estilo; ?>><?php echo $contenido; ?></div>
 
 	<!-- Flecha de navegación -->
 	<div id="flecha_nav"></div>
@@ -40,7 +57,7 @@
 			<ul class="contenido-desplegable">
 			</ul>
 		</li>
-		<li class="elem_menu"><a href="#">Acceso</a></li>
+		<li class="elem_menu"><a href="login.php">Acceso</a></li>
 		<li class="elem_menu"><a href="#">Contacto</a></li>
 		<li class="parent elem_menu">Idioma
 			<ul class="contenido-desplegable">
@@ -59,8 +76,8 @@
 
 		function obtener_art ($id_art)
 		{
-			$bd = "crispy_potato";
-			$host = "localhost";
+			$bd = "";
+			$host = "";
 			$usuario = "";
 			$contr = "";
 
