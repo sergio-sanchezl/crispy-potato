@@ -1,8 +1,8 @@
 -- Usuarios
-INSERT INTO usuarios VALUES ('admin@mail.me', 'Admin', '$1$5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8');
-INSERT INTO usuarios VALUES ('user@mail.mail', 'Usuario 1', '$2$f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b');
-INSERT INTO usuarios VALUES ('pepito@grillo.es', 'Pepito Grillo', '$3$f6f2ea8f45d8a057c9566a33f99474da2e5c6a6604d736121650e2730c6fb0a3');
-INSERT INTO usuarios VALUES ('maría.garcía@hotmail.com', 'María García', '$4$edf9cf90718610ee7de53c0dcc250739239044de9ba115bb0ca6026c3e4958a5');
+INSERT INTO usuarios VALUES ('admin@mail.me', 'Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i');
+INSERT INTO usuarios VALUES ('user@mail.mail', 'Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG');
+INSERT INTO usuarios VALUES ('pepito@grillo.es', 'Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2');
+INSERT INTO usuarios VALUES ('maría.garcía@hotmail.com', 'María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O');
 
 -- Artículos
 INSERT INTO articulos VALUES (1, 'Título', '<!-- Kantlipsum -->
