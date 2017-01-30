@@ -31,7 +31,10 @@
 
 	<!-- Panel con los detalles del usuario actual -->
 	<?php
-		session_start ();
+		/* Si es necesario, comienza la sesión */
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 
 		$estilo = "display:none";
 		$detalle_usuario = "";
