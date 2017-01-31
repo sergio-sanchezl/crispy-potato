@@ -49,11 +49,11 @@
 			{
 				if (!$existe)
 				{
-//					$_SESSION ["usuario"] = $tupla ["nombre"];
-//					$_SESSION ["email"] = $_POST ["email"];
-//					$_SESSION ["registrado"] = True;
+					$resultado = insertar_cuenta ($_POST ["nombre"], $_POST ["pass"]);
 
-					$GLOBAL ["contenido_principal"] = "aún no implementado...";
+					$GLOBAL ["contenido_principal"] = ($resultado)?
+						"Cuenta creada con éxito.<br/><a tyle=\"text-decoration:none\" ref=\"login.php\">Intente acceder a su cuenta</a>"
+						: "Error al crear la cuenta";
 				}
 				else
 				{

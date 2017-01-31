@@ -26,6 +26,7 @@
 
 		if (!$conn)
 		{
+			pg_close ();
 			return "Error al conectarse a la base de datos.";
 		}
 
@@ -75,6 +76,7 @@
 
 		if (!$conn)
 		{
+			pg_close ();
 			return null;
 		}
 
@@ -90,5 +92,50 @@
 
 		pg_close ($conn);
 		return $tupla;
+	}
+
+	/**
+	 * Añade un nuevo usuario a la base de datos.
+	 *
+	 * @param nombre
+	 *		Nombre de la cuenta. Clave primaria (debe ser único).
+	 *
+	 * @param pass
+	 *		Contraseña para la cuenta. Se debe proporcionar en
+	 *	 texto plano para ser tratada (hasheada) en esta función.
+	 *
+	 *
+	 * @return
+	 *		True si la tupla se añadió correctamente, o False
+	 *	si hubo algún problema.
+	 */
+	function insertar_cuenta ($nombre, $pass)
+	{
+		$bd = "";
+		$host = "";
+		$usuario = "";
+		$contr = "";
+
+		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+
+		if (!$conn)
+		{
+			pg_close ();
+			return False;
+		}
+
+		/* Intenta insertar los datos */
+		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT));
+		$resultado = pg_insert ($conn, "usuarios", $datos);
+
+		/* Si se ha encontrado, se carga el texto */
+		if (!$resultado)
+		{
+			pg_close ();
+			return False;
+		}
+
+		pg_close ($conn);
+		return True;
 	}
 ?>
