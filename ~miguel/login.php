@@ -18,8 +18,8 @@
 			<legend>Login</legend>
 			<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
 			<p>
-				<label for=\"email\">Email:</label>
-				<input type=\"text\" name=\"email\" id=\"email\"  maxlength=\"100\" />
+				<label for=\"usuario\">Nombre:</label>
+				<input type=\"text\" name=\"usuario\" id=\"usuario\"  maxlength=\"35\" />
 			</p>
 			<p>
 				<label for=\"password\" >Contraseña:</label>
@@ -43,7 +43,7 @@
 		{
 			/* Se preparan todos los datos para intentar mitigar un ataque
 			por tiempo (timing attack) */
-			$tupla = obtener_cuenta ($_POST ["email"]);
+			$tupla = obtener_cuenta ($_POST ["usuario"]);
 			$auth = ($tupla === null)? False : password_verify ($_POST ["pass"], $tupla ["pass"]);
 
 			/* Comprueba el token para evitar CSRF */
@@ -52,14 +52,13 @@
 				if ($auth)
 				{
 					$_SESSION ["usuario"] = $tupla ["nombre"];
-					$_SESSION ["email"] = $_POST ["email"];
 					$_SESSION ["registrado"] = True;
 
 					$GLOBAL ["contenido_principal"] = "Acceso autorizado correctamente";
 				}
 				else
 				{
-					$GLOBAL ["contenido_principal"] = "Email o contraseña incorrectos <br/>" . $formulario;
+					$GLOBAL ["contenido_principal"] = "Nombre de usuario o contraseña incorrectos <br/>" . $formulario;
 				}
 			}
 			else
@@ -71,8 +70,7 @@
 		else
 		{
 			$GLOBAL ["contenido_principal"] = "Datos del usuario actual:
-				<br/>Nombre: {$_SESSION ['usuario']}
-				<br/>Email: {$_SESSION ['email']}";
+				<br/>Nombre: {$_SESSION ['usuario']}";
 		}
 	}
 

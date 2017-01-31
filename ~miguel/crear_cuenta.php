@@ -18,16 +18,12 @@
 			<legend>Nueva cuenta</legend>
 			<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
 			<p>
-				<label for=\"usuario\">Nombre de usuario:</label>
-				<input type=\"text\" name=\"usuario\" id=\"usuario\" maxlength=\"40\" />
-			</p>
-			<p>
-				<label for=\"email\">Email:</label>
-				<input type=\"text\" name=\"email\" id=\"email\" maxlength=\"100\" />
+				<label for=\"nombre\">Nombre de usuario:</label>
+				<input type=\"text\" name=\"nombre\" maxlength=\"40\" />
 			</p>
 			<p>
 				<label for=\"password\" >Contraseña:</label>
-				<input type=\"password\" name=\"pass\" id=\"password\" maxlength=\"72\" />
+				<input type=\"password\" name=\"pass\" maxlength=\"72\" />
 			</p>
 
 			<input style=\"margin:5px\" type=\"submit\" name=\"submit\" value=\"Crear cuenta\" />
@@ -45,7 +41,7 @@
 		if (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False)
 		{
 			/* Verifica que la cuenta no exista ya */
-			$tupla = obtener_cuenta ($_POST ["email"]);
+			$tupla = obtener_cuenta ($_POST ["nombre"]);
 			$existe = !($tupla === null);
 
 			/* Comprueba el token para evitar CSRF */
@@ -74,7 +70,6 @@
 		{
 			$GLOBAL ["contenido_principal"] = "Datos del usuario actual:
 				<br/>Nombre: {$_SESSION ['usuario']}
-				<br/>Email: {$_SESSION ['email']}
 				<br/>
 				<a style=\"text-decoration: none;
 						border:1px solid #5f5f5f;

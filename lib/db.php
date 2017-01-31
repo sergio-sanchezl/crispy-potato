@@ -55,15 +55,15 @@
 	/**
 	 * Obtiene la cuenta del usuario especificado.
 	 *
-	 * @param usuario
-	 *		Correo del usuario cuya contraseña se desea obtener.
+	 * @param nombre
+	 *		Nombre del usuario cuya contraseña se desea obtener.
 	 *
 	 * @return
 	 *		Array con los campos de la tupla resultado (si
-	 *	existe) de la tabla 'usuarios': ['email', 'nombre', 'pass'];
+	 *	existe) de la tabla 'usuarios': ['nombre', 'pass'];
 	 *	o null si ha habido algún problema.
 	 */
-	function obtener_cuenta ($email)
+	function obtener_cuenta ($nombre)
 	{
 		$bd = "";
 		$host = "";
@@ -79,8 +79,8 @@
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_pass", "SELECT * FROM usuarios WHERE email = $1");
-		$consulta = pg_execute ($conn, "ver_pass", array ($email));
+		$consulta = pg_prepare ($conn, "ver_pass", "SELECT * FROM usuarios WHERE nombre = $1");
+		$consulta = pg_execute ($conn, "ver_pass", array ($nombre));
 
 		/* Si se ha encontrado, se carga el texto */
 		if ($consulta && pg_num_rows ($consulta) == 1)
