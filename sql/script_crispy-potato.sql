@@ -76,10 +76,9 @@ Create table Recursos
 
 Create table Usuarios
 (
-	email Varchar NOT NULL UNIQUE,
-	Nombre Varchar NOT NULL Default 'Desconocido',
+	Nombre Varchar NOT NULL,
 	Pass Varchar NOT NULL,
- primary key (email)
+ primary key (Nombre)
 ) Without Oids;
 
 
@@ -96,10 +95,10 @@ Create table Archivos
 
 Create table Escribe
 (
-	email Varchar NOT NULL,
+	Nombre Varchar NOT NULL,
 	id_articulo Bigint NOT NULL,
 	fecha Date NOT NULL,
- primary key (email,id_articulo,fecha)
+ primary key (Nombre,id_articulo,fecha)
 ) Without Oids;
 
 
@@ -121,9 +120,9 @@ Alter table Recursos add  foreign key (id_articulo) references Articulos (id_art
 
 Alter table Escribe add  foreign key (id_articulo) references Articulos (id_articulo) on update restrict on delete restrict;
 
-Alter table Escribe add  foreign key (email) references Usuarios (email) on update restrict on delete restrict;
+Alter table Escribe add  foreign key (Nombre) references Usuarios (Nombre) on update restrict on delete restrict;
 
-Alter table Archivos add  foreign key (propietario) references Usuarios (email) on update restrict on delete restrict;
+Alter table Archivos add  foreign key (propietario) references Usuarios (Nombre) on update restrict on delete restrict;
 
 
 

@@ -1,8 +1,8 @@
 -- Usuarios
-INSERT INTO usuarios VALUES ('admin@mail.me', 'Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i');
-INSERT INTO usuarios VALUES ('user@mail.mail', 'Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG');
-INSERT INTO usuarios VALUES ('pepito@grillo.es', 'Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2');
-INSERT INTO usuarios VALUES ('maría.garcía@hotmail.com', 'María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O');
+INSERT INTO usuarios VALUES ('Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i');
+INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG');
+INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2');
+INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O');
 
 -- Artículos
 INSERT INTO articulos VALUES (1, 'Título', '<!-- Kantlipsum -->
@@ -114,9 +114,9 @@ INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 
 
 -- Escribe
-INSERT INTO escribe VALUES ('admin@mail.me', 1, now());
-INSERT INTO escribe VALUES ('user@mail.mail', 5471, now());
-INSERT INTO escribe VALUES ('maría.garcía@hotmail.com', -7768, now());
+INSERT INTO escribe VALUES ('Admin', 1, now());
+INSERT INTO escribe VALUES ('Usuario 1', 5471, now());
+INSERT INTO escribe VALUES ('María García', -7768, now());
 
 -- Recursos
 INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null);
@@ -129,6 +129,6 @@ sdaf8y', 'Herramientas');
 INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado');
 
 -- Archivos
-INSERT INTO archivos VALUES (1, 'admin@mail.me', 'asdf', 'Descripción', B'111010');
-INSERT INTO archivos VALUES (675, 'admin@mail.me', 'asdf', null, B'111111');
-INSERT INTO archivos VALUES (-54, 'maría.garcía@hotmail.com', '6t7vuybinasdf', 'Cosas chulas', B'111010');
+INSERT INTO archivos VALUES (1, 'Admin', 'asdf', 'Descripción', B'111010');
+INSERT INTO archivos VALUES (675, 'Admin', 'asdf', null, B'111111');
+INSERT INTO archivos VALUES (-54, 'María García', '6t7vuybinasdf', 'Cosas chulas', B'111010');
