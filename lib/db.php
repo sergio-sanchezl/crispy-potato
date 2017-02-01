@@ -1,4 +1,3 @@
-
 <?php
 	/* Biblioteca para el analizador de Markdown */
 	include "../lib/Parsedown.php";
@@ -16,10 +15,13 @@
 	 */
 	function obtener_art ($id_art)
 	{
-		$bd = "";
-		$host = "";
-		$usuario = "";
-		$contr = "";
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
 
 		$texto = "## No se ha encontrado el artículo especificado";
 		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
@@ -66,10 +68,13 @@
 	 */
 	function obtener_cuenta ($nombre)
 	{
-		$bd = "";
-		$host = "";
-		$usuario = "";
-		$contr = "";
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
 
 		$tupla = null;
 		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
@@ -111,10 +116,13 @@
 	 */
 	function insertar_cuenta ($nombre, $pass)
 	{
-		$bd = "";
-		$host = "";
-		$usuario = "";
-		$contr = "";
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
 
 		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
 
