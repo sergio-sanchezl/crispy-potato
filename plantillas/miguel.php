@@ -21,6 +21,14 @@
 	<link rel="stylesheet" media="(min-width: 640px)" href="css/layout.css">
 
 	<script src="js/script.js"></script>
+
+	<?php
+		/* Inclusiones especiales (por ejemplo, para ckeditor en editor.php */
+		if (!empty ($GLOBAL ["incluir_head"]))
+		{
+			echo "{$GLOBAL ['incluir_head']}";
+		}
+	?>
 </head>
 
 <body>
@@ -39,6 +47,7 @@
 		$estilo = "display:none";
 		$detalle_usuario = "";
 
+		/* Obtiene los detalles del usuario que esté actualmente registrado */
 		if (!empty ($_SESSION["usuario"]))
 		{
 			$estilo = "display:inline-block";
@@ -58,6 +67,18 @@
 		<li class="elem_menu"><a href="#">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
+			<?php
+				/* Si se ha registrado, se muestran herramientas adicionales */
+				if (session_status() == PHP_SESSION_NONE) {
+					session_start();
+				}
+
+				if (!empty ($_SESSION ["usuario"]))
+				{
+					echo "<li><a href=\"editor.php\">Editor de artículos</a></li>
+						<li><a href=\"subir_archivos.php\">Subir archivos</a></li>";
+				}
+			?>
 			</ul>
 		</li>
 		<li class="elem_menu"><a href="login.php">Acceso</a></li>
@@ -92,6 +113,18 @@
 			<li class="elem_secc"><a class="enlace_secc" href="#">Proyectos</a></li>
 			<li class="elem_secc"><a class="enlace_secc" href="#">CTF's</a></li>
 			<li class="elem_secc"><a class="enlace_secc" href="#">Enlaces de interés</a></li>
+			<?php
+				/* Si se ha registrado, se muestran secciones adicionales */
+				if (session_status() == PHP_SESSION_NONE) {
+					session_start();
+				}
+
+				if (!empty ($_SESSION ["usuario"]))
+				{
+					echo "<li class=\"elem_secc\"><a class=\"enlace_secc\" href=\"editor.php\">Editor de artículos</a></li>
+						<li class=\"elem_secc\"><a class=\"enlace_secc\" href=\"subir_archivos.php\">Subir archivos</a></li>";
+				}
+			?>
 		</ul>
 	</div>
 
