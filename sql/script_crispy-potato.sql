@@ -1,6 +1,6 @@
 /*
 Created		26/01/2017
-Modified		26/01/2017
+Modified		02/02/2017
 Project		
 Model			
 Company		
@@ -38,11 +38,12 @@ Database		PostgreSQL 8.1
 
 
 /* Drop Tables */
-Drop table IF EXISTS Escribe Cascade;
-Drop table IF EXISTS Archivos Cascade;
-Drop table IF EXISTS Usuarios Cascade;
-Drop table IF EXISTS Recursos Cascade;
-Drop table IF EXISTS Articulos Cascade;
+Drop table if exists Grupos Restrict;
+Drop table if exists Escribe Restrict;
+Drop table if exists Archivos Restrict;
+Drop table if exists Usuarios Restrict;
+Drop table if exists Recursos Restrict;
+Drop table if exists Articulos Restrict;
 
 
 
@@ -56,49 +57,61 @@ Drop table IF EXISTS Articulos Cascade;
 Create table Articulos
 (
 	id_articulo Bigint NOT NULL UNIQUE,
-	Titulo Varchar NOT NULL,
-	Texto Varchar NOT NULL,
-	Categoria Varchar,
-	Permisos Bit(6) NOT NULL Default B'111010',
+	titulo Varchar NOT NULL,
+	texto Varchar NOT NULL,
+	categoria Varchar Default 'Sin categoría',
+	permisos Bit(6) NOT NULL Default B'111010',
  primary key (id_articulo)
 ) Without Oids;
 
 
 Create table Recursos
 (
-	id_rec Bigint NOT NULL UNIQUE,
+	id_rec Bigint NOT NULL,
 	id_articulo Bigint NOT NULL,
 	datos Bytea NOT NULL,
 	tipo Varchar Default 'Desconocido',
- primary key (id_rec,id_articulo)
+	permisos Bit(6) NOT NULL Default B'111010',
+primary key (id_rec,id_articulo)
 ) Without Oids;
 
 
 Create table Usuarios
 (
-	Nombre Varchar NOT NULL,
-	Pass Varchar NOT NULL,
- primary key (Nombre)
+	nombre Varchar NOT NULL Default 'Desconocido' UNIQUE,
+	pass Varchar NOT NULL,
+	uid Integer NOT NULL,
+ primary key (nombre)
 ) Without Oids;
 
 
 Create table Archivos
 (
-	id Bigint NOT NULL UNIQUE,
-	propietario Varchar NOT NULL,
-	Datos Bytea NOT NULL,
-	Descr Varchar Default 'Sin descripción',
-	Permisos Bit(6) NOT NULL Default B'111010',
- primary key (id)
+	id Bigint NOT NULL,
+	propietario Varchar NOT NULL Default 'Desconocido',
+	datos Bytea NOT NULL,
+	descr Varchar Default 'Sin descripción',
+	nombre Varchar Default 'Sin nombre',
+	permisos Bit(6) NOT NULL Default B'111010',
+ primary key (id,propietario)
 ) Without Oids;
 
 
 Create table Escribe
 (
-	Nombre Varchar NOT NULL,
 	id_articulo Bigint NOT NULL,
 	fecha Date NOT NULL,
- primary key (Nombre,id_articulo,fecha)
+	autor Varchar NOT NULL Default 'Desconocido',
+ primary key (id_articulo,fecha,autor)
+) Without Oids;
+
+
+Create table Grupos
+(
+	usuario Varchar NOT NULL,
+	grupo Varchar NOT NULL,
+	gid Integer,
+ primary key (usuario, grupo)
 ) Without Oids;
 
 
@@ -120,9 +133,11 @@ Alter table Recursos add  foreign key (id_articulo) references Articulos (id_art
 
 Alter table Escribe add  foreign key (id_articulo) references Articulos (id_articulo) on update restrict on delete restrict;
 
-Alter table Escribe add  foreign key (Nombre) references Usuarios (Nombre) on update restrict on delete restrict;
+Alter table Escribe add  foreign key (autor) references Usuarios (nombre) on update restrict on delete restrict;
 
-Alter table Archivos add  foreign key (propietario) references Usuarios (Nombre) on update restrict on delete restrict;
+Alter table Archivos add  foreign key (propietario) references Usuarios (nombre) on update restrict on delete restrict;
+
+Alter table Grupos add  foreign key (usuario) references Usuarios (nombre) on update restrict on delete restrict;
 
 
 

@@ -89,7 +89,7 @@
 		$consulta = pg_prepare ($conn, "ver_pass", "SELECT * FROM usuarios WHERE nombre = $1");
 		$consulta = pg_execute ($conn, "ver_pass", array ($nombre));
 
-		/* Si se ha encontrado, se carga el texto */
+		/* Si se ha encontrado, se carga el nombre de usuario */
 		if ($consulta && pg_num_rows ($consulta) == 1)
 		{
 			$tupla = pg_fetch_array ($consulta);
@@ -132,11 +132,24 @@
 			return False;
 		}
 
+		/* Genera un id de usuario aleatorio */
+		$id = rand ();
+
+		$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
+		pg_execute ($conn, "ver_uid", array ($id));
+
+		while (pg_num_rows () > 0)
+		{
+			$id++;
+
+			$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
+			pg_execute ($conn, "ver_uid", array ($id));	
+		}
+
 		/* Intenta insertar los datos */
-		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT));
+		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT), "uid" => $id);
 		$resultado = pg_insert ($conn, "usuarios", $datos);
 
-		/* Si se ha encontrado, se carga el texto */
 		if (!$resultado)
 		{
 			pg_close ();
@@ -146,4 +159,68 @@
 		pg_close ($conn);
 		return True;
 	}
+
+	/**
+	 * Añade un archivo a la tabla "archivos" de la base de datos.
+	 *
+	 * @param usuario
+	 *		Nombre del usuario propietario.
+	 *
+	 * @param datos
+	 *		Datos del archivo.
+	 *
+	 * @param descr
+	 *		Descripción del archivo (nombre, contenido...).
+	 *
+	 * @param permisos
+	 *		Byte con los permisos de lectura y escritura. El formato
+	 *	es el siguiente (empezando por el bit de mayor peso):
+	 *		-> Permiso lectura usuario (UID)
+	 *		-> Permiso escritura usuario (UID)
+	 *
+	 *		-> Permiso lectura grupo (GID)
+	 *		-> Permiso escritura usuario (GID)
+	 *
+	 *		-> Permiso lectura rest de usuarios
+	 *		-> Permiso escritura resto de usuarios
+	 *
+	 *	De modo gráfico: rw rw rw
+	 *			 ^   ^  ^
+	 *			 |   |  |
+	 *			uid gid resto
+	 *
+	 * @return True si se han insertado los datos correctamente; o False si no.
+	 */
+	function insertar_archivo ($usuario, $datos, $descr, $permisos)
+	{
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
+
+		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+
+		if (!$conn)
+		{
+			pg_close ();
+			return False;
+		}
+
+		/* Intenta insertar los datos */
+//		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT));
+//		$resultado = pg_insert ($conn, "usuarios", $datos);
+
+//		if (!$resultado)
+//		{
+//			pg_close ();
+//			return False;
+//		}
+
+		pg_close ($conn);
+		return True;
+	}
+
 ?>

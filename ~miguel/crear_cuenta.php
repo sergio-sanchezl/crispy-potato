@@ -49,15 +49,27 @@
 			{
 				if (!$existe)
 				{
-					$resultado = insertar_cuenta ($_POST ["nombre"], $_POST ["pass"]);
+					if (!empty ($_POST ["nombre"]) && !empty ($_POST [""]))
+					{
+						$resultado = insertar_cuenta ($_POST ["nombre"], $_POST ["pass"]);
 
-					$GLOBAL ["contenido_principal"] = ($resultado)?
-						"Cuenta creada con éxito.<br/><a tyle=\"text-decoration:none\" ref=\"login.php\">Intente acceder a su cuenta</a>"
-						: "Error al crear la cuenta";
+						$GLOBAL ["contenido_principal"] = ($resultado)?
+							"Cuenta creada con éxito.<br/>
+								<a tyle=\"text-decoration:none\" ref=\"login.php\">
+								Intente acceder a su cuenta
+								</a>"
+							: "Error al crear la cuenta";
+					}
+					else
+					{
+						$GLOBAL ["contenido_principal"] = "Ni el nombre de usuario ni
+										 la contraseña deben estar en
+										 blanco <br/>" . $formulario;
+					}
 				}
 				else
 				{
-					$GLOBAL ["contenido_principal"] = "Ya existe una cuenta con ese email <br/>" . $formulario;
+					$GLOBAL ["contenido_principal"] = "Ya existe una cuenta con ese nombre <br/>" . $formulario;
 				}
 			}
 			else

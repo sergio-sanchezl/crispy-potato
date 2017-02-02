@@ -1,8 +1,8 @@
 -- Usuarios
-INSERT INTO usuarios VALUES ('Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i');
-INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG');
-INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2');
-INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O');
+INSERT INTO usuarios VALUES ('Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i', 1);
+INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG', 2);
+INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2', 3);
+INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O', 4);
 
 -- Artículos
 INSERT INTO articulos VALUES (1, 'Título', '<!-- Kantlipsum -->
@@ -114,21 +114,27 @@ INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 
 
 -- Escribe
-INSERT INTO escribe VALUES ('Admin', 1, now());
-INSERT INTO escribe VALUES ('Usuario 1', 5471, now());
-INSERT INTO escribe VALUES ('María García', -7768, now());
+INSERT INTO escribe VALUES (1, now(), 'Admin');
+INSERT INTO escribe VALUES (5471, now(), 'Admin');
+INSERT INTO escribe VALUES (-7768, now(), 'María García');
 
 -- Recursos
-INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null);
-INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo');
+INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null, B'111010');
+INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo', B'111111');
 INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas');
-INSERT INTO recursos VALUES (2, -7768, '768 yuiasdbi67ntugaydf7i6tuyasgdf iuolujasohd98o
+INSERT INTO recursos VALUES (1, -7768, '768 yuiasdbi67ntugaydf7i6tuyasgdf iuolujasohd98o
 t67 bas df
 asdf u8iasdf
-sdaf8y', 'Herramientas');
+sdaf8y', 'Herramientas', B'111000');
 INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado');
 
 -- Archivos
-INSERT INTO archivos VALUES (1, 'Admin', 'asdf', 'Descripción', B'111010');
-INSERT INTO archivos VALUES (675, 'Admin', 'asdf', null, B'111111');
-INSERT INTO archivos VALUES (-54, 'María García', '6t7vuybinasdf', 'Cosas chulas', B'111010');
+INSERT INTO archivos VALUES (1, 'Admin', 'asdf', 'Descripción', null, B'111010');
+INSERT INTO archivos VALUES (-675, 'Admin', 'asdf', null, 'Nombre', B'111111');
+INSERT INTO archivos VALUES (1, 'María García', '6t7vuybinasdf', 'Cosas chulas', 'Pepito Grillo', B'111010');
+
+-- Grupos
+INSERT INTO grupos VALUES ('Admin', 'Admin', 1);
+INSERT INTO grupos VALUES ('María García', 'Articulistas', 2);
+INSERT INTO grupos VALUES ('María García', 'Lurkers', 3);
+INSERT INTO grupos VALUES ('Pepito Grillo', 'Lurkers', 3);
