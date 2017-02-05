@@ -64,7 +64,7 @@
 	<!-- Panel superior con el menú -->
 	<div class="boton_menu"></div>
 	<ul class="menu">
-		<li class="elem_menu"><a href="#">Directorio</a></li>
+		<li class="elem_menu"><a href="directorio.php">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
 			<?php
