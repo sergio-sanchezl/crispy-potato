@@ -25,8 +25,8 @@ CKEDITOR.replace('editor', {
 	],
 	removeButtons: 'PasteFromWord,Preview,Source,PasteText,HiddenField,ImageButton,Button,Textarea,TextField,Radio,Checkbox,Form,Select,CopyFormatting,CreateDiv,ShowBlocks,Flash,Iframe',
 	extraPlugins: 'markdown,filebrowser',
-	filebrowserBrowseUrl: 'files/browse.php',
-	filebrowserUploadUrl: 'files/upload.php'
+	filebrowserBrowseUrl: 'browse.php',
+	filebrowserUploadUrl: 'subir_recurso.php'
 });
 
 
