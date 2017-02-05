@@ -136,14 +136,12 @@
 		$id = rand ();
 
 		$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
-		pg_execute ($conn, "ver_uid", array ($id));
 
-		while (pg_num_rows () > 0)
+		while (pg_num_rows (pg_execute ($conn, "ver_uid", array ($id)) > 0))
 		{
 			$id++;
 
 			$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
-			pg_execute ($conn, "ver_uid", array ($id));	
 		}
 
 		/* Intenta insertar los datos */
@@ -163,14 +161,17 @@
 	/**
 	 * Añade un archivo a la tabla "archivos" de la base de datos.
 	 *
-	 * @param usuario
+	 * @param propietario
 	 *		Nombre del usuario propietario.
 	 *
-	 * @param datos
+	 * @param datos_archivo
 	 *		Datos del archivo.
 	 *
 	 * @param descr
-	 *		Descripción del archivo (nombre, contenido...).
+	 *		Descripción del archivo (detalles, contenido...).
+	 *
+	 * @param nombre
+	 *		Nombre para ayudar a identificar el archivo.
 	 *
 	 * @param permisos
 	 *		Byte con los permisos de lectura y escritura. El formato
@@ -189,9 +190,10 @@
 	 *			 |   |  |
 	 *			uid gid resto
 	 *
-	 * @return True si se han insertado los datos correctamente; o False si no.
+	 * @return
+	 *		True si se han insertado los datos correctamente; o False si no.
 	 */
-	function insertar_archivo ($usuario, $datos, $descr, $permisos)
+	function insertar_archivo ($propietario, $datos_archivo, $descr, $nombre, $permisos)
 	{
 		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
 		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
@@ -209,18 +211,80 @@
 			return False;
 		}
 
-		/* Intenta insertar los datos */
-//		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT));
-//		$resultado = pg_insert ($conn, "usuarios", $datos);
+		/* Genera un id aleatorio que no esté ya en la base de datos */
+		$id = rand ();
 
-//		if (!$resultado)
-//		{
-//			pg_close ();
-//			return False;
-//		}
+		do 
+		{
+			$id = rand ();
+			$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM archivos WHERE id = $1 AND propietario = $2");
+		}
+		while (pg_num_rows (pg_execute ($conn, "ver_arch", array ($id, $usuario))) > 0);
+
+		/* Intenta insertar los datos */
+		$datos_tupla = array ("id" => $id,
+					"propietario" => $propietario,
+					"datos" => $datos_archivo,
+					"descr" => $descr,
+					"nombre" => $nombre,
+					"permisos" => $permisos);
+
+		$consulta = pg_prepare ($conn, "insertar_arch", "INSERT INTO archivos VALUES ($1, $2, $3, $4, $5, $6::bit(6))");
+		$resultado = pg_execute ($conn, "insertar_arch", $datos_tupla);
+
+		if (!$resultado)
+		{
+			pg_close ();
+			return False;
+		}
 
 		pg_close ($conn);
 		return True;
+	}
+
+	/**
+	 * Obtiene un archivo de la base de datos
+	 *
+	 * @param id
+	 *		ID del archivo.
+	 *
+	 * @param usuario
+	 *		Usuario propietario del archivo.
+	 *
+	 *
+	 * @return
+	 *		La tupla con los datos; o null si no se encontró.
+	 */
+	function obtener_archivo ($id, $usuario)
+	{
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
+
+		$tupla = null;
+		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+
+		if (!$conn)
+		{
+			pg_close ();
+			return "Error al conectarse a la base de datos.";
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM archivos WHERE id = $1 AND propietario = $2");
+		$consulta = pg_execute ($conn, "ver_arch", array ($id, $usuario));
+
+		if ($consulta && pg_num_rows ($consulta) == 1)
+		{
+			$tupla = pg_fetch_array ($consulta);
+		}
+
+		pg_close ($conn);
+		return $tupla;
 	}
 
 ?>
