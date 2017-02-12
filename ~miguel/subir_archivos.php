@@ -91,11 +91,6 @@
 		return $permisos;
 	}
 
-	/* Si es necesario, comienza la sesión */
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
-	}
-
 	/* Si no se ha iniciado sesión no se permite el acceso */
 	if (empty ($_SESSION ["usuario"]))
 	{
@@ -121,7 +116,6 @@
 				$permisos = ver_permisos ($_POST ["gid"], $_POST ["resto"]);
 
 				$GLOBAL ["contenido_principal"] = (insertar_archivo ($usuario, $datos, $descr, $nombre, $permisos))?
-
 						"Archivo subido con éxito"
 						: "Error al subir el archivo";
 			}

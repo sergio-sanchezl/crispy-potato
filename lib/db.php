@@ -3,6 +3,25 @@
 	include "../lib/Parsedown.php";
 
 	/**
+	 * Conecta con la base de datos y devuelve el enlace.
+	 *
+	 * @return
+	 *		La conexión con postgres
+	 */
+	function conectar ()
+	{
+		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
+		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+
+		$bd = $datos ["bd"];
+		$host = $datos ["host"];
+		$usuario = $datos ["usuario"];
+		$contr = $datos ["contr"];
+
+		return pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+	}
+
+	/**
 	 * Obtiene el artículo con el id especificado.
 	 *
 	 * @param id_art
@@ -15,20 +34,11 @@
 	 */
 	function obtener_art ($id_art)
 	{
-		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
-
-		$bd = $datos ["bd"];
-		$host = $datos ["host"];
-		$usuario = $datos ["usuario"];
-		$contr = $datos ["contr"];
-
 		$texto = "## No se ha encontrado el artículo especificado";
-		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			pg_close ();
 			return "Error al conectarse a la base de datos.";
 		}
 
@@ -68,20 +78,11 @@
 	 */
 	function obtener_cuenta ($nombre)
 	{
-		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
-
-		$bd = $datos ["bd"];
-		$host = $datos ["host"];
-		$usuario = $datos ["usuario"];
-		$contr = $datos ["contr"];
-
 		$tupla = null;
-		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			pg_close ();
 			return null;
 		}
 
@@ -116,19 +117,10 @@
 	 */
 	function insertar_cuenta ($nombre, $pass)
 	{
-		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
-
-		$bd = $datos ["bd"];
-		$host = $datos ["host"];
-		$usuario = $datos ["usuario"];
-		$contr = $datos ["contr"];
-
-		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			pg_close ();
 			return False;
 		}
 
@@ -195,19 +187,10 @@
 	 */
 	function insertar_archivo ($propietario, $datos_archivo, $descr, $nombre, $permisos)
 	{
-		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
-
-		$bd = $datos ["bd"];
-		$host = $datos ["host"];
-		$usuario = $datos ["usuario"];
-		$contr = $datos ["contr"];
-
-		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			pg_close ();
 			return False;
 		}
 
@@ -257,20 +240,11 @@
 	 */
 	function obtener_archivo ($id, $usuario)
 	{
-		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
-
-		$bd = $datos ["bd"];
-		$host = $datos ["host"];
-		$usuario = $datos ["usuario"];
-		$contr = $datos ["contr"];
-
 		$tupla = null;
-		$conn = pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			pg_close ();
 			return "Error al conectarse a la base de datos.";
 		}
 
@@ -285,6 +259,70 @@
 
 		pg_close ($conn);
 		return $tupla;
+	}
+
+
+	/**
+	 * Obtiene todos los archivos del usuario especificado
+	 *
+	 * @param usuario
+	 *		Nombre del usuario cuyos archivos quieren ser recuperados.
+	 *
+	 *
+	 * @return
+	 *		Las tuplas con los datos; o null si no se encontró.
+	 */
+	function ver_archivos ($usuario)
+	{
+		$conn = conectar ();
+		$salida = null;
+
+		if (!$conn)
+		{
+			return "Error al conectarse a la base de datos.";
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$consulta = pg_prepare ($conn, "ver_archivos", "SELECT * FROM archivos WHERE propietario = $1");
+		$consulta = pg_execute ($conn, "ver_archivos", array ($usuario));
+
+		if ($consulta)
+		{
+			$salida = $consulta;
+		}
+
+		pg_close ($conn);
+		return $salida;
+	}
+
+	/**
+	 * Obtiene todos los archivos públicos (con permisos xxxx1x)
+	 *
+	 *
+	 * @return
+	 *		Las tuplas con los datos; o null si no se encontró.
+	 */
+	function ver_archivos_pub ()
+	{
+		$conn = conectar ();
+		$salida = null;
+
+		if (!$conn)
+		{
+			return "Error al conectarse a la base de datos.";
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$consulta = pg_prepare ($conn, "ver_archivos_pub", "SELECT * FROM archivos WHERE permisos::text ~ '[01]{4}1[01]'");
+		$consulta = pg_execute ($conn, "ver_archivos_pub", array());
+
+		if ($consulta)
+		{
+			$salida = $consulta;
+		}
+
+		pg_close ($conn);
+		return $salida;
 	}
 
 ?>

@@ -9,6 +9,8 @@
 #detalles_usuario {
 	position: relative;
 	padding: 3px;
+	width: 80%;
+	text-align: center;
 }
 
 /**
