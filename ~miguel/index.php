@@ -1,6 +1,6 @@
 <?php
 	/* Carga el controlador para la base de datos */
-	include "../lib/db.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/lib/db.php";
 
 	/* Si no se especifica un id válido, pone la página por defecto */
 	$id = -7768;
@@ -15,5 +15,5 @@
 	$GLOBAL ["contenido_principal"] = obtener_art ($id);
 
 	/* Carga la plantilla */
-	include "../plantillas/miguel.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 ?>

@@ -2,10 +2,11 @@
 	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
 			<textarea name=\"editor\"></textarea>
 		</form>
-		<script src=\"js/editor.js\"></script>";
+		<script src=\"/~miguel/js/editor.js\"></script>";
 
 	/* Si es necesario, comienza la sesión */
-	if (session_status() == PHP_SESSION_NONE) {
+	if (session_status() == PHP_SESSION_NONE)
+	{
 		session_start();
 	}
 
@@ -13,7 +14,7 @@
 	if (empty ($_SESSION ["usuario"]))
 	{
 		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay que registrarse.
-							<br/><a href=\"login.php\">Pulse aquí</a> para acceder.";
+							<br/><a href=\"/~miguel/cuentas/login.php\">Pulse aquí</a> para acceder.";
 	}
 	else
 	{
@@ -29,5 +30,5 @@
 		}
 	}
 
-	include '../plantillas/miguel.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
 ?>

@@ -1,8 +1,9 @@
 <?php
-	include '../lib/db.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
 
 	/* Comienza la sesión, si es necesario */
-	if (session_status() == PHP_SESSION_NONE) {
+	if (session_status() == PHP_SESSION_NONE)
+	{
 		session_start();
 	}
 
@@ -13,7 +14,7 @@
 	}
 	$token = $_SESSION ["CSRFToken"];
 
-	$formulario = "<form id=\"login\" action=\"login.php\" method=\"post\" accept-charset=\"UTF-8\">
+	$formulario = "<form id=\"login\" action=\"/~miguel/cuentas/login.php\" method=\"post\" accept-charset=\"UTF-8\">
 		<fieldset>
 			<legend>Login</legend>
 			<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
@@ -28,7 +29,7 @@
 
 			<input style=\"margin:5px\" type=\"submit\" name=\"submit\" value=\"Aceptar\" />
 			<br/>
-			<a style=\"text-decoration:none\" href=\"crear_cuenta.php\">Crear una cuenta</a>
+			<a style=\"text-decoration:none\" href=\"/~miguel/cuentas/crear_cuenta.php\">Crear una cuenta</a>
 		</fieldset>
 	</form>";
 
@@ -75,5 +76,5 @@
 	}
 
 	/* Carga la plantilla */
-	include "../plantillas/miguel.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 ?>

@@ -1,6 +1,6 @@
 <?php
 	/* Biblioteca para el analizador de Markdown */
-	include "../lib/Parsedown.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/lib/Parsedown.php";
 
 	/**
 	 * Conecta con la base de datos y devuelve el enlace.
@@ -11,7 +11,7 @@
 	function conectar ()
 	{
 		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ('datos-con_bd.json'), true);
+		$datos = json_decode (file_get_contents ($_SERVER['DOCUMENT_ROOT'] . '/~miguel/datos-con_bd.json'), true);
 
 		$bd = $datos ["bd"];
 		$host = $datos ["host"];

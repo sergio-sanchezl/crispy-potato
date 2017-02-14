@@ -1,5 +1,5 @@
 <?php
-	include '../lib/db.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
 
 	/* Carga los datos de la sesión actual (si es necesario) y luego los borra */
 	if (session_status() == PHP_SESSION_NONE) {
@@ -71,5 +71,5 @@
 	$GLOBAL ["contenido_principal"] .= $texto;
 
 	/* Carga la plantilla */
-	include "../plantillas/miguel.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 ?>

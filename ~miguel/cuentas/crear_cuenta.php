@@ -1,8 +1,9 @@
 <?php
-	include '../lib/db.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
 
 	/* Comienza la sesión, si es necesario */
-	if (session_status() == PHP_SESSION_NONE) {
+	if (session_status() == PHP_SESSION_NONE)
+	{
 		session_start();
 	}
 
@@ -13,7 +14,7 @@
 	}
 	$token = $_SESSION ["CSRFToken"];
 
-	$formulario = "<form id=\"login\" action=\"crear_cuenta.php\" method=\"post\" accept-charset=\"UTF-8\">
+	$formulario = "<form id=\"login\" action=\"/~miguel/cuentas/crear_cuenta.php\" method=\"post\" accept-charset=\"UTF-8\">
 		<fieldset>
 			<legend>Nueva cuenta</legend>
 			<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
@@ -49,13 +50,13 @@
 			{
 				if (!$existe)
 				{
-					if (!empty ($_POST ["nombre"]) && !empty ($_POST [""]))
+					if (!empty ($_POST ["nombre"]) && !empty ($_POST ["pass"]))
 					{
 						$resultado = insertar_cuenta ($_POST ["nombre"], $_POST ["pass"]);
 
 						$GLOBAL ["contenido_principal"] = ($resultado)?
 							"Cuenta creada con éxito.<br/>
-								<a tyle=\"text-decoration:none\" ref=\"login.php\">
+								<a tyle=\"text-decoration:none\" href=\"/~miguel/cuentas/login.php\">
 								Intente acceder a su cuenta
 								</a>"
 							: "Error al crear la cuenta";
@@ -87,10 +88,10 @@
 						border:1px solid #5f5f5f;
 						position: relative;
 						top: 10px;
-						padding: 5px;\" href=\"logout.php\">Salir</a>";
+						padding: 5px;\" href=\"/~miguel/cuentas/logout.php\">Salir</a>";
 		}
 	}
 
 	/* Carga la plantilla */
-	include "../plantillas/miguel.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 ?>

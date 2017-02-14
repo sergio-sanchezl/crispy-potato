@@ -1,5 +1,5 @@
 <?php
-	include '../lib/db.php';
+	include ($_SERVER['DOCUMENT_ROOT'] . '/lib/db.php');
 
 	/* Comienza la sesión, si es necesario */
 	if (session_status() == PHP_SESSION_NONE) {
@@ -14,7 +14,7 @@
 	$token = $_SESSION ["CSRFToken"];
 
 	$formulario = "
-	<form id=\"subir_arch\" action=\"subir_archivos.php\" method=\"POST\" enctype=\"multipart/form-data\">
+	<form id=\"subir_arch\" action=\"/~miguel/archivos/subir_archivos.php\" method=\"POST\" enctype=\"multipart/form-data\">
 		<fieldset>
 				<legend>Subir archivo:</legend>
 				<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
@@ -95,7 +95,7 @@
 	if (empty ($_SESSION ["usuario"]))
 	{
 		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay que registrarse.
-							<br/><a href=\"login.php\">Pulse aquí</a> para acceder.";
+							<br/><a href=\"../cuentas/login.php\">Pulse aquí</a> para acceder.";
 	}
 	else
 	{
@@ -126,5 +126,5 @@
 		}
 	}
 
-	include '../plantillas/miguel.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
 ?>

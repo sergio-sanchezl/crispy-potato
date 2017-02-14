@@ -1,5 +1,5 @@
 <?php
-	include '../lib/db.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
 
 	$mensaje = "Error al subir el archivo.";
 
