@@ -67,6 +67,7 @@
 		<li class="elem_menu"><a href="directorio.php">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
+				<li><a href="ver_archivos.php">Ver archivos</a></li>
 			<?php
 				/* Si se ha registrado, se muestran herramientas adicionales */
 				if (session_status() == PHP_SESSION_NONE) {
