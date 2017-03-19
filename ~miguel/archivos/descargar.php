@@ -43,9 +43,11 @@
 		$datos = pack ("H*", $cadena);
 		echo $datos;
 	}
+	else
+	{
+		$GLOBAL ["contenido_principal"] = "Acceso no permitido";
 
-	$GLOBAL ["contenido_principal"] = "Acceso no permitido";
-
-	/* Incluye la plantilla */
-	include $_SERVER ['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
+		/* Incluye la plantilla */
+		include $_SERVER ['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
+	}
 ?>
