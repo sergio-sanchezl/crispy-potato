@@ -40,6 +40,13 @@
 					. "'> Descargar </a>"
 					. "</li>";
 
+				$texto .= "<li style=\"list-style: none;\">"
+					. "<a href='eliminar.php?id=" . $tupla ["id"]
+					. "&usuario=" . $usuario
+					. "'> Eliminar </a>"
+					. "</li>";
+
+
 				$texto .= "</ul>
 					 <br/>
 					</li>";

@@ -331,4 +331,36 @@
 		return $salida;
 	}
 
+	/**
+	 * Elimina un archivo de la base de datos
+	 *
+	 * @param id
+	 *		ID del archivo.
+	 *
+	 * @param usuario
+	 *		Usuario propietario del archivo.
+	 *
+	 *
+	 * @return
+	 *		true si se eliminó correctamente; o false si hubo algún error.
+	 */
+	function eliminar_archivo ($id, $usuario)
+	{
+		$tupla = null;
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return "Error al conectarse a la base de datos.";
+		}
+
+		$datos = array (
+			"id" => $id,
+			"propietario" => $usuario,
+		);
+		$ret_val = pg_delete ($conn, "archivos", $datos);
+
+		pg_close ($conn);
+		return $ret_val;
+	}
 ?>
