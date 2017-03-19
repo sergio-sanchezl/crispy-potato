@@ -1,15 +1,16 @@
 <?php
-	include ($_SERVER['DOCUMENT_ROOT'] . '/lib/db.php');
+	include ($_SERVER ['DOCUMENT_ROOT'] . '/lib/db.php');
 
 	/* Comienza la sesión, si es necesario */
-	if (session_status() == PHP_SESSION_NONE) {
-		session_start();
+	if (session_status () == PHP_SESSION_NONE)
+	{
+		session_start ();
 	}
 
 	/* Crea un token para evitar CRSF, si es necesario */
 	if (empty($_SESSION ["CSRFToken"]))
 	{
-		$_SESSION ["CSRFToken"] = bin2hex (random_bytes(32));
+		$_SESSION ["CSRFToken"] = bin2hex (random_bytes (32));
 	}
 	$token = $_SESSION ["CSRFToken"];
 
@@ -109,7 +110,8 @@
 			}
 			else
 			{
-				$datos = file_get_contents($_FILES ["archivo"]["tmp_name"]);
+				$datos = file_get_contents ($_FILES ["archivo"]["tmp_name"]);
+
 				$usuario = $_SESSION ["usuario"];
 				$descr = $_POST ["descr"];
 				$nombre = empty ($_POST ["nombre"])? null : $_POST ["nombre"];
@@ -126,5 +128,5 @@
 		}
 	}
 
-	include $_SERVER['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
+	include $_SERVER ['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
 ?>

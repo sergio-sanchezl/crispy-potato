@@ -196,13 +196,18 @@
 
 		/* Genera un id aleatorio que no esté ya en la base de datos */
 		$id = rand ();
-
 		do 
 		{
 			$id = rand ();
-			$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM archivos WHERE id = $1 AND propietario = $2");
+			$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM "
+						. "archivos WHERE id = $1 AND "
+						. "propietario = $2");
 		}
-		while (pg_num_rows (pg_execute ($conn, "ver_arch", array ($id, $usuario))) > 0);
+		while (
+			pg_num_rows (
+				pg_execute ($conn, "ver_arch", array ($id, $propietario))
+			) > 0
+		);
 
 		/* Intenta insertar los datos */
 		$datos_tupla = array ("id" => $id,
@@ -210,7 +215,8 @@
 					"datos" => $datos_archivo,
 					"descr" => $descr,
 					"nombre" => $nombre,
-					"permisos" => $permisos);
+					"permisos" => $permisos
+		);
 
 		$consulta = pg_prepare ($conn, "insertar_arch", "INSERT INTO archivos VALUES ($1, $2, $3, $4, $5, $6::bit(6))");
 		$resultado = pg_execute ($conn, "insertar_arch", $datos_tupla);

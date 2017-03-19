@@ -27,13 +27,21 @@
 			{
 				$texto .= "<li>Archivo " . $tupla ["id"]
 					. "<ul>";
+				$texto .= "	<li>Nombre: " . $tupla ["nombre"]
+					. "</li>";
+				$texto .= "	<li>Descripción: " . $tupla ["descr"]
+					. "</li>";
+				$texto .= "	<li>Permisos: " . $tupla ["permisos"]
+					. "</li>";
 
-				$texto .= "	<li>Nombre: " . $tupla ["nombre"] . "</li>";
-				$texto .= "	<li>Descripción: " . $tupla ["descr"] . "</li>";
-				$texto .= "	<li>Permisos: " . $tupla ["permisos"] . "</li>";
+				$texto .= "<li style=\"list-style: none;\">"
+					. "<a href='descargar.php?id=" . $tupla ["id"]
+					. "&usuario=" . $usuario
+					. "'> Descargar </a>"
+					. "</li>";
 
 				$texto .= "</ul>
-					<br/>
+					 <br/>
 					</li>";
 			}
 
@@ -46,7 +54,7 @@
 
 	if ($archivos)
 	{
-		$texto .= "<h3>Archivos públicos</h3>
+		$texto .= "<h3>Archivos públicos:</h3>
 				<ul class=\"lista_archivos\">";
 
 		while ($tupla = pg_fetch_array ($archivos))
@@ -54,9 +62,18 @@
 			$texto .= "<li>Archivo " . $tupla ["id"]
 				. "<ul>";
 
-			$texto .= "	<li>Nombre: " . $tupla ["nombre"] . "</li>";
-			$texto .= "	<li>Descripción: " . $tupla ["descr"] . "</li>";
-			$texto .= "	<li>Propietario: " . $tupla ["propietario"] . "</li>";
+			$texto .= "	<li>Nombre: " . $tupla ["nombre"]
+				. "</li>";
+			$texto .= "	<li>Descripción: " . $tupla ["descr"]
+				. "</li>";
+			$texto .= "	<li>Propietario: " . $tupla ["propietario"]
+				. "</li>";
+
+			$texto .= "<li style=\"list-style: none;\">"
+				. "<a href='descargar.php?id=" . $tupla ["id"]
+				. "&usuario=" . $tupla ["propietario"]
+				. "'> Descargar </a>"
+				. "</li>";
 
 			$texto .= "</ul>
 				<br/>
