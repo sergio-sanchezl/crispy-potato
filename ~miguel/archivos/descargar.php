@@ -38,9 +38,9 @@
 			. '"');
 
 		/* Convierte la cadena hexadecimal obtenida de la base de datos
-		a bytes */
+		a bytes. Se hace doble 'pack' porque postgres hace otra conversión */
 		$cadena = ltrim ($tupla ["datos"], "\\x");
-		$datos = pack ("H*", $cadena);
+		$datos = pack("H*", pack ("H*", $cadena));
 		echo $datos;
 	}
 	else

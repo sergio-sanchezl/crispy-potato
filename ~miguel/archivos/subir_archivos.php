@@ -95,8 +95,10 @@
 	/* Si no se ha iniciado sesión no se permite el acceso */
 	if (empty ($_SESSION ["usuario"]))
 	{
-		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay que registrarse.
-							<br/><a href=\"../cuentas/login.php\">Pulse aquí</a> para acceder.";
+		$GLOBAL ["contenido_principal"]
+			= "Para acceder a esta página hay que registrarse. "
+			. "<br/><a href=\"../cuentas/login.php\">Pulse aquí</a>"
+			. " para acceder.";
 	}
 	else
 	{
@@ -117,7 +119,13 @@
 				$nombre = empty ($_POST ["nombre"])? null : $_POST ["nombre"];
 				$permisos = ver_permisos ($_POST ["gid"], $_POST ["resto"]);
 
-				$GLOBAL ["contenido_principal"] = (insertar_archivo ($usuario, $datos, $descr, $nombre, $permisos))?
+				$GLOBAL ["contenido_principal"]
+					= (insertar_archivo ($usuario,
+							     $datos,
+							     $descr,
+							     $nombre,
+							     $permisos)
+					)?
 						"Archivo subido con éxito"
 						: "Error al subir el archivo";
 			}

@@ -212,7 +212,7 @@
 		/* Intenta insertar los datos */
 		$datos_tupla = array ("id" => $id,
 					"propietario" => $propietario,
-					"datos" => $datos_archivo,
+					"datos" => unpack ("H*", $datos_archivo) [1],
 					"descr" => $descr,
 					"nombre" => $nombre,
 					"permisos" => $permisos
@@ -232,7 +232,9 @@
 	}
 
 	/**
-	 * Obtiene un archivo de la base de datos
+	 * Obtiene un archivo de la base de datos. Si se quiere usar luego el campo
+	 * "datos", hay que hacer una conversión para obtener la cadena que se insertó:
+	 * pack ("H*", $tupla ["datos"])
 	 *
 	 * @param id
 	 *		ID del archivo.

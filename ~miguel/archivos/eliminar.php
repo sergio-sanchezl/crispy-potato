@@ -41,6 +41,6 @@
 		$GLOBAL ["contenido_principal"] = "Acceso no permitido";
 	}
 
-	/* Incluye la plantilla */
-	include $_SERVER ['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
+	/* Muestra los archivos que quedan */
+	include 'ver_archivos.php';
 ?>

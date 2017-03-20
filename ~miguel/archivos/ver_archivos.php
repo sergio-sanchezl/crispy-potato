@@ -1,5 +1,5 @@
 <?php
-	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
+	include_once ($_SERVER['DOCUMENT_ROOT'] . '/lib/db.php');
 
 	/* Carga los datos de la sesión actual (si es necesario) y luego los borra */
 	if (session_status() == PHP_SESSION_NONE) {
