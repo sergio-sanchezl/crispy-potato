@@ -18,15 +18,25 @@
 	}
 	else
 	{
-		/* Si se recibe algo por POST es que se ha pulsado en 'guardar' y hay que actualizar la base de datos */
+		/* Si se recibe algo por POST es que se ha pulsado en 'guardar' y hay
+		 que actualizar la base de datos */
 		if (!empty ($_POST ["editor"]))
 		{
-			var_dump ($_POST);
+			/* Añade el texto en el editor para no perder el progreso */
+			$html_editor .= "<script>CKEDITOR.instances[\"editor\"].setData"
+					. "(`" . $_POST ["editor"] . "`)</script>";
+
+			$GLOBAL ["contenido_principal"] = $html_editor;
+			$GLOBAL ["incluir_head"] = "<script src=\"https://cdn.ckeditor."
+						   . "com/4.6.2/full/ckeditor.js\">"
+						   . "</script>";
 		}
 		else
 		{
 			$GLOBAL ["contenido_principal"] = $html_editor;
-			$GLOBAL ["incluir_head"] = "<script src=\"https://cdn.ckeditor.com/4.6.2/full/ckeditor.js\"></script>";
+			$GLOBAL ["incluir_head"] = "<script src=\"https://cdn.ckeditor."
+						   . "com/4.6.2/full/ckeditor.js\">"
+						   . "</script>";
 		}
 	}
 
