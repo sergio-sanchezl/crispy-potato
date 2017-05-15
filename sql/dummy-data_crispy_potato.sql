@@ -99,9 +99,8 @@ the transcendental objects in space and time (and let us suppose that this is th
 case) are the clue to the discovery of necessity. But the proof of this is a task
 from which we can here be absolved.
 </p>
-<!-- Kantlipsum fin -->
-', 'Categoría', B'111010');
-INSERT INTO articulos VALUES (5471, 'Título', 'Texto', 'Categoría', B'101010');
+<!-- Kantlipsum fin -->', 'Categoría', B'111010', now (), 1);
+INSERT INTO articulos VALUES (5471, 'Título', 'Texto', 'Categoría', B'101010', now (), 1);
 INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 * Lista desordenada
 * Más lista desordenada
@@ -110,31 +109,32 @@ INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 2. *Más* cosas
 
 ## _Fin_
-', null, B'111111');
+', null, B'111111', now (), 2);
 
-
--- Escribe
-INSERT INTO escribe VALUES (1, now(), 'Admin');
-INSERT INTO escribe VALUES (5471, now(), 'Admin');
-INSERT INTO escribe VALUES (-7768, now(), 'María García');
 
 -- Recursos
-INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null, B'111010');
-INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo', B'111111');
-INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas');
+INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null, 1);
+INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo', 1);
+INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas', 1);
 INSERT INTO recursos VALUES (1, -7768, '768 yuiasdbi67ntugaydf7i6tuyasgdf iuolujasohd98o
 t67 bas df
 asdf u8iasdf
-sdaf8y', 'Herramientas', B'111000');
-INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado');
+sdaf8y', 'Herramientas', 2);
+INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado', 1);
 
 -- Archivos
-INSERT INTO archivos VALUES (1, 'Admin', 'asdf', 'Descripción', null, B'111010');
-INSERT INTO archivos VALUES (-675, 'Admin', 'asdf', null, 'Nombre', B'111111');
-INSERT INTO archivos VALUES (1, 'María García', '6t7vuybinasdf', 'Cosas chulas', 'Pepito Grillo', B'111010');
+INSERT INTO archivos VALUES (1, 'asdf', 'Descripción', B'111010', 'nombre', 1);
+INSERT INTO archivos VALUES (-675, 'asdf', null, B'111111', null, 1);
+INSERT INTO archivos VALUES (1, '6t7vuybinasdf', 'Cosas chulas', B'111010', 'Pepito Grillo', 2);
 
 -- Grupos
-INSERT INTO grupos VALUES ('Admin', 'Admin', 1);
-INSERT INTO grupos VALUES ('María García', 'Articulistas', 2);
-INSERT INTO grupos VALUES ('María García', 'Lurkers', 3);
-INSERT INTO grupos VALUES ('Pepito Grillo', 'Lurkers', 3);
+INSERT INTO grupos VALUES (1, 'Admin');
+INSERT INTO grupos VALUES (2, 'Articulistas');
+INSERT INTO grupos VALUES (3, 'Lurkers');
+
+-- Pertenece
+INSERT INTO pertenece VALUES (1, 1);
+INSERT INTO pertenece VALUES (1, 2);
+INSERT INTO pertenece VALUES (1, 3);
+INSERT INTO pertenece VALUES (2, 3);
+INSERT INTO pertenece VALUES (3, 2);
