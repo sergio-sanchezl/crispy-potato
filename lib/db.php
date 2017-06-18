@@ -26,6 +26,11 @@
 				    password=$contr");
 	}
 
+
+/* --------- */
+/* ARTÍCULOS */
+/* --------- */
+
 	/**
 	 * Obtiene el artículo con el id especificado.
 	 *
@@ -90,7 +95,7 @@
 	 * 	actualizan los datos.
 	 *
 	 * @param propiet
-	 *		Cuenta del usuario que escribe el artículo.
+	 *		ID del usuario que escribe el artículo.
 	 *
 	 *
 	 * @return
@@ -169,12 +174,15 @@ return True;
 		return $id;
 	}
 
+/* ------- */
+/* CUENTAS */
+/* ------- */
 
 	/**
 	 * Obtiene la cuenta del usuario especificado.
 	 *
 	 * @param nombre
-	 *		Nombre del usuario cuya contraseña se desea obtener.
+	 *		ID del usuario cuya contraseña se desea obtener.
 	 *
 	 * @return
 	 *		Array con los campos de la tupla resultado (si existe) de la
@@ -211,11 +219,11 @@ return True;
 	 * Añade un nuevo usuario a la base de datos.
 	 *
 	 * @param nombre
-	 *		Nombre de la cuenta. Clave primaria (debe ser único).
+	 *		Nombre de la cuenta.
 	 *
 	 * @param pass
 	 *		Contraseña para la cuenta. Se debe proporcionar en
-	 *	 texto plano para ser tratada (hasheada) en esta función.
+	 *	 texto plano para ser tratada en esta función.
 	 *
 	 *
 	 * @return
@@ -259,11 +267,15 @@ return True;
 		return True;
 	}
 
+/* -------- */
+/* ARCHIVOS */
+/* -------- */
+
 	/**
 	 * Añade un archivo a la tabla "archivos" de la base de datos.
 	 *
 	 * @param propietario
-	 *		Nombre del usuario propietario.
+	 *		ID del usuario propietario.
 	 *
 	 * @param datos_archivo
 	 *		Datos del archivo.
@@ -344,7 +356,7 @@ return True;
 	 *		ID del archivo.
 	 *
 	 * @param usuario
-	 *		Usuario propietario del archivo.
+	 *		ID del usuario propietario del archivo.
 	 *
 	 *
 	 * @return
@@ -385,7 +397,7 @@ return True;
 	 * Obtiene todos los archivos del usuario especificado
 	 *
 	 * @param usuario
-	 *		Nombre del usuario cuyos archivos quieren ser recuperados.
+	 *		ID del usuario cuyos archivos quieren ser recuperados.
 	 *
 	 *
 	 * @return
@@ -455,7 +467,7 @@ return True;
 	 *		ID del archivo.
 	 *
 	 * @param usuario
-	 *		Usuario propietario del archivo.
+	 *		ID del usuario propietario del archivo.
 	 *
 	 *
 	 * @return
@@ -480,4 +492,92 @@ return True;
 		pg_close ($conn);
 		return $ret_val;
 	}
+
+/* -------- */
+/* RECURSOS */
+/* -------- */
+
+	/**
+	 * Obtiene un recurso específico perteneciente al usuario y artículo
+	 * especificados.
+	 *
+	 * @param usuario
+	 * 		Identificador del usuario propietario de los recursos.
+	 *
+	 * @param articulo
+	 *		Identificador del artículo al que pertenece el recurso.
+	 *
+	 * @return
+	 *		Un array con todas las tuplas obtenidas de la consulta, o null
+	 *	si no se pudo obtener la información.
+	 */
+	function obtener_recurso ($usuario, $articulo, $recurso)
+	{
+		$salida = null;
+		$conn = conectar ();
+		$datos = array (
+			"uid" => $usuario,
+			"id_articulo" => $articulo,
+			"id_rec" => $recursos
+		);
+
+		if (!$conn)
+		{
+			return null;
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$consulta = pg_prepare ($conn, "ver_recursos"
+					, "SELECT * FROM recursos"
+					. " WHERE uid = $1"
+					. " AND id_articulo = $2"
+					. " AND id_rec = $3");
+		$consulta = pg_execute ($conn, "ver_recurso", $datos);
+
+		if ($consulta
+		    && (pg_num_rows ($consulta) == 1) )
+		{
+			$salida = $consulta;
+		}
+
+		pg_close ($conn);
+		return $salida;
+	}
+
+	/**
+	 * Obtiene todos los recursos que pertenecen al usuario especificado,
+	 * independientemente del artículo al que estén ligados.
+	 *
+	 * @param usuario
+	 * 		Identificador del usuario propietario de los recursos.
+	 *
+	 * @return
+	 *		Un elemento de tipo pgresource con todas las tuplas obtenidas
+	 *	de la consulta, o null si no se pudo obtener la información.
+	 */
+	function obtener_recursos ($usuario)
+	{
+		$salida = null;
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return null;
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$consulta = pg_prepare ($conn, "ver_recursos"
+					, "SELECT * FROM recursos"
+					. " WHERE uid = $1");
+		$consulta = pg_execute ($conn, "ver_recursos", array ($usuario));
+
+		if ($consulta)
+		{
+			$salida = $consulta;
+		}
+
+		pg_close ($conn);
+		return $salida;
+	}
+
 ?>

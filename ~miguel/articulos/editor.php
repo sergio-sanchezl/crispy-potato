@@ -1,4 +1,7 @@
 <?php
+	/* Carga el controlador para la base de datos */
+	include $_SERVER['DOCUMENT_ROOT'] . "/lib/db.php";
+
 	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
 			<textarea name=\"editor\"></textarea>
 		</form>
@@ -40,5 +43,7 @@
 		}
 	}
 
-	include $_SERVER['DOCUMENT_ROOT'] . '/plantillas/miguel.php';
+	/* Carga la plantilla */
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
+
 ?>

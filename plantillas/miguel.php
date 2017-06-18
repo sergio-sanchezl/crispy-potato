@@ -65,7 +65,7 @@
 	<!-- Panel superior con el menú -->
 	<div class="boton_menu"></div>
 	<ul class="menu">
-		<li class="elem_menu"><a href="/~miguel/secciones/directorio.php">Directorio</a></li>
+		<li class="elem_menu"><a href="/~miguel/directorio.php">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
 				<li><a href="/~miguel/archivos/ver_archivos.php">Ver archivos</a></li>
@@ -78,7 +78,7 @@
 
 				if (!empty ($_SESSION ["usuario"]))
 				{
-					echo "<li><a href=\"/~miguel/secciones/editor.php\">Editor de artículos</a></li>
+					echo "<li><a href=\"/~miguel/articulos/editor.php\">Editor de artículos</a></li>
 						<li><a href=\"/~miguel/archivos/subir_archivos.php\">Subir archivos</a></li>";
 				}
 			?>
@@ -125,7 +125,7 @@
 				if (!empty ($_SESSION ["usuario"]))
 				{
 					echo "<li class=\"elem_secc\">
-							<a class=\"enlace_secc\" href=\"/~miguel/secciones/editor.php\">Editor de artículos</a>
+							<a class=\"enlace_secc\" href=\"/~miguel/articulos/editor.php\">Editor de artículos</a>
 						</li>
 						<li class=\"elem_secc\">
 							<a class=\"enlace_secc\" href=\"/~miguel/archivos/subir_archivos.php\">Subir archivos</a>
