@@ -28,22 +28,20 @@
 			/* Añade el texto en el editor para no perder el progreso */
 			$html_editor .= "<script>CKEDITOR.instances[\"editor\"].setData"
 					. "(`" . $_POST ["editor"] . "`)</script>";
+		}
 
-			$GLOBAL ["contenido_principal"] = $html_editor;
-			$GLOBAL ["incluir_head"] = "<script src=\"https://cdn.ckeditor."
-						   . "com/4.6.2/full/ckeditor.js\">"
-						   . "</script>";
-		}
-		else
-		{
-			$GLOBAL ["contenido_principal"] = $html_editor;
-			$GLOBAL ["incluir_head"] = "<script src=\"https://cdn.ckeditor."
-						   . "com/4.6.2/full/ckeditor.js\">"
-						   . "</script>";
-		}
+		$GLOBAL ["contenido_principal"] = $html_editor;
+
+		/* Añade el código para el editor */
+		$GLOBAL ["incluir_head"] = "<script src=\"" 
+					    . "/tinymce/js/tinymce/tinymce.min.js\">"
+					    . "</script>"
+					    . "<script>"
+					    . "tinymce.init({ selector:'textarea' });"
+					    . "</script>";
 	}
 
 	/* Carga la plantilla */
-	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
+	include $_SERVER ['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 
 ?>
