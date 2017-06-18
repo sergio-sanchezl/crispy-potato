@@ -1,5 +1,5 @@
 -- Usuarios
-INSERT INTO usuarios VALUES ('Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i', 1);
+INSERT INTO usuarios VALUES ('Admin', '$2y$10$o2R8yG9YAQFYok14MgIkCemYa5YkGJ/FxClftpn4sQTMfEAaoKjtG', 1);
 INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG', 2);
 INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2', 3);
 INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O', 4);
@@ -110,6 +110,7 @@ INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 
 ## _Fin_
 ', null, B'111111', now (), 2);
+INSERT INTO articulos VALUES (5471, 'Test', 'asdf', null, B'101010', now (), 2);
 
 
 -- Recursos

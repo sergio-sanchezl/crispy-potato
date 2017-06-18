@@ -118,9 +118,9 @@
 /**
  * Panel con el contenido principal
  */
-#principal * {
+/*#principal * {
 	text-align: justify;
-}
+}*/
 #principal > p {
 	text-indent: 50px;
 }

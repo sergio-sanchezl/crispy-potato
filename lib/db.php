@@ -11,14 +11,19 @@
 	function conectar ()
 	{
 		/* Obtiene los datos para la conexión del fichero 'datos-con_bd.json' */
-		$datos = json_decode (file_get_contents ($_SERVER['DOCUMENT_ROOT'] . '/~miguel/datos-con_bd.json'), true);
+		$datos = json_decode (file_get_contents ($_SERVER['DOCUMENT_ROOT']
+							. '/~miguel/datos-con_bd.json')
+					, true);
 
 		$bd = $datos ["bd"];
 		$host = $datos ["host"];
 		$usuario = $datos ["usuario"];
 		$contr = $datos ["contr"];
 
-		return pg_connect ("host=$host dbname=$bd user=$usuario password=$contr");
+		return pg_connect ("host=$host
+				    dbname=$bd
+				    user=$usuario
+				    password=$contr");
 	}
 
 	/**
@@ -27,43 +32,143 @@
 	 * @param id_art
 	 *		ID del artículo a obtener.
 	 *
+	 * @param usuario
+	 *		ID del usuario propietario del artículo.
+	 *
+	 *
 	 * @return
-	 *		El texto del artículo, si se
-	 *	ha encontrado; o un texto avisando del
-	 *	error que se haya producido.
+	 *		El texto del artículo, si se ha encontrado; o null si no se
+	 *	ha podido encontrar o hubo algún fallo al conectar a la BDD.
 	 */
-	function obtener_art ($id_art)
+	function obtener_articulo ($id_art, $usuario)
 	{
-		$texto = "## No se ha encontrado el artículo especificado";
+		$texto = null;
 		$conn = conectar ();
 
 		if (!$conn)
 		{
-			return "Error al conectarse a la base de datos.";
+			return null;
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_art", "SELECT * FROM articulos WHERE id_articulo = $1");
-		$consulta = pg_execute ($conn, "ver_art", array ($id_art));
+		$consulta = pg_prepare ($conn, "obtener_articulo"
+					, "SELECT * FROM articulos"
+					. " WHERE id_articulo = $1"
+					. " AND uid = $2");
+
+		$consulta = pg_execute ($conn, "obtener_articulo"
+					, array ($id_art, $usuario));
 
 		/* Si se ha encontrado, se carga el texto */
 		if (!$consulta || pg_num_rows ($consulta) != 1)
 		{
-			$texto =  "## No se ha encontrado el artículo especificado";
-		}
-		else
-		{
-			$articulo = pg_fetch_array ($consulta);
-			$texto = $articulo["texto"];
+			pg_close ($conn);
+			return null;
 		}
 
-		$Parsedown = new Parsedown ();
-
-		$texto = $Parsedown->text ($texto);
+		$articulo = pg_fetch_array ($consulta);
 
 		pg_close ($conn);
-		return $texto;
+		return $articulo;
 	}
+
+
+	/**
+	 * Guarda los datos en la tabla de los artículos de la base de datos.
+	 *
+	 * @param titulo
+	 *		Título del artículo.
+	 *
+	 * @param texto
+	 *		Cuerpo del artículo.
+	 *
+	 * @param categoria
+	 *		Categoría del artículo.
+	 *
+	 * @param id_art
+	 *		Identificador del artículo a insertar (si ya existía, se
+	 * 	actualizan los datos.
+	 *
+	 * @param propiet
+	 *		Cuenta del usuario que escribe el artículo.
+	 *
+	 *
+	 * @return
+	 *		True si se añadió la tupla correctamente; o False si no.
+	 */
+	function insertar_articulo ($titulo, $texto, $categoria, $id_art, $propiet)
+	{
+		$conn = conectar ();
+		if (!$conn)
+		{
+			return False;
+		}
+
+echo "Hay que guardar los siguientes datos: [$titulo, $texto, $categoria] <br/>";
+echo "Forman parte del artículo: $id_art <br/>";
+echo "Usuario: $propiet <br/>";
+return True;
+
+		$datos = array ("id_articulo" => $id_art
+				, "titulo" => $titulo
+				, "texto" => $texto
+				, "categoria" => $categoria
+				, "permisos" => "110000::bit (6)"
+				, "fecha" => "now ()"
+				, "uid" => $propiet
+		);
+
+		$resultado = pg_insert ($conn, "articulos", $datos);
+
+		if (!$resultado)
+		{
+			pg_close ($conn);
+			return False;
+		}
+
+		pg_close ($conn);
+		return True;
+
+	}
+
+
+	/**
+	 * Busca un identificador libre para un nuevo artículo del usuario especificado.
+	 *
+	 * @param usuario
+	 *		Usuario para el cual se quiere buscar un ID libre.
+	 *
+	 *
+	 * @return
+	 *		Un nuevo identificador que no se corresponde con ningún artículo,
+	 *	o null si no se pudo conectar con la BDD.
+	 */
+	function buscar_id_libre_art ($usuario)
+	{
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return null;
+		}
+
+		$id = rand ();
+		$consulta_str = "SELECT * FROM articulos "
+			    . "WHERE id_articulo = $1 AND uid = $2";
+
+		$consulta = pg_prepare ($conn
+					, "buscar_id_libre_art"
+					, $consulta_str);
+
+		while (obtener_articulo ($id, $usuario) !== null)
+		{
+			$id = rand ();
+		}
+
+		pg_close ($conn);
+		return $id;
+	}
+
 
 	/**
 	 * Obtiene la cuenta del usuario especificado.
@@ -72,9 +177,9 @@
 	 *		Nombre del usuario cuya contraseña se desea obtener.
 	 *
 	 * @return
-	 *		Array con los campos de la tupla resultado (si
-	 *	existe) de la tabla 'usuarios': ['nombre', 'pass'];
-	 *	o null si ha habido algún problema.
+	 *		Array con los campos de la tupla resultado (si existe) de la
+	 *	tabla 'usuarios': ['nombre', 'pass', 'uid']; o null si ha habido
+	 *	algún problema.
 	 */
 	function obtener_cuenta ($nombre)
 	{
@@ -87,10 +192,12 @@
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_pass", "SELECT * FROM usuarios WHERE nombre = $1");
+		$consulta = pg_prepare ($conn
+					, "ver_pass"
+					, "SELECT * FROM usuarios WHERE usuario = $1");
 		$consulta = pg_execute ($conn, "ver_pass", array ($nombre));
 
-		/* Si se ha encontrado, se carga el nombre de usuario */
+		/* Si se ha encontrado, se carga la información */
 		if ($consulta && pg_num_rows ($consulta) == 1)
 		{
 			$tupla = pg_fetch_array ($consulta);
@@ -127,22 +234,24 @@
 		/* Genera un id de usuario aleatorio */
 		$id = rand ();
 
-		$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
+		$consulta = pg_prepare ($conn
+					, "ver_uid"
+					, "SELECT * FROM usuarios WHERE id = $1");
 
 		while (pg_num_rows (pg_execute ($conn, "ver_uid", array ($id)) > 0))
 		{
-			$id++;
-
-			$consulta = pg_prepare ($conn, "ver_uid", "SELECT * FROM usuarios WHERE id = $1");
+			$id = rand ();
 		}
 
 		/* Intenta insertar los datos */
-		$datos = array ("nombre" => $nombre, "pass" => password_hash ($pass, PASSWORD_DEFAULT), "uid" => $id);
+		$datos = array ("usuario" => $nombre
+				, "pass" => password_hash ($pass, PASSWORD_DEFAULT)
+				, "uid" => $id);
 		$resultado = pg_insert ($conn, "usuarios", $datos);
 
 		if (!$resultado)
 		{
-			pg_close ();
+			pg_close ($conn);
 			return False;
 		}
 
@@ -185,7 +294,8 @@
 	 * @return
 	 *		True si se han insertado los datos correctamente; o False si no.
 	 */
-	function insertar_archivo ($propietario, $datos_archivo, $descr, $nombre, $permisos)
+	function insertar_archivo ($propietario, $datos_archivo, $descr
+				   , $nombre, $permisos)
 	{
 		$conn = conectar ();
 
@@ -201,29 +311,23 @@
 			$id = rand ();
 			$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM "
 						. "archivos WHERE id = $1 AND "
-						. "propietario = $2");
-		}
-		while (
-			pg_num_rows (
-				pg_execute ($conn, "ver_arch", array ($id, $propietario))
-			) > 0
-		);
+						. "uid = $2");
+		} while (obtener_archivo ($id, $propietario) !== null);
 
 		/* Intenta insertar los datos */
 		$datos_tupla = array ("id" => $id,
-					"propietario" => $propietario,
 					"datos" => unpack ("H*", $datos_archivo) [1],
 					"descr" => $descr,
+					"permisos" => $permisos . "::bit(6)",
 					"nombre" => $nombre,
-					"permisos" => $permisos
+					"uid" => $propietario
 		);
 
-		$consulta = pg_prepare ($conn, "insertar_arch", "INSERT INTO archivos VALUES ($1, $2, $3, $4, $5, $6::bit(6))");
-		$resultado = pg_execute ($conn, "insertar_arch", $datos_tupla);
+		$resultado = pg_insert ($conn, "archivos", $datos_tupla);
 
 		if (!$resultado)
 		{
-			pg_close ();
+			pg_close ($conn);
 			return False;
 		}
 
@@ -253,16 +357,23 @@
 
 		if (!$conn)
 		{
-			return "Error al conectarse a la base de datos.";
+			return null;
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM archivos WHERE id = $1 AND propietario = $2");
+		$consulta = pg_prepare ($conn, "ver_arch"
+						, "SELECT * FROM archivos"
+						. " WHERE id = $1 AND uid = $2");
 		$consulta = pg_execute ($conn, "ver_arch", array ($id, $usuario));
 
 		if ($consulta && pg_num_rows ($consulta) == 1)
 		{
 			$tupla = pg_fetch_array ($consulta);
+		}
+		else
+		{
+			pg_close ($conn);
+			return null;
 		}
 
 		pg_close ($conn);
@@ -280,18 +391,20 @@
 	 * @return
 	 *		Las tuplas con los datos; o null si no se encontró.
 	 */
-	function ver_archivos ($usuario)
+	function obtener_archivos ($usuario)
 	{
-		$conn = conectar ();
 		$salida = null;
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			return "Error al conectarse a la base de datos.";
+			return null;
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_archivos", "SELECT * FROM archivos WHERE propietario = $1");
+		$consulta = pg_prepare ($conn, "ver_archivos"
+					, "SELECT * FROM archivos"
+					. " WHERE uid = $1");
 		$consulta = pg_execute ($conn, "ver_archivos", array ($usuario));
 
 		if ($consulta)
@@ -308,21 +421,23 @@
 	 *
 	 *
 	 * @return
-	 *		Las tuplas con los datos; o null si no se encontró.
+	 *		Las tuplas con los datos; o null si hubo algún error.
 	 */
-	function ver_archivos_pub ()
+	function obtener_archivos_pub ()
 	{
-		$conn = conectar ();
 		$salida = null;
+		$conn = conectar ();
 
 		if (!$conn)
 		{
-			return "Error al conectarse a la base de datos.";
+			return null;
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_archivos_pub", "SELECT * FROM archivos WHERE permisos::text ~ '[01]{4}1[01]'");
-		$consulta = pg_execute ($conn, "ver_archivos_pub", array());
+		$consulta = pg_prepare ($conn, "ver_archivos_pub"
+					, "SELECT * FROM archivos"
+					. " WHERE permisos::text ~ '[01]{4}1[01]'");
+		$consulta = pg_execute ($conn, "ver_archivos_pub", array ());
 
 		if ($consulta)
 		{
@@ -353,12 +468,12 @@
 
 		if (!$conn)
 		{
-			return "Error al conectarse a la base de datos.";
+			return False;
 		}
 
 		$datos = array (
 			"id" => $id,
-			"propietario" => $usuario,
+			"uid" => $usuario,
 		);
 		$ret_val = pg_delete ($conn, "archivos", $datos);
 

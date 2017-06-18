@@ -16,7 +16,7 @@
 		$usuario = $_SESSION ["usuario"];
 
 		/* Obtiene todos los archivos del usuario */
-		$archivos = ver_archivos ($usuario);
+		$archivos = obtener_archivos ($usuario);
 
 		if ($archivos)
 		{
@@ -57,7 +57,7 @@
 	}
 
 	/* Obtiene los archivos públicos (permisos xxxxx1x) */
-	$archivos = ver_archivos_pub ();
+	$archivos = obtener_archivos_pub ();
 
 	if ($archivos)
 	{

@@ -33,6 +33,7 @@
 		</fieldset>
 	</form>";
 
+	/* Si se recibe algo en "submit", se procesa; si no, se muestra el formulario */
 	if (empty ($_POST ["submit"])
 		&& (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False))
 	{
@@ -40,7 +41,8 @@
 	}
 	else
 	{
-		if (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False)
+		if (empty ($_SESSION ["registrado"])
+		   || $_SESSION ["registrado"] == False)
 		{
 			/* Se preparan todos los datos para intentar mitigar un ataque
 			por tiempo (timing attack) */
@@ -52,7 +54,7 @@
 			{
 				if ($auth)
 				{
-					$_SESSION ["usuario"] = $tupla ["nombre"];
+					$_SESSION ["usuario"] = $tupla ["usuario"];
 					$_SESSION ["registrado"] = True;
 
 					$GLOBAL ["contenido_principal"] = "Acceso autorizado correctamente";

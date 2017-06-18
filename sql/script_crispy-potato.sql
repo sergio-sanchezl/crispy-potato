@@ -1,6 +1,6 @@
 /*
 Created		26/01/2017
-Modified		15/05/2017
+Modified		16/05/2017
 Project		
 Model			
 Company		
@@ -38,12 +38,12 @@ Database		PostgreSQL 8.1
 
 
 /* Drop Tables */
-Drop table IF EXISTS "pertenece" Cascade;
-Drop table IF EXISTS "grupos" Cascade;
-Drop table IF EXISTS "archivos" Cascade;
-Drop table IF EXISTS "usuarios" Cascade;
-Drop table IF EXISTS "recursos" Cascade;
-Drop table IF EXISTS "articulos" Cascade;
+Drop table "pertenece" Cascade;
+Drop table "grupos" Cascade;
+Drop table "archivos" Cascade;
+Drop table "usuarios" Cascade;
+Drop table "recursos" Cascade;
+Drop table "articulos" Cascade;
 
 
 
@@ -56,7 +56,7 @@ Drop table IF EXISTS "articulos" Cascade;
 
 Create table "articulos"
 (
-	"id_articulo" Bigint NOT NULL UNIQUE,
+	"id_articulo" Bigint NOT NULL,
 	"titulo" Varchar NOT NULL,
 	"texto" Varchar NOT NULL,
 	"categoria" Varchar Default 'Sin clasificar',
@@ -80,7 +80,7 @@ Create table "recursos"
 
 Create table "usuarios"
 (
-	"usuario" Varchar NOT NULL UNIQUE,
+	"usuario" Varchar NOT NULL,
 	"pass" Varchar NOT NULL,
 	"uid" Integer NOT NULL,
  primary key ("uid")
@@ -101,7 +101,7 @@ Create table "archivos"
 
 Create table "grupos"
 (
-	"gid" Integer NOT NULL UNIQUE,
+	"gid" Integer NOT NULL,
 	"nombre" Varchar NOT NULL,
  primary key ("gid")
 ) Without Oids;
