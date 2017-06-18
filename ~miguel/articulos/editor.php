@@ -16,8 +16,10 @@
 	/* Si no se ha iniciado sesión no se permite el acceso */
 	if (empty ($_SESSION ["usuario"]))
 	{
-		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay que registrarse.
-							<br/><a href=\"/~miguel/cuentas/login.php\">Pulse aquí</a> para acceder.";
+		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay"
+						. " que registrarse.<br /><a href=\""
+						. "/~miguel/cuentas/login.php\">"
+						. "Pulse aquí</a> para acceder.";
 	}
 	else
 	{
@@ -26,8 +28,7 @@
 		if (!empty ($_POST ["editor"]))
 		{
 			/* Añade el texto en el editor para no perder el progreso */
-			$html_editor .= "<script>CKEDITOR.instances[\"editor\"].setData"
-					. "(`" . $_POST ["editor"] . "`)</script>";
+			$html_editor .= $_POST ["editor"];
 		}
 
 		$GLOBAL ["contenido_principal"] = $html_editor;
@@ -35,9 +36,6 @@
 		/* Añade el código para el editor */
 		$GLOBAL ["incluir_head"] = "<script src=\"" 
 					    . "/tinymce/js/tinymce/tinymce.min.js\">"
-					    . "</script>"
-					    . "<script>"
-					    . "tinymce.init({ selector:'textarea' });"
 					    . "</script>";
 	}
 
