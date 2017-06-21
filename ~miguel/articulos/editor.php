@@ -3,7 +3,7 @@
 	include $_SERVER['DOCUMENT_ROOT'] . "/lib/db.php";
 
 	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
-			<textarea name=\"editor\"></textarea>
+			<textarea id=\"editor\"></textarea>
 		</form>
 		<script src=\"/~miguel/js/editor.js\"></script>";
 
