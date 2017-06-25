@@ -1,12 +1,12 @@
 /*
 Created		26/01/2017
 Modified		16/05/2017
-Project		
-Model			
-Company		
-Author		
-Version		
-Database		PostgreSQL 8.1 
+Project
+Model
+Company
+Author
+Version
+Database		PostgreSQL 8.1
 */
 
 
@@ -62,7 +62,7 @@ Create table "articulos"
 	"categoria" Varchar Default 'Sin clasificar',
 	"permisos" Bit(6) NOT NULL Default B'111010',
 	"fecha" Date NOT NULL,
-	"uid" Integer NOT NULL,
+	"uid" Varchar NOT NULL,
  primary key ("id_articulo","uid")
 ) Without Oids;
 
@@ -73,16 +73,15 @@ Create table "recursos"
 	"id_articulo" Bigint NOT NULL,
 	"datos" Bytea NOT NULL,
 	"tipo" Varchar Default 'Desconocido',
-	"uid" Integer NOT NULL,
+	"uid" Varchar NOT NULL,
  primary key ("id_rec","id_articulo","uid")
 ) Without Oids;
 
 
 Create table "usuarios"
 (
-	"usuario" Varchar NOT NULL,
+	"uid" Varchar NOT NULL,
 	"pass" Varchar NOT NULL,
-	"uid" Integer NOT NULL,
  primary key ("uid")
 ) Without Oids;
 
@@ -94,7 +93,7 @@ Create table "archivos"
 	"descr" Varchar Default 'Sin clasificar',
 	"permisos" Bit(6) NOT NULL Default B'111010',
 	"nombre" Varchar Default 'Sin nombre',
-	"uid" Integer NOT NULL,
+	"uid" Varchar NOT NULL,
  primary key ("id","uid")
 ) Without Oids;
 
@@ -109,7 +108,7 @@ Create table "grupos"
 
 Create table "pertenece"
 (
-	"uid" Integer NOT NULL,
+	"uid" Varchar NOT NULL,
 	"gid" Integer NOT NULL,
  primary key ("uid","gid")
 ) Without Oids;
