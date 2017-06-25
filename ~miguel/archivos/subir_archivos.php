@@ -7,8 +7,8 @@
 		session_start ();
 	}
 
-	/* Crea un token para evitar CRSF, si es necesario */
-	if (empty($_SESSION ["CSRFToken"]))
+	/* Crea un token para evitar CRSF */
+	if (!isset ($_SESSION ["CSRFToken"]) )
 	{
 		$_SESSION ["CSRFToken"] = bin2hex (random_bytes (32));
 	}
@@ -139,7 +139,7 @@
 							. "<br />";
 				}
 
-				if (is_uploaded_file($_FILES ["archivo"]["tmp_name"]))
+				if (is_uploaded_file ($_FILES ["archivo"]["tmp_name"]))
 				{
 					$datos = file_get_contents (
 							$_FILES ["archivo"]["tmp_name"]
