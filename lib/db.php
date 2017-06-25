@@ -309,33 +309,32 @@ return True;
 	function insertar_archivo ($propietario, $datos_archivo, $descr
 				   , $nombre, $permisos)
 	{
-		$conn = conectar ();
-
-		if (!$conn)
-		{
-			return False;
-		}
-
 		/* Genera un id aleatorio que no esté ya en la base de datos */
 		$id = rand ();
 		do 
 		{
 			$id = rand ();
-			$consulta = pg_prepare ($conn, "ver_arch", "SELECT * FROM "
-						. "archivos WHERE id = $1 AND "
-						. "uid = $2");
 		} while (obtener_archivo ($id, $propietario) !== null);
+
+		$conn = conectar ();
+		if (!$conn)
+		{
+			return False;
+		}
 
 		/* Intenta insertar los datos */
 		$datos_tupla = array ("id" => $id,
 					"datos" => unpack ("H*", $datos_archivo) [1],
 					"descr" => $descr,
-					"permisos" => $permisos . "::bit(6)",
+					"permisos" => $permisos,
 					"nombre" => $nombre,
 					"uid" => $propietario
 		);
 
-		$resultado = pg_insert ($conn, "archivos", $datos_tupla);
+		$resultado = pg_prepare ($conn, "insertar_arch"
+						, "INSERT INTO archivos VALUES "
+						. "($1, $2, $3, $4, $5, $6)");
+		$resultado = pg_execute ($conn, "insertar_arch", $datos_tupla);
 
 		if (!$resultado)
 		{
@@ -378,7 +377,7 @@ return True;
 						. " WHERE id = $1 AND uid = $2");
 		$consulta = pg_execute ($conn, "ver_arch", array ($id, $usuario));
 
-		if ($consulta && pg_num_rows ($consulta) == 1)
+		if ($consulta && (pg_num_rows ($consulta) == 1))
 		{
 			$tupla = pg_fetch_array ($consulta);
 		}

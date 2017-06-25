@@ -7,15 +7,8 @@
 		session_start ();
 	}
 
-	/* Crea un token para evitar CRSF, si es necesario */
-	if (empty ($_SESSION ["CSRFToken"]))
-	{
-		$_SESSION ["CSRFToken"] = bin2hex (random_bytes(32));
-	}
-	$token = $_SESSION ["CSRFToken"];
-
 	$id_archivo = $_GET ["id"];
-	$prop_archivo = $_GET ["usuario"];
+	$prop_archivo = $_GET ["propiet"];
 
 	$tupla = obtener_archivo ($id_archivo, $prop_archivo);
 

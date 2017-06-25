@@ -112,22 +112,61 @@
 			}
 			else
 			{
-				$datos = file_get_contents ($_FILES ["archivo"]["tmp_name"]);
 
-				$usuario = $_SESSION ["usuario"];
-				$descr = $_POST ["descr"];
-				$nombre = empty ($_POST ["nombre"])? null : $_POST ["nombre"];
-				$permisos = ver_permisos ($_POST ["gid"], $_POST ["resto"]);
+				switch ($_FILES ["archivo"]["error"])
+				{
+					case UPLOAD_ERR_OK:
+						break;
+					case UPLOAD_ERR_NO_FILE:
+						$GLOBAL ["contenido_principal"]
+							= "No se ha recibido"
+							. " ningún archivo"
+							. "<br />";
+						break;
 
-				$GLOBAL ["contenido_principal"]
-					= (insertar_archivo ($usuario,
-							     $datos,
-							     $descr,
-							     $nombre,
-							     $permisos)
-					)?
+					case UPLOAD_ERR_INI_SIZE:
+					case UPLOAD_ERR_FORM_SIZE:
+						$GLOBAL ["contenido_principal"]
+							= "Archivo demasiado grande"
+							. "<br />"
+							. "El máximo aceptado es de "
+							. ini_get ("upload_max_filesize")
+							. "<br />";
+						break;
+					default:
+						$GLOBAL ["contenido_principal"]
+							= "Error al subir el archivo"
+							. "<br />";
+				}
+
+				if (is_uploaded_file($_FILES ["archivo"]["tmp_name"]))
+				{
+					$datos = file_get_contents (
+							$_FILES ["archivo"]["tmp_name"]
+					);
+
+					$usuario = $_SESSION ["usuario"];
+					$descr = $_POST ["descr"];
+
+					$nombre = empty ($_POST ["nombre"])?
+							null
+							: $_POST ["nombre"];
+
+					$permisos = ver_permisos (
+							$_POST ["gid"]
+							, $_POST ["resto"]
+					);
+
+					$GLOBAL ["contenido_principal"]
+						= (insertar_archivo ($usuario,
+								     $datos,
+								     $descr,
+								     $nombre,
+								     $permisos)
+						)?
 						"Archivo subido con éxito"
 						: "Error al subir el archivo";
+				}
 			}
 		}
 		else

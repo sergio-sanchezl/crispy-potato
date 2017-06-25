@@ -7,7 +7,7 @@
 	}
 
 	$GLOBAL ["contenido_principal"] = "<h2>Archivos en el servidor: </h2>";
-	$texto = "<div id=\"ver_archivos\"";
+	$texto = "<div id=\"ver_archivos\">";
 
 	/* Obtiene los archivos disponibles para el usuario actual (tanto los
 	 suyos como los de su grupo) */
@@ -20,29 +20,37 @@
 
 		if ($archivos)
 		{
-			$texto = "<h3>Archivos del usuario: </h3>
+			$texto .= "<h3>Archivos del usuario: </h3>
 					<ul class=\"lista_archivos\">";
 
 			while ($tupla = pg_fetch_array ($archivos))
 			{
 				$texto .= "<li>Archivo " . $tupla ["id"]
 					. "<ul>";
-				$texto .= "	<li>Nombre: " . $tupla ["nombre"]
+				$texto .= "	<li>Nombre: "
+					. (($tupla ["nombre"] === null)?
+						"Sin nombre"
+						: $tupla ["nombre"]
+					)
 					. "</li>";
-				$texto .= "	<li>Descripción: " . $tupla ["descr"]
+				$texto .= "	<li>Descripción: "
+					. (($tupla ["descr"] === null)?
+						"Sin descripción"
+						: $tupla ["descr"]
+					)
 					. "</li>";
 				$texto .= "	<li>Permisos: " . $tupla ["permisos"]
 					. "</li>";
 
 				$texto .= "<li style=\"list-style: none;\">"
 					. "<a href='descargar.php?id=" . $tupla ["id"]
-					. "&usuario=" . $usuario
+					. "&propiet=" . $usuario
 					. "'> Descargar </a>"
 					. "</li>";
 
 				$texto .= "<li style=\"list-style: none;\">"
 					. "<a href='eliminar.php?id=" . $tupla ["id"]
-					. "&usuario=" . $usuario
+					. "&propiet=" . $usuario
 					. "'> Eliminar </a>"
 					. "</li>";
 
@@ -68,17 +76,24 @@
 		{
 			$texto .= "<li>Archivo " . $tupla ["id"]
 				. "<ul>";
-
-			$texto .= "	<li>Nombre: " . $tupla ["nombre"]
+			$texto .= "	<li>Nombre: "
+				. (($tupla ["nombre"] === null)?
+					"Sin nombre"
+					: $tupla ["nombre"]
+				)
 				. "</li>";
-			$texto .= "	<li>Descripción: " . $tupla ["descr"]
+			$texto .= "	<li>Descripción: "
+				. (($tupla ["descr"] === null)?
+					"Sin descripción"
+					: $tupla ["descr"]
+				)
 				. "</li>";
-			$texto .= "	<li>Propietario: " . $tupla ["propietario"]
+			$texto .= "	<li>Propietario: " . $tupla ["uid"]
 				. "</li>";
 
 			$texto .= "<li style=\"list-style: none;\">"
 				. "<a href='descargar.php?id=" . $tupla ["id"]
-				. "&usuario=" . $tupla ["propietario"]
+				. "&propiet=" . $tupla ["uid"]
 				. "'> Descargar </a>"
 				. "</li>";
 
