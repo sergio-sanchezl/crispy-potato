@@ -28,7 +28,7 @@
 
 	/* Si no se especifica un id válido, pone la página por defecto */
 	$art_id = -7768;
-	$uid = 2;
+	$uid = "María García";
 
 	/* Obtiene el id especificado (si lo hay) */
 	if (array_key_exists ("art_id", $_GET)

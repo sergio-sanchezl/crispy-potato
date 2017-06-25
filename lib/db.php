@@ -202,7 +202,7 @@ return True;
 		/* Prepara y ejecuta la consulta */
 		$consulta = pg_prepare ($conn
 					, "ver_pass"
-					, "SELECT * FROM usuarios WHERE usuario = $1");
+					, "SELECT * FROM usuarios WHERE uid = $1");
 		$consulta = pg_execute ($conn, "ver_pass", array ($nombre));
 
 		/* Si se ha encontrado, se carga la información */
@@ -239,22 +239,9 @@ return True;
 			return False;
 		}
 
-		/* Genera un id de usuario aleatorio */
-		$id = rand ();
-
-		$consulta = pg_prepare ($conn
-					, "ver_uid"
-					, "SELECT * FROM usuarios WHERE id = $1");
-
-		while (pg_num_rows (pg_execute ($conn, "ver_uid", array ($id)) > 0))
-		{
-			$id = rand ();
-		}
-
 		/* Intenta insertar los datos */
-		$datos = array ("usuario" => $nombre
-				, "pass" => password_hash ($pass, PASSWORD_DEFAULT)
-				, "uid" => $id);
+		$datos = array ("uid" => $nombre
+				, "pass" => password_hash ($pass, PASSWORD_DEFAULT));
 		$resultado = pg_insert ($conn, "usuarios", $datos);
 
 		if (!$resultado)
@@ -474,7 +461,6 @@ return True;
 	 */
 	function eliminar_archivo ($id, $usuario)
 	{
-		$tupla = null;
 		$conn = conectar ();
 
 		if (!$conn)
@@ -483,8 +469,8 @@ return True;
 		}
 
 		$datos = array (
-			"id" => $id,
-			"uid" => $usuario,
+			"id" => $id
+			, "uid" => $usuario
 		);
 		$ret_val = pg_delete ($conn, "archivos", $datos);
 
@@ -517,7 +503,7 @@ return True;
 		$datos = array (
 			"uid" => $usuario,
 			"id_articulo" => $articulo,
-			"id_rec" => $recursos
+			"id_rec" => $recurso
 		);
 
 		if (!$conn)
@@ -526,15 +512,14 @@ return True;
 		}
 
 		/* Prepara y ejecuta la consulta */
-		$consulta = pg_prepare ($conn, "ver_recursos"
+		$consulta = pg_prepare ($conn, "ver_recurso"
 					, "SELECT * FROM recursos"
 					. " WHERE uid = $1"
 					. " AND id_articulo = $2"
 					. " AND id_rec = $3");
 		$consulta = pg_execute ($conn, "ver_recurso", $datos);
 
-		if ($consulta
-		    && (pg_num_rows ($consulta) == 1) )
+		if ($consulta && (pg_num_rows ($consulta) == 1) )
 		{
 			$salida = $consulta;
 		}
@@ -544,17 +529,21 @@ return True;
 	}
 
 	/**
-	 * Obtiene todos los recursos que pertenecen al usuario especificado,
-	 * independientemente del artículo al que estén ligados.
+	 * Obtiene todos los recursos que pertenecen al usuario y artículo especificados.
 	 *
 	 * @param usuario
 	 * 		Identificador del usuario propietario de los recursos.
+	 *
+	 * @param id_articulo
+	 *		Identificador del artículo del que se quieren obtener los
+	 *	recursos.
+	 *
 	 *
 	 * @return
 	 *		Un elemento de tipo pgresource con todas las tuplas obtenidas
 	 *	de la consulta, o null si no se pudo obtener la información.
 	 */
-	function obtener_recursos ($usuario)
+	function obtener_recursos ($usuario, $id_articulo)
 	{
 		$salida = null;
 		$conn = conectar ();
@@ -567,8 +556,11 @@ return True;
 		/* Prepara y ejecuta la consulta */
 		$consulta = pg_prepare ($conn, "ver_recursos"
 					, "SELECT * FROM recursos"
-					. " WHERE uid = $1");
-		$consulta = pg_execute ($conn, "ver_recursos", array ($usuario));
+					. " WHERE uid = $1"
+					. " AND id_articulo = $2");
+		$consulta = pg_execute ($conn, "ver_recursos"
+					, array ($usuario, $id_articulo)
+		);
 
 		if ($consulta)
 		{

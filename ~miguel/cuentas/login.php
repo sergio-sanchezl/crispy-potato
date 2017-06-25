@@ -54,7 +54,7 @@
 			{
 				if ($auth)
 				{
-					$_SESSION ["usuario"] = $tupla ["usuario"];
+					$_SESSION ["usuario"] = $tupla ["uid"];
 					$_SESSION ["registrado"] = True;
 
 					$GLOBAL ["contenido_principal"] = "Acceso autorizado correctamente";
