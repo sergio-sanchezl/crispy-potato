@@ -109,17 +109,12 @@
 			return False;
 		}
 
-echo "Hay que guardar los siguientes datos: [$titulo, $texto, $categoria] <br/>";
-echo "Forman parte del artículo: $id_art <br/>";
-echo "Usuario: $propiet <br/>";
-return True;
-
 		$datos = array ("id_articulo" => $id_art
 				, "titulo" => $titulo
 				, "texto" => $texto
 				, "categoria" => $categoria
-				, "permisos" => "110000::bit (6)"
-				, "fecha" => "now ()"
+				, "permisos" => "111010"
+				, "fecha" => date ("Y-m-d")
 				, "uid" => $propiet
 		);
 
@@ -172,6 +167,47 @@ return True;
 
 		pg_close ($conn);
 		return $id;
+	}
+
+
+	/**
+	 * Elimina un artículo de la base de datos y todos sus recursos asociados.
+	 *
+	 * @param id
+	 *		ID del artículo.
+	 *
+	 * @param usuario
+	 *		ID del usuario propietario del archivo.
+	 *
+	 *
+	 * @return
+	 *		True si se eliminó correctamente; o False si hubo algún error.
+	 */
+	function eliminar_articulo ($id, $usuario)
+	{
+		$res = obtener_recursos ($usuario, $id);
+
+		while ($tupla = pg_fetch_array ($res))
+		{
+			eliminar_recurso ($tupla ["id_rec"], $id, $usuario);
+		}
+
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return False;
+		}
+
+
+		$datos = array (
+			"id_articulo" => $id
+			, "uid" => $usuario
+		);
+		$ret_val = pg_delete ($conn, "articulos", $datos);
+
+		pg_close ($conn);
+		return $ret_val;
 	}
 
 /* ------- */
@@ -483,6 +519,86 @@ return True;
 /* -------- */
 
 	/**
+	 * Añade un archivo a la tabla "recursos" de la base de datos.
+	 *
+	 * @param articulo
+	 *		ID del artículo al que pertenece el recurso.
+	 *
+	 * @param propietario
+	 *		ID del usuario propietario.
+	 *
+	 * @param datos_archivo
+	 *		Datos del archivo.
+	 *
+	 * @param tipo
+	 *		Tipo de archivo (imagen, vídeo, gráfica..).
+	 *
+	 *
+	 * @return
+	 *		El ID del recurso, o -1 si no se pudo insertar en la BDD.
+	 */
+	function insertar_recurso ($articulo, $propietario, $datos_archivo, $tipo)
+	{
+		$conn = conectar ();
+		if (!$conn)
+		{
+			return False;
+		}
+
+
+		/* Genera un id aleatorio que no esté ya en la base de datos */
+		$consulta = pg_prepare ($conn, "ver_recurso_id"
+					, "SELECT * FROM recursos"
+					. " WHERE uid = $1"
+					. " AND id_articulo = $2"
+					. " AND id_rec = $3");
+		$id = rand ();
+		do 
+		{
+			$id = rand ();
+			$args = array ($propietario, $articulo, $id);
+			$consulta = pg_execute ($conn, "ver_recurso_id", $args);
+
+		} while (pg_num_rows ($consulta) > 0 || ($id == -1));
+
+		/* Intenta insertar los datos */
+		$datos_tupla = array ("id_rec" => $id,
+					"id_articulo" => $articulo,
+					"datos" => unpack ("H*", $datos_archivo) [1],
+					"tipo" => $tipo,
+					"uid" => $propietario
+		);
+
+		$resultado = pg_prepare ($conn, "insertar_rec"
+						, "INSERT INTO recursos VALUES "
+						. "($1, $2, $3, $4, $5)");
+		$resultado = pg_execute ($conn, "insertar_rec", $datos_tupla);
+
+		/* Si no se pudo insertar, se comprueba que exista el artículo */
+		if (!$resultado)
+		{
+			if ((obtener_articulo ($articulo, $propietario) === null)
+			   && insertar_articulo ("", "", ""
+						, $articulo, $propietario)
+			)
+			{
+				return insertar_recurso ($articulo, $propietario
+							, $datos_archivo, $datos_archivo
+							, $tipo);
+			}
+			else
+			{
+				return -1;
+			}
+		}
+
+		pg_close ($conn);
+		return $id;
+	}
+
+
+
+	/**
 	 * Obtiene un recurso específico perteneciente al usuario y artículo
 	 * especificados.
 	 *
@@ -569,6 +685,43 @@ return True;
 
 		pg_close ($conn);
 		return $salida;
+	}
+
+	/**
+	 * Elimina un recurso de la base de datos.
+	 *
+	 * @param id
+	 *		ID del recurso.
+	 *
+	 *
+	 * @param id_articulo
+	 *		ID del artículo al que pertenece.
+	 *
+	 * @param usuario
+	 *		ID del usuario propietario del recurso.
+	 *
+	 *
+	 * @return
+	 *		True si se eliminó correctamente; o False si hubo algún error.
+	 */
+	function eliminar_recurso ($id, $id_articulo, $usuario)
+	{
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return False;
+		}
+
+		$datos = array (
+			"id_rec" => $id
+			, "uid" => $usuario
+			, "id_articulo" => $id_articulo
+		);
+		$ret_val = pg_delete ($conn, "recursos", $datos);
+
+		pg_close ($conn);
+		return $ret_val;
 	}
 
 ?>
