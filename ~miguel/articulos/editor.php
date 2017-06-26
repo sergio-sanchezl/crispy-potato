@@ -1,6 +1,6 @@
 <?php
 	/* Carga el controlador para la base de datos */
-	include $_SERVER['DOCUMENT_ROOT'] . "/lib/db.php";
+	include $_SERVER ['DOCUMENT_ROOT'] . "/lib/db.php";
 
 	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
 			<textarea id=\"editor\"></textarea>
@@ -23,20 +23,28 @@
 	}
 	else
 	{
-		/* Si se recibe algo por POST es que se ha pulsado en 'guardar' y hay
-		 que actualizar la base de datos */
-		if (!empty ($_POST ["editor"]))
-		{
-			/* Añade el texto en el editor para no perder el progreso */
-			$html_editor .= $_POST ["editor"];
-		}
+//		/* Si se recibe algo por POST es que se ha pulsado en 'guardar' y hay
+//		 que actualizar la base de datos */
+//		if (!empty ($_POST ["editor"]))
+//		{
+//			/* Añade el texto en el editor para no perder el progreso */
+//			$html_editor .= $_POST ["editor"];
+//		}
 
 		$GLOBAL ["contenido_principal"] = $html_editor;
 
-		/* Añade el código para el editor */
+		/* Añade un valor a la sesión para saber el artículo que se está
+		editando */
+		if (!isset ($_SESSION ["id_articulo"]))
+		{
+			$_SESSION ["id_articulo"]
+				= buscar_id_libre_art ($_SESSION ["usuario"]);
+		}
+
+		/* Añade el código para el editor en la cabecera del HTML */
 		$GLOBAL ["incluir_head"] = "<script src=\"" 
-					    . "/tinymce/js/tinymce/tinymce.min.js\">"
-					    . "</script>";
+						. "/tinymce/js/tinymce/tinymce.min.js\">"
+						. "</script>\n";
 	}
 
 	/* Carga la plantilla */
