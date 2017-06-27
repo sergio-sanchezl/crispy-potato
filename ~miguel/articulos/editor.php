@@ -3,14 +3,14 @@
 	include $_SERVER ['DOCUMENT_ROOT'] . "/lib/db.php";
 
 	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
-			<textarea id=\"editor\"></textarea>
+			<textarea name=\"editor\" id=\"editor\"></textarea>
 		</form>
 		<script src=\"/~miguel/js/editor.js\"></script>";
 
 	/* Si es necesario, comienza la sesión */
-	if (session_status() == PHP_SESSION_NONE)
+	if (session_status () == PHP_SESSION_NONE)
 	{
-		session_start();
+		session_start ();
 	}
 
 	/* Si no se ha iniciado sesión no se permite el acceso */
@@ -33,12 +33,15 @@
 
 		$GLOBAL ["contenido_principal"] = $html_editor;
 
-		/* Añade un valor a la sesión para saber el artículo que se está
+		/* Añade valores a la sesión para saber el artículo que se está
 		editando */
 		if (!isset ($_SESSION ["id_articulo"]))
 		{
 			$_SESSION ["id_articulo"]
 				= buscar_id_libre_art ($_SESSION ["usuario"]);
+
+			$_SESSION ["uid_articulo"] = $_SESSION ["usuario"];
+
 		}
 
 		/* Añade el código para el editor en la cabecera del HTML */

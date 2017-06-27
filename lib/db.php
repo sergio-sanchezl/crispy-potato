@@ -77,6 +77,43 @@
 		return $articulo;
 	}
 
+	/**
+	 * Añade o actualiza el artículo en la base de datos, según sea necesario.
+	 *
+	 * @param titulo
+	 *		Título del artículo.
+	 *
+	 * @param texto
+	 *		Cuerpo del artículo.
+	 *
+	 * @param categoria
+	 *		Categoría del artículo.
+	 *
+	 * @param id_art
+	 *		Identificador del artículo a insertar (si ya existía, se
+	 * 	actualizan los datos.
+	 *
+	 * @param propiet
+	 *		ID del usuario que escribe el artículo.
+	 *
+	 *
+	 * @return
+	 *		True si se añadió la tupla correctamente; o False si no.
+	 */
+	function guardar_articulo ($titulo, $texto, $categoria, $id_art, $propiet)
+	{
+		if (obtener_articulo ($id_art, $propiet) === null)
+		{
+			return insertar_articulo ($titulo, $texto, $categoria
+						, $id_art, $propiet);
+		}
+		else
+		{
+			return actualizar_articulo ($titulo, $texto, $categoria
+						, $id_art, $propiet);
+		}
+	}
+
 
 	/**
 	 * Guarda los datos en la tabla de los artículos de la base de datos.
@@ -131,6 +168,63 @@
 
 	}
 
+	/**
+	 * Actualiza los datos en la tabla de los artículos de la base de datos.
+	 *
+	 * @param titulo
+	 *		Título del artículo.
+	 *
+	 * @param texto
+	 *		Cuerpo del artículo.
+	 *
+	 * @param categoria
+	 *		Categoría del artículo.
+	 *
+	 * @param id_art
+	 *		Identificador del artículo a insertar (si ya existía, se
+	 * 	actualizan los datos.
+	 *
+	 * @param propiet
+	 *		ID del usuario que escribe el artículo.
+	 *
+	 *
+	 * @return
+	 *		True si se añadió la tupla correctamente; o False si no.
+	 */
+	function actualizar_articulo ($titulo, $texto, $categoria, $id_art, $propiet)
+	{
+		$conn = conectar ();
+		if (!$conn)
+		{
+			return False;
+		}
+
+		$datos = array ("id_articulo" => $id_art
+				, "titulo" => $titulo
+				, "texto" => $texto
+				, "categoria" => $categoria
+				, "permisos" => "111010"
+				, "fecha" => date ("Y-m-d")
+				, "uid" => $propiet
+		);
+		$conds = array (
+			"id_articulo" => $id_art
+			, "uid" => $propiet
+		);
+
+		$resultado = pg_update ($conn, "articulos", $datos, $conds);
+
+		if (!$resultado)
+		{
+			pg_close ($conn);
+			return False;
+		}
+
+		pg_close ($conn);
+		return True;
+
+	}
+
 
 	/**
 	 * Busca un identificador libre para un nuevo artículo del usuario especificado.
@@ -153,13 +247,6 @@
 		}
 
 		$id = rand ();
-		$consulta_str = "SELECT * FROM articulos "
-			    . "WHERE id_articulo = $1 AND uid = $2";
-
-		$consulta = pg_prepare ($conn
-					, "buscar_id_libre_art"
-					, $consulta_str);
-
 		while (obtener_articulo ($id, $usuario) !== null)
 		{
 			$id = rand ();

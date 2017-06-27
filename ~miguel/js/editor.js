@@ -64,6 +64,45 @@ function file_picker_cb (callback, value, meta)
 	input.click()
 }
 
+/**
+ * Función llamada automáticamente al pulsar el botón de guardar.
+ */
+function guardar ()
+{
+	var editor = tinyMCE.activeEditor
+	    , contenido = editor.getContent ()
+	    , request = new XMLHttpRequest ()
+	    , url = "guardar_art.php"
+	    , data = new FormData ()
+
+	request.open ("POST", url)
+
+	request.onreadystatechange = function () {
+
+		if (request.readyState == 4)
+		{
+			if (request.status == 200)
+			{
+				editor.notificationManager.open ({
+					text: "Artículo guardado"
+					, type: "success"
+				})
+			}
+			else
+			{
+				editor.notificationManager.open ({
+					text: "Erro al guardar el artículo"
+					, type: "error"
+				})
+			}
+		}
+	}
+
+	data.append ("datos", contenido)
+	request.send (data)
+}
+
+
 /* Opciones para el editor de texto empotrado */
 tinymce.init ({
 	selector: '#editor',
@@ -114,9 +153,11 @@ tinymce.init ({
 	file_picker_callback: file_picker_cb,
 	file_picker_types: 'file image media',
 	automatic_uploads: true,
+	/* Opciones de guardado */
+	save_onsavecallback: guardar,
 	/* Otras opciones */
 	height: height () * (2 / 3),
-	content_security_policy: "default-src 'none';"
+	content_security_policy: "default-src 'self';"
 				+ "script-src 'self';"
 				+ "connect-src 'self';"
 				+ "img-src 'self' data: blob:;"

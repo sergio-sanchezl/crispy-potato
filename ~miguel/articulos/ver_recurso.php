@@ -14,10 +14,9 @@
 		$tupla = pg_fetch_array ($rec);
 
 		$cadena = ltrim ($tupla ["datos"], "\\x");
-//		$datos = pack ("H*", $cadena);
 		$datos = pack ("H*", pack ("H*", $cadena));
 
-		header ("Content-type: applicaion/octet-stream");
+//		header ("Content-type: applicaion/octet-stream");
 		echo $datos;
 	}
 ?>
