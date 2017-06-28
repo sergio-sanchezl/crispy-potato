@@ -74,6 +74,8 @@ function guardar ()
 	    , request = new XMLHttpRequest ()
 	    , url = "guardar_art.php"
 	    , data = new FormData ()
+	    , titulo = document.getElementById ('editor_titulo').childNodes [1].value
+	    , categ = document.getElementById ('editor_categ').childNodes [1].value
 
 	request.open ("POST", url)
 
@@ -99,6 +101,9 @@ function guardar ()
 	}
 
 	data.append ("datos", contenido)
+	data.append ("titulo", titulo)
+	data.append ("categ", categ)
+
 	request.send (data)
 }
 

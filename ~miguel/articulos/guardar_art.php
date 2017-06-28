@@ -12,16 +12,16 @@
 	$id_art = $_SESSION ["id_articulo"];
 	$uid = $_SESSION ["uid_articulo"];
 	$datos = $_POST ["datos"];
+	$titulo = $_POST ["titulo"];
+	$categoria = $_POST ["categ"];
 
-
-	if (isset ($id_art)
-	    && isset ($uid)
-	    && isset ($datos)
+	if (!empty ($id_art)
+	    && !empty ($uid)
+	    && !empty ($datos)
+	    && !empty ($titulo)
+	    && !empty ($categoria)
 	)
 	{
-		$titulo = "";
-		$categoria = "artículo";
-
 		/* Intenta guardar el artículo */
 		if (!guardar_articulo ($titulo, $datos, $categoria, $id_art, $uid))
 		{

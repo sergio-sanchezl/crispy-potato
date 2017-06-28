@@ -2,10 +2,17 @@
 	/* Carga el controlador para la base de datos */
 	include $_SERVER ['DOCUMENT_ROOT'] . "/lib/db.php";
 
-	$html_editor = "<form method=\"POST\" action=\"./editor.php\">
-			<textarea name=\"editor\" id=\"editor\"></textarea>
+	$html_editor = "
+		<div id='editor_titulo'>
+			Título: <input type='text' value='Título'>
+		</div>
+		<div id='editor_categ'>
+			Categoría: <input type='text' value='artículo'>
+		</div>
+		<form method='POST' action='./editor.php'>
+			<textarea name='editor' id='editor'></textarea>
 		</form>
-		<script src=\"/~miguel/js/editor.js\"></script>";
+		<script src='/~miguel/js/editor.js'></script>";
 
 	/* Si es necesario, comienza la sesión */
 	if (session_status () == PHP_SESSION_NONE)
@@ -17,8 +24,8 @@
 	if (empty ($_SESSION ["usuario"]))
 	{
 		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay"
-						. " que registrarse.<br /><a href=\""
-						. "/~miguel/cuentas/login.php\">"
+						. " que registrarse.<br /><a "
+						. "href='/~miguel/cuentas/login.php'>"
 						. "Pulse aquí</a> para acceder.";
 	}
 	else
