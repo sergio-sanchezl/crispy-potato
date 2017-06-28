@@ -24,9 +24,9 @@
 
 	<?php
 		/* Inclusiones especiales (por ejemplo, para ckeditor en editor.php */
-		if (!empty ($GLOBAL ["incluir_head"]))
+		if (isset ($GLOBALS ["incluir_head"]))
 		{
-			echo "{$GLOBAL ['incluir_head']}";
+			echo $GLOBALS ["incluir_head"];
 		}
 	?>
 </head>
@@ -65,7 +65,7 @@
 	<!-- Panel superior con el menú -->
 	<div class="boton_menu"></div>
 	<ul class="menu">
-		<li class="elem_menu"><a href="/~miguel/directorio.php">Directorio</a></li>
+		<li class="elem_menu"><a href="/~miguel/articulos/directorio.php">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
 				<li><a href="/~miguel/archivos/ver_archivos.php">Ver archivos</a></li>
@@ -98,9 +98,9 @@
 	<div id="principal">
 		<?php
 			/* Si se ha definido la variable global "contenido_principal", se imprime aquí */
-			if (array_key_exists ("contenido_principal", $GLOBAL))
+			if (isset ($GLOBALS ["contenido_principal"]))
 			{
-				echo $GLOBAL ["contenido_principal"];
+				echo $GLOBALS ["contenido_principal"];
 			}
 		?>
 	</div>
