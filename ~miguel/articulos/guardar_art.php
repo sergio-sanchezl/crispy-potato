@@ -13,7 +13,7 @@
 	$uid = $_SESSION ["uid_articulo"];
 	$datos = $_POST ["datos"];
 	$titulo = $_POST ["titulo"];
-	$categoria = $_POST ["categ"];
+	$categoria = strtolower ($_POST ["categ"]);
 
 	if (!empty ($id_art)
 	    && !empty ($uid)
