@@ -2,6 +2,10 @@
 	/* Carga el controlador para la base de datos */
 	include $_SERVER['DOCUMENT_ROOT'] . "/lib/db.php";
 
+	/* Si no se especifica un id válido, pone la página por defecto */
+	$art_id = -7768;
+	$uid = "María García";
+
 	/**
 	 * Formatea el artículo para poder mostrarlo en la página principal.
 	 *
@@ -32,16 +36,12 @@
 		return $html;
 	}
 
-	/* Si no se especifica un id válido, pone la página por defecto */
-	$art_id = -7768;
-	$uid = "María García";
-
 	/* Obtiene el id especificado (si lo hay) */
 	if (!empty ($_GET ["id_art"])
 	  && !empty ($_GET ["uid"])
 	)
 	{
-		$art_id = $_GET ["art_id"];
+		$art_id = $_GET ["id_art"];
 		$uid = $_GET ["uid"];
 	}
 
