@@ -1,12 +1,12 @@
 /*
 Created		26/01/2017
-Modified		02/02/2017
-Project		
-Model			
-Company		
-Author		
-Version		
-Database		PostgreSQL 8.1 
+Modified		16/05/2017
+Project
+Model
+Company
+Author
+Version
+Database		PostgreSQL 8.1
 */
 
 
@@ -38,12 +38,12 @@ Database		PostgreSQL 8.1
 
 
 /* Drop Tables */
-Drop table if exists Grupos Restrict;
-Drop table if exists Escribe Restrict;
-Drop table if exists Archivos Restrict;
-Drop table if exists Usuarios Restrict;
-Drop table if exists Recursos Restrict;
-Drop table if exists Articulos Restrict;
+Drop table "pertenece" Cascade;
+Drop table "grupos" Cascade;
+Drop table "archivos" Cascade;
+Drop table "usuarios" Cascade;
+Drop table "recursos" Cascade;
+Drop table "articulos" Cascade;
 
 
 
@@ -54,64 +54,63 @@ Drop table if exists Articulos Restrict;
 /* Create Tables */
 
 
-Create table Articulos
+Create table "articulos"
 (
-	id_articulo Bigint NOT NULL UNIQUE,
-	titulo Varchar NOT NULL,
-	texto Varchar NOT NULL,
-	categoria Varchar Default 'Sin categoría',
-	permisos Bit(6) NOT NULL Default B'111010',
- primary key (id_articulo)
+	"id_articulo" Bigint NOT NULL,
+	"titulo" Varchar NOT NULL,
+	"texto" Varchar NOT NULL,
+	"categoria" Varchar Default 'Sin clasificar',
+	"permisos" Bit(6) NOT NULL Default B'111010',
+	"fecha" Date NOT NULL,
+	"uid" Varchar NOT NULL,
+ primary key ("id_articulo","uid")
 ) Without Oids;
 
 
-Create table Recursos
+Create table "recursos"
 (
-	id_rec Bigint NOT NULL,
-	id_articulo Bigint NOT NULL,
-	datos Bytea NOT NULL,
-	tipo Varchar Default 'Desconocido',
-	permisos Bit(6) NOT NULL Default B'111010',
-primary key (id_rec,id_articulo)
+	"id_rec" Bigint NOT NULL,
+	"id_articulo" Bigint NOT NULL,
+	"datos" Bytea NOT NULL,
+	"tipo" Varchar Default 'Desconocido',
+	"uid" Varchar NOT NULL,
+ primary key ("id_rec","id_articulo","uid")
 ) Without Oids;
 
 
-Create table Usuarios
+Create table "usuarios"
 (
-	nombre Varchar NOT NULL Default 'Desconocido' UNIQUE,
-	pass Varchar NOT NULL,
-	uid Integer NOT NULL,
- primary key (nombre)
+	"uid" Varchar NOT NULL,
+	"pass" Varchar NOT NULL,
+ primary key ("uid")
 ) Without Oids;
 
 
-Create table Archivos
+Create table "archivos"
 (
-	id Bigint NOT NULL,
-	propietario Varchar NOT NULL Default 'Desconocido',
-	datos Bytea NOT NULL,
-	descr Varchar Default 'Sin descripción',
-	nombre Varchar Default 'Sin nombre',
-	permisos Bit(6) NOT NULL Default B'111010',
- primary key (id,propietario)
+	"id" Bigint NOT NULL,
+	"datos" Bytea NOT NULL,
+	"descr" Varchar Default 'Sin clasificar',
+	"permisos" Bit(6) NOT NULL Default B'111010',
+	"nombre" Varchar Default 'Sin nombre',
+	"uid" Varchar NOT NULL,
+ primary key ("id","uid")
 ) Without Oids;
 
 
-Create table Escribe
+Create table "grupos"
 (
-	id_articulo Bigint NOT NULL,
-	fecha Date NOT NULL,
-	autor Varchar NOT NULL Default 'Desconocido',
- primary key (id_articulo,fecha,autor)
+	"gid" Integer NOT NULL,
+	"nombre" Varchar NOT NULL,
+ primary key ("gid")
 ) Without Oids;
 
 
-Create table Grupos
+Create table "pertenece"
 (
-	usuario Varchar NOT NULL,
-	grupo Varchar NOT NULL,
-	gid Integer,
- primary key (usuario, grupo)
+	"uid" Varchar NOT NULL,
+	"gid" Integer NOT NULL,
+ primary key ("uid","gid")
 ) Without Oids;
 
 
@@ -129,15 +128,15 @@ Create table Grupos
 
 /* Create Foreign Keys */
 
-Alter table Recursos add  foreign key (id_articulo) references Articulos (id_articulo) on update restrict on delete restrict;
+Alter table "recursos" add  foreign key ("id_articulo","uid") references "articulos" ("id_articulo","uid") on update restrict on delete restrict;
 
-Alter table Escribe add  foreign key (id_articulo) references Articulos (id_articulo) on update restrict on delete restrict;
+Alter table "archivos" add  foreign key ("uid") references "usuarios" ("uid") on update restrict on delete restrict;
 
-Alter table Escribe add  foreign key (autor) references Usuarios (nombre) on update restrict on delete restrict;
+Alter table "articulos" add  foreign key ("uid") references "usuarios" ("uid") on update restrict on delete restrict;
 
-Alter table Archivos add  foreign key (propietario) references Usuarios (nombre) on update restrict on delete restrict;
+Alter table "pertenece" add  foreign key ("uid") references "usuarios" ("uid") on update restrict on delete restrict;
 
-Alter table Grupos add  foreign key (usuario) references Usuarios (nombre) on update restrict on delete restrict;
+Alter table "pertenece" add  foreign key ("gid") references "grupos" ("gid") on update restrict on delete restrict;
 
 
 

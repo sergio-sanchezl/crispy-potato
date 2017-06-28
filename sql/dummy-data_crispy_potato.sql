@@ -1,8 +1,8 @@
 -- Usuarios
-INSERT INTO usuarios VALUES ('Admin', '$2y$10$JoaMuyCXWI5juqMfnar27.TxqAsCH3nRVZxSq2ryPZt90hsbIhK1i', 1);
-INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG', 2);
-INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2', 3);
-INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O', 4);
+INSERT INTO usuarios VALUES ('Admin', '$2y$10$o2R8yG9YAQFYok14MgIkCemYa5YkGJ/FxClftpn4sQTMfEAaoKjtG');
+INSERT INTO usuarios VALUES ('Usuario 1', '$2y$10$ynVGOZeq5mdIQioyFFK3fOZagXcFcZVH84oAwJmZSQ.CdXtMVaWgG');
+INSERT INTO usuarios VALUES ('Pepito Grillo', '$2y$10$fJtAXZw7XvbW2RyVz22G3uLiDDYq11xV11daujOc7Gb5mqoYpBor2');
+INSERT INTO usuarios VALUES ('María García', '$2y$10$G1dHVDu35sUnPaL5m0O0n.J/rb//gHVD8xOudCfGSjee/YRA0pd.O');
 
 -- Artículos
 INSERT INTO articulos VALUES (1, 'Título', '<!-- Kantlipsum -->
@@ -99,9 +99,8 @@ the transcendental objects in space and time (and let us suppose that this is th
 case) are the clue to the discovery of necessity. But the proof of this is a task
 from which we can here be absolved.
 </p>
-<!-- Kantlipsum fin -->
-', 'Categoría', B'111010');
-INSERT INTO articulos VALUES (5471, 'Título', 'Texto', 'Categoría', B'101010');
+<!-- Kantlipsum fin -->', 'Categoría', B'111010', now (), 'Admin');
+INSERT INTO articulos VALUES (5471, 'Título', 'Texto', 'Categoría', B'101010', now (), 'Admin');
 INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 * Lista desordenada
 * Más lista desordenada
@@ -110,31 +109,33 @@ INSERT INTO articulos VALUES (-7768, 'Título', '# Cabecera
 2. *Más* cosas
 
 ## _Fin_
-', null, B'111111');
+', null, B'111111', now (), 'María García');
+INSERT INTO articulos VALUES (5471, 'Test', 'asdf', null, B'101010', now (), 'María García');
 
-
--- Escribe
-INSERT INTO escribe VALUES (1, now(), 'Admin');
-INSERT INTO escribe VALUES (5471, now(), 'Admin');
-INSERT INTO escribe VALUES (-7768, now(), 'María García');
 
 -- Recursos
-INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null, B'111010');
-INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo', B'111111');
-INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas');
+INSERT INTO recursos VALUES (1, 1, 'Datos...Más datos...Más...', null, 'Admin');
+INSERT INTO recursos VALUES (35, 1, '567tubyhiulj7saudf', 'Tipo', 'Admin');
+INSERT INTO recursos VALUES (-875, 1, 'asdf           gyuhasdfb6t7nyasd', 'Herramientas', 'Admin');
 INSERT INTO recursos VALUES (1, -7768, '768 yuiasdbi67ntugaydf7i6tuyasgdf iuolujasohd98o
 t67 bas df
 asdf u8iasdf
-sdaf8y', 'Herramientas', B'111000');
-INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado');
+sdaf8y', 'Herramientas', 'María García');
+INSERT INTO recursos VALUES (54787, 5471, 'Top Secret', 'Secretos de Estado', 'Admin');
 
 -- Archivos
-INSERT INTO archivos VALUES (1, 'Admin', 'asdf', 'Descripción', null, B'111010');
-INSERT INTO archivos VALUES (-675, 'Admin', 'asdf', null, 'Nombre', B'111111');
-INSERT INTO archivos VALUES (1, 'María García', '6t7vuybinasdf', 'Cosas chulas', 'Pepito Grillo', B'111010');
+INSERT INTO archivos VALUES (1, 'asdf', 'Descripción', B'111010', 'nombre', 'Admin');
+INSERT INTO archivos VALUES (-675, 'asdf', null, B'111111', null, 'Admin');
+INSERT INTO archivos VALUES (1, '6t7vuybinasdf', 'Cosas chulas', B'111010', 'Pepito Grillo', 'María García');
 
 -- Grupos
-INSERT INTO grupos VALUES ('Admin', 'Admin', 1);
-INSERT INTO grupos VALUES ('María García', 'Articulistas', 2);
-INSERT INTO grupos VALUES ('María García', 'Lurkers', 3);
-INSERT INTO grupos VALUES ('Pepito Grillo', 'Lurkers', 3);
+INSERT INTO grupos VALUES (1, 'Admin');
+INSERT INTO grupos VALUES (2, 'Articulistas');
+INSERT INTO grupos VALUES (3, 'Lurkers');
+
+-- Pertenece
+INSERT INTO pertenece VALUES ('Admin', 1);
+INSERT INTO pertenece VALUES ('Admin', 2);
+INSERT INTO pertenece VALUES ('Admin', 3);
+INSERT INTO pertenece VALUES ('María García', 3);
+INSERT INTO pertenece VALUES ('Pepito Grillo', 2);

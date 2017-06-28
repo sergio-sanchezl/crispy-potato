@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -15,18 +15,18 @@
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto" />
 
 
-	<link rel="stylesheet" href="css/theme.css">
+	<link rel="stylesheet" href="/~miguel/css/theme.css">
 
-	<link rel="stylesheet" media="(max-width: 639px)" href="css/layout-mobile.css">
-	<link rel="stylesheet" media="(min-width: 640px)" href="css/layout.css">
+	<link rel="stylesheet" media="(max-width: 639px)" href="/~miguel/css/layout-mobile.css">
+	<link rel="stylesheet" media="(min-width: 640px)" href="/~miguel/css/layout.css">
 
-	<script src="js/script.js"></script>
+	<script src="/~miguel/js/script.js"></script>
 
 	<?php
 		/* Inclusiones especiales (por ejemplo, para ckeditor en editor.php */
-		if (!empty ($GLOBAL ["incluir_head"]))
+		if (isset ($GLOBALS ["incluir_head"]))
 		{
-			echo "{$GLOBAL ['incluir_head']}";
+			echo $GLOBALS ["incluir_head"];
 		}
 	?>
 </head>
@@ -34,13 +34,14 @@
 <body>
 	<!-- Panel superior con el título y la descripción -->
 	<div id="titulo">
-		<h1><a href="index.php">Título</a></h1>
+		<h1><a href="/~miguel/index.php">Título</a></h1>
 	</div>
 
 	<!-- Panel con los detalles del usuario actual -->
 	<?php
 		/* Si es necesario, comienza la sesión */
-		if (session_status() == PHP_SESSION_NONE) {
+		if (session_status() == PHP_SESSION_NONE)
+		{
 			session_start();
 		}
 
@@ -54,7 +55,7 @@
 			$detalle_usuario = $_SESSION ["usuario"] . "<br/>";
 		}
 
-		$detalle_usuario .= "<a href=\"logout.php\">Salir</a>";
+		$detalle_usuario .= "<a href=\"/~miguel/cuentas/logout.php\">Salir</a>";
 	?>
 	<div id="detalles_usuario" style=<?php echo $estilo; ?>><?php echo $detalle_usuario; ?></div>
 
@@ -64,24 +65,26 @@
 	<!-- Panel superior con el menú -->
 	<div class="boton_menu"></div>
 	<ul class="menu">
-		<li class="elem_menu"><a href="directorio.php">Directorio</a></li>
+		<li class="elem_menu"><a href="/~miguel/articulos/directorio.php">Directorio</a></li>
 		<li class="parent elem_menu">Herramientas
 			<ul class="contenido-desplegable">
+				<li><a href="/~miguel/archivos/ver_archivos.php">Ver archivos</a></li>
 			<?php
 				/* Si se ha registrado, se muestran herramientas adicionales */
-				if (session_status() == PHP_SESSION_NONE) {
+				if (session_status() == PHP_SESSION_NONE)
+				{
 					session_start();
 				}
 
 				if (!empty ($_SESSION ["usuario"]))
 				{
-					echo "<li><a href=\"editor.php\">Editor de artículos</a></li>
-						<li><a href=\"subir_archivos.php\">Subir archivos</a></li>";
+					echo "<li><a href=\"/~miguel/articulos/editor.php\">Editor de artículos</a></li>
+						<li><a href=\"/~miguel/archivos/subir_archivos.php\">Subir archivos</a></li>";
 				}
 			?>
 			</ul>
 		</li>
-		<li class="elem_menu"><a href="login.php">Acceso</a></li>
+		<li class="elem_menu"><a href="/~miguel/cuentas/login.php">Acceso</a></li>
 		<li class="elem_menu"><a href="#">Contacto</a></li>
 		<li class="parent elem_menu">Idioma
 			<ul class="contenido-desplegable">
@@ -95,9 +98,9 @@
 	<div id="principal">
 		<?php
 			/* Si se ha definido la variable global "contenido_principal", se imprime aquí */
-			if (array_key_exists ("contenido_principal", $GLOBAL))
+			if (isset ($GLOBALS ["contenido_principal"]))
 			{
-				echo $GLOBAL ["contenido_principal"];
+				echo $GLOBALS ["contenido_principal"];
 			}
 		?>
 	</div>
@@ -121,8 +124,12 @@
 
 				if (!empty ($_SESSION ["usuario"]))
 				{
-					echo "<li class=\"elem_secc\"><a class=\"enlace_secc\" href=\"editor.php\">Editor de artículos</a></li>
-						<li class=\"elem_secc\"><a class=\"enlace_secc\" href=\"subir_archivos.php\">Subir archivos</a></li>";
+					echo "<li class=\"elem_secc\">
+							<a class=\"enlace_secc\" href=\"/~miguel/articulos/editor.php\">Editor de artículos</a>
+						</li>
+						<li class=\"elem_secc\">
+							<a class=\"enlace_secc\" href=\"/~miguel/archivos/subir_archivos.php\">Subir archivos</a>
+						</li>";
 				}
 			?>
 		</ul>
@@ -132,9 +139,9 @@
 	<footer id="pie_pagina">
 		<div class="bloque_pie">
 			<!-- Enlaces cruzados a esta página (enlaces internos) -->
-			<a href="../">Página principal</a>
+			<a href="/">Página principal</a>
 			<p>
-			<a href="../~sergio/index.html">Sección de Sergio</a>
+			<a href="/~sergio/index.html">Sección de Sergio</a>
 		</div>
 
 		<div class="barra_bloque_pie"></div>
@@ -150,7 +157,7 @@
 			</p>
 
 			<p>
-			<a href="https://github.com/Foo-Manroot"><img src="../resources/GitHub-Mark-Light-32px.png"/></a>
+			<a href="https://github.com/Foo-Manroot"><img src="/resources/GitHub-Mark-Light-32px.png"/></a>
 			</p>
 		</div>
 	</footer>

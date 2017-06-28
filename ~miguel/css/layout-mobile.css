@@ -9,6 +9,8 @@
 #detalles_usuario {
 	position: relative;
 	padding: 3px;
+	width: 80%;
+	text-align: center;
 }
 
 /**
@@ -103,6 +105,18 @@ un elemento del cual se despliegan otros) */
 #principal {
 	margin: 10px;
 	margin-left: 15px;
+}
+/* Artículos */
+#articulo_titulo {
+	font-size: 200%;
+	text-align: center;
+}
+#articulo_texto * {
+	text-align: justify;
+}
+/* Archivos */
+#ver_archivos * {
+	text-align: justify;
 }
 
 #login {

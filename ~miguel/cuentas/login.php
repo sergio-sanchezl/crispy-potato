@@ -1,8 +1,9 @@
 <?php
-	include '../lib/db.php';
+	include $_SERVER['DOCUMENT_ROOT'] . '/lib/db.php';
 
 	/* Comienza la sesión, si es necesario */
-	if (session_status() == PHP_SESSION_NONE) {
+	if (session_status() == PHP_SESSION_NONE)
+	{
 		session_start();
 	}
 
@@ -13,7 +14,7 @@
 	}
 	$token = $_SESSION ["CSRFToken"];
 
-	$formulario = "<form id=\"login\" action=\"login.php\" method=\"post\" accept-charset=\"UTF-8\">
+	$formulario = "<form id=\"login\" action=\"/~miguel/cuentas/login.php\" method=\"post\" accept-charset=\"UTF-8\">
 		<fieldset>
 			<legend>Login</legend>
 			<input type=\"hidden\" name=\"CSRFToken\" value=\"$token\">
@@ -28,18 +29,20 @@
 
 			<input style=\"margin:5px\" type=\"submit\" name=\"submit\" value=\"Aceptar\" />
 			<br/>
-			<a style=\"text-decoration:none\" href=\"crear_cuenta.php\">Crear una cuenta</a>
+			<a style=\"text-decoration:none\" href=\"/~miguel/cuentas/crear_cuenta.php\">Crear una cuenta</a>
 		</fieldset>
 	</form>";
 
+	/* Si se recibe algo en "submit", se procesa; si no, se muestra el formulario */
 	if (empty ($_POST ["submit"])
 		&& (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False))
 	{
-		$GLOBAL ["contenido_principal"] = $formulario;
+		$GLOBALS ["contenido_principal"] = $formulario;
 	}
 	else
 	{
-		if (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False)
+		if (empty ($_SESSION ["registrado"])
+		   || $_SESSION ["registrado"] == False)
 		{
 			/* Se preparan todos los datos para intentar mitigar un ataque
 			por tiempo (timing attack) */
@@ -51,29 +54,29 @@
 			{
 				if ($auth)
 				{
-					$_SESSION ["usuario"] = $tupla ["nombre"];
+					$_SESSION ["usuario"] = $tupla ["uid"];
 					$_SESSION ["registrado"] = True;
 
-					$GLOBAL ["contenido_principal"] = "Acceso autorizado correctamente";
+					$GLOBALS ["contenido_principal"] = "Acceso autorizado correctamente";
 				}
 				else
 				{
-					$GLOBAL ["contenido_principal"] = "Nombre de usuario o contraseña incorrectos <br/>" . $formulario;
+					$GLOBALS ["contenido_principal"] = "Nombre de usuario o contraseña incorrectos <br/>" . $formulario;
 				}
 			}
 			else
 			{
 				/* Quizá habría que registrar el intento fallido en un log... */
-				$GLOBAL ["contenido_principal"] = "Intento de acceso no autorizado";
+				$GLOBALS ["contenido_principal"] = "Intento de acceso no autorizado";
 			}
 		}
 		else
 		{
-			$GLOBAL ["contenido_principal"] = "Datos del usuario actual:
+			$GLOBALS ["contenido_principal"] = "Datos del usuario actual:
 				<br/>Nombre: {$_SESSION ['usuario']}";
 		}
 	}
 
 	/* Carga la plantilla */
-	include "../plantillas/miguel.php";
+	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";
 ?>

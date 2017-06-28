@@ -10,6 +10,8 @@
 	right: 3%;
 	top: 30px;
 	padding: 3px;
+	width: 250px;
+	text-align: center;
 }
 
 /**
@@ -75,6 +77,19 @@
 	padding: 15px;
         margin-left: 150px;
         margin-right: 5%;
+}
+
+/* Artículos */
+#articulo_titulo {
+	font-size: 200%;
+	text-align: center;
+}
+#articulo_texto * {
+	text-align: justify;
+}
+/* Archivos */
+#ver_archivos * {
+	text-align: justify;
 }
 
 #login {

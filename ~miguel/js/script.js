@@ -88,7 +88,7 @@ $(window).resize (function () {
 		/* Si el menú de la izquierda estaba oculto, lo muestra */
 		pos = $('#secciones').offset();
 
-		if (pos.left < 0) {
+		if (pos && pos.left < 0) {
 
 			$('#secciones').css ({left: '0px'});
 			$('#secciones').data ('oculto', false);
