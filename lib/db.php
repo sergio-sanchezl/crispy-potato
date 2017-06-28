@@ -42,12 +42,11 @@
 	 *
 	 *
 	 * @return
-	 *		El texto del artículo, si se ha encontrado; o null si no se
+	 *		Un array con la tupla, si se ha encontrado; o null si no se
 	 *	ha podido encontrar o hubo algún fallo al conectar a la BDD.
 	 */
 	function obtener_articulo ($id_art, $usuario)
 	{
-		$texto = null;
 		$conn = conectar ();
 
 		if (!$conn)
@@ -64,7 +63,6 @@
 		$consulta = pg_execute ($conn, "obtener_articulo"
 					, array ($id_art, $usuario));
 
-		/* Si se ha encontrado, se carga el texto */
 		if (!$consulta || pg_num_rows ($consulta) != 1)
 		{
 			pg_close ($conn);
@@ -76,6 +74,40 @@
 		pg_close ($conn);
 		return $articulo;
 	}
+
+	/**
+	 * Obtiene todos los artículos en la base de datos.
+	 *
+	 * @return
+	 *		Un elemento de tipo pg_resource; o null si hubo algún fallo
+	 *	con la BDD.
+	 */
+	function obtener_articulos ()
+	{
+		$conn = conectar ();
+
+		if (!$conn)
+		{
+			return null;
+		}
+
+		/* Prepara y ejecuta la consulta */
+		$resultado = pg_prepare ($conn, "obtener_articulos"
+					, "SELECT * FROM articulos");
+
+		$resultado = pg_execute ($conn, "obtener_articulos", array ());
+
+		/* Si se ha encontrado, se carga el texto */
+		if (!$resultado)
+		{
+			pg_close ($conn);
+			return null;
+		}
+
+		pg_close ($conn);
+		return $resultado;
+	}
+
 
 	/**
 	 * Añade o actualiza el artículo en la base de datos, según sea necesario.
