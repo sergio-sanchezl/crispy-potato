@@ -158,6 +158,7 @@ tinymce.init ({
 	file_picker_callback: file_picker_cb,
 	file_picker_types: 'file image media',
 	automatic_uploads: true,
+	relative_urls: false,
 	/* Opciones de guardado */
 	save_onsavecallback: guardar,
 	/* Otras opciones */
