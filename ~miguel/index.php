@@ -15,6 +15,12 @@
 	{
 		$Parsedown = new Parsedown ();
 
+		/* Comprueba si está públicamente disponible */
+		if (!preg_match ("/^[01]{4}1[01]$/", $articulo ["permisos"]))
+		{
+			return;
+		}
+
 		$html = "<span id='articulo_titulo'>"
 			. $Parsedown->parse($articulo ['titulo'])
 			. "</span>";
@@ -31,8 +37,9 @@
 	$uid = "María García";
 
 	/* Obtiene el id especificado (si lo hay) */
-	if (array_key_exists ("art_id", $_GET)
-	  && array_key_exists ("uid", $_GET))
+	if (!empty ($_GET ["id_art"])
+	  && !empty ($_GET ["uid"])
+	)
 	{
 		$art_id = $_GET ["art_id"];
 		$uid = $_GET ["uid"];
