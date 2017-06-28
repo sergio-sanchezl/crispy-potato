@@ -95,7 +95,7 @@
 	/* Si no se ha iniciado sesión no se permite el acceso */
 	if (empty ($_SESSION ["usuario"]))
 	{
-		$GLOBAL ["contenido_principal"]
+		$GLOBALS ["contenido_principal"]
 			= "Para acceder a esta página hay que registrarse. "
 			. "<br/><a href=\"../cuentas/login.php\">Pulse aquí</a>"
 			. " para acceder.";
@@ -108,7 +108,7 @@
 			/* Comprueba el token */
 			if (!hash_equals ($_SESSION ["CSRFToken"], $_POST ["CSRFToken"]))
 			{
-				$GLOBAL ["contenido_principal"] = "Subida de archivos no autorizada.";
+				$GLOBALS ["contenido_principal"] = "Subida de archivos no autorizada.";
 			}
 			else
 			{
@@ -118,7 +118,7 @@
 					case UPLOAD_ERR_OK:
 						break;
 					case UPLOAD_ERR_NO_FILE:
-						$GLOBAL ["contenido_principal"]
+						$GLOBALS ["contenido_principal"]
 							= "No se ha recibido"
 							. " ningún archivo"
 							. "<br />";
@@ -126,7 +126,7 @@
 
 					case UPLOAD_ERR_INI_SIZE:
 					case UPLOAD_ERR_FORM_SIZE:
-						$GLOBAL ["contenido_principal"]
+						$GLOBALS ["contenido_principal"]
 							= "Archivo demasiado grande"
 							. "<br />"
 							. "El máximo aceptado es de "
@@ -134,7 +134,7 @@
 							. "<br />";
 						break;
 					default:
-						$GLOBAL ["contenido_principal"]
+						$GLOBALS ["contenido_principal"]
 							= "Error al subir el archivo"
 							. "<br />";
 				}
@@ -157,7 +157,7 @@
 							, $_POST ["resto"]
 					);
 
-					$GLOBAL ["contenido_principal"]
+					$GLOBALS ["contenido_principal"]
 						= (insertar_archivo ($usuario,
 								     $datos,
 								     $descr,
@@ -171,7 +171,7 @@
 		}
 		else
 		{
-			$GLOBAL ["contenido_principal"] = $formulario;
+			$GLOBALS ["contenido_principal"] = $formulario;
 		}
 	}
 

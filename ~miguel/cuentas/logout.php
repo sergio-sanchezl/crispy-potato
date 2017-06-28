@@ -6,7 +6,7 @@
 	}
 	session_unset ();
 
-	$GLOBAL ["contenido_principal"] = "Desconexión realizada con éxito";
+	$GLOBALS ["contenido_principal"] = "Desconexión realizada con éxito";
 
 	/* Carga la plantilla */
 	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";

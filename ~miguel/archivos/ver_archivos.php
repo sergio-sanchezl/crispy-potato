@@ -7,7 +7,7 @@
 		session_start ();
 	}
 
-	$GLOBAL ["contenido_principal"] = "<h2>Archivos en el servidor: </h2>";
+	$GLOBALS ["contenido_principal"] = "<h2>Archivos en el servidor: </h2>";
 	$texto = "<div id=\"ver_archivos\">";
 
 	/* Obtiene los archivos disponibles para el usuario actual (tanto los
@@ -108,7 +108,7 @@
 	$texto .= "</div>";
 
 	/* Finalmente, establece el contenido principal */
-	$GLOBAL ["contenido_principal"] .= $texto;
+	$GLOBALS ["contenido_principal"] .= $texto;
 
 	/* Carga la plantilla */
 	include $_SERVER['DOCUMENT_ROOT'] . "/plantillas/miguel.php";

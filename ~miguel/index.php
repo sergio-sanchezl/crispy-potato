@@ -41,7 +41,7 @@
 	/* Lee el artículo de la base de datos */
 	$articulo = obtener_articulo ($art_id, $uid);
 
-	$GLOBAL ["contenido_principal"] = ($articulo === null)?
+	$GLOBALS ["contenido_principal"] = ($articulo === null)?
 			"<h2 id='titulo'>Artículo no encontrado"
 			: mostrar_articulo ($articulo)
 	;

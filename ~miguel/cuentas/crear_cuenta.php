@@ -35,7 +35,7 @@
 	if (empty ($_POST ["submit"])
 		&& (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False))
 	{
-		$GLOBAL ["contenido_principal"] = $formulario;
+		$GLOBALS ["contenido_principal"] = $formulario;
 	}
 	else
 	{
@@ -54,7 +54,7 @@
 					{
 						$resultado = insertar_cuenta ($_POST ["nombre"], $_POST ["pass"]);
 
-						$GLOBAL ["contenido_principal"] = ($resultado)?
+						$GLOBALS ["contenido_principal"] = ($resultado)?
 							"Cuenta creada con éxito.<br/>
 								<a tyle=\"text-decoration:none\" href=\"/~miguel/cuentas/login.php\">
 								Intente acceder a su cuenta
@@ -63,25 +63,25 @@
 					}
 					else
 					{
-						$GLOBAL ["contenido_principal"] = "Ni el nombre de usuario ni
+						$GLOBALS ["contenido_principal"] = "Ni el nombre de usuario ni
 										 la contraseña deben estar en
 										 blanco <br/>" . $formulario;
 					}
 				}
 				else
 				{
-					$GLOBAL ["contenido_principal"] = "Ya existe una cuenta con ese nombre <br/>" . $formulario;
+					$GLOBALS ["contenido_principal"] = "Ya existe una cuenta con ese nombre <br/>" . $formulario;
 				}
 			}
 			else
 			{
 				/* Quizá habría que registrar el intento fallido en un log... */
-				$GLOBAL ["contenido_principal"] = "Intento de acceso no autorizado";
+				$GLOBALS ["contenido_principal"] = "Intento de acceso no autorizado";
 			}
 		}
 		else
 		{
-			$GLOBAL ["contenido_principal"] = "Datos del usuario actual:
+			$GLOBALS ["contenido_principal"] = "Datos del usuario actual:
 				<br/>Nombre: {$_SESSION ['usuario']}
 				<br/>
 				<a style=\"text-decoration: none;

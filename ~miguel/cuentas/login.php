@@ -37,7 +37,7 @@
 	if (empty ($_POST ["submit"])
 		&& (empty ($_SESSION ["registrado"]) || $_SESSION ["registrado"] == False))
 	{
-		$GLOBAL ["contenido_principal"] = $formulario;
+		$GLOBALS ["contenido_principal"] = $formulario;
 	}
 	else
 	{
@@ -57,22 +57,22 @@
 					$_SESSION ["usuario"] = $tupla ["uid"];
 					$_SESSION ["registrado"] = True;
 
-					$GLOBAL ["contenido_principal"] = "Acceso autorizado correctamente";
+					$GLOBALS ["contenido_principal"] = "Acceso autorizado correctamente";
 				}
 				else
 				{
-					$GLOBAL ["contenido_principal"] = "Nombre de usuario o contraseña incorrectos <br/>" . $formulario;
+					$GLOBALS ["contenido_principal"] = "Nombre de usuario o contraseña incorrectos <br/>" . $formulario;
 				}
 			}
 			else
 			{
 				/* Quizá habría que registrar el intento fallido en un log... */
-				$GLOBAL ["contenido_principal"] = "Intento de acceso no autorizado";
+				$GLOBALS ["contenido_principal"] = "Intento de acceso no autorizado";
 			}
 		}
 		else
 		{
-			$GLOBAL ["contenido_principal"] = "Datos del usuario actual:
+			$GLOBALS ["contenido_principal"] = "Datos del usuario actual:
 				<br/>Nombre: {$_SESSION ['usuario']}";
 		}
 	}

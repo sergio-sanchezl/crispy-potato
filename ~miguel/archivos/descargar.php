@@ -39,7 +39,7 @@
 	}
 	else
 	{
-		$GLOBAL ["contenido_principal"] = "Acceso no permitido";
+		$GLOBALS ["contenido_principal"] = "Acceso no permitido";
 
 		/* Incluye la plantilla */
 		include $_SERVER ['DOCUMENT_ROOT'] . '/plantillas/miguel.php';

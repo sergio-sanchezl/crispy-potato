@@ -24,14 +24,14 @@
 	)
 	{
 		/* Elimina el archivo */
-		$GLOBAL ["contenido_principal"]
+		$GLOBALS ["contenido_principal"]
 			= eliminar_archivo ($id_archivo, $prop_archivo)?
 				"Archivo eliminado con éxito"
 				: "Error al eliminar el archivo";
 	}
 	else
 	{
-		$GLOBAL ["contenido_principal"] = "Acceso no permitido";
+		$GLOBALS ["contenido_principal"] = "Acceso no permitido";
 	}
 
 	/* Muestra los archivos que quedan */

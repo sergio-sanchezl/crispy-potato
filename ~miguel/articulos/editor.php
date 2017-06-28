@@ -23,7 +23,7 @@
 	/* Si no se ha iniciado sesión no se permite el acceso */
 	if (empty ($_SESSION ["usuario"]))
 	{
-		$GLOBAL ["contenido_principal"] = "Para acceder a esta página hay"
+		$GLOBALS ["contenido_principal"] = "Para acceder a esta página hay"
 						. " que registrarse.<br /><a "
 						. "href='/~miguel/cuentas/login.php'>"
 						. "Pulse aquí</a> para acceder.";
@@ -38,7 +38,7 @@
 //			$html_editor .= $_POST ["editor"];
 //		}
 
-		$GLOBAL ["contenido_principal"] = $html_editor;
+		$GLOBALS ["contenido_principal"] = $html_editor;
 
 		/* Añade valores a la sesión para saber el artículo que se está
 		editando */
@@ -52,7 +52,7 @@
 		}
 
 		/* Añade el código para el editor en la cabecera del HTML */
-		$GLOBAL ["incluir_head"] = "<script src=\"" 
+		$GLOBALS ["incluir_head"] = "<script src=\""
 						. "/tinymce/js/tinymce/tinymce.min.js\">"
 						. "</script>\n";
 	}
